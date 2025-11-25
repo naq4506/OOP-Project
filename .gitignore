@@ -31,3 +31,7 @@ build/
 
 ### VS Code ###
 .vscode/
+#crawler 
+ChromeBotProfile/
+selenium_chrome_profile/
+*.log
