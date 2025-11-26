@@ -3,13 +3,19 @@ package com.example.server.Preprocess;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.example.server.dictionary.DictionaryLoader;
 import com.example.server.model.SocialPostEntity;
 
-
 public class EnhancedPreprocess extends DefaultPreprocess {
+
+    private final DictionaryLoader loader = new DictionaryLoader();
+    private final Map<String, Integer> sentimentDict = loader.loadSentiment();
+    private final Map<String, String> damageTypeDict = loader.loadDamageType();
+    private final Map<String, String> reliefItemDict = loader.loadReliefItem();
 
     @Override
     public List<SocialPostEntity> clean(List<SocialPostEntity> posts) {
@@ -34,10 +40,10 @@ public class EnhancedPreprocess extends DefaultPreprocess {
             // clean comment nâng cao
             if (post.getComments() != null) {
                 List<String> cleanedComments = post.getComments().stream()
-                                                   .map(this::cleanText)
-                                                   .map(this::normalizeHashtags)
-                                                   .map(this::normalizeDates)
-                                                   .toList();
+                        .map(this::cleanText)
+                        .map(this::normalizeHashtags)
+                        .map(this::normalizeDates)
+                        .toList();
                 post.setComments(cleanedComments);
 
                 // thêm sentiment cho comment (nếu cần)
@@ -54,50 +60,48 @@ public class EnhancedPreprocess extends DefaultPreprocess {
         return text.replaceAll("[^\\p{L}\\p{N}#\\p{P}\\p{Z}]", "").trim().toLowerCase();
     }
 
-private String normalizeDates(String text) {
-    String[] formats = {"d/M/yyyy", "dd-MM-yyyy", "yyyy/MM/dd"};
-    for (String fmt : formats) {
-        try {
-            DateTimeFormatter parser = DateTimeFormatter.ofPattern(fmt);
-            Pattern p = Pattern.compile("\\d{1,4}[-/]\\d{1,2}[-/]\\d{1,4}");
-            Matcher m = p.matcher(text);
-            while (m.find()) {
-                String dateStr = m.group();
-                LocalDate date = LocalDate.parse(dateStr, parser);
-                text = text.replace(dateStr, date.toString());
+    private String normalizeDates(String text) {
+        String[] formats = {"d/M/yyyy", "dd-MM-yyyy", "yyyy/MM/dd"};
+        for (String fmt : formats) {
+            try {
+                DateTimeFormatter parser = DateTimeFormatter.ofPattern(fmt);
+                Pattern p = Pattern.compile("\\d{1,4}[-/]\\d{1,2}[-/]\\d{1,4}");
+                Matcher m = p.matcher(text);
+                while (m.find()) {
+                    String dateStr = m.group();
+                    LocalDate date = LocalDate.parse(dateStr, parser);
+                    text = text.replace(dateStr, date.toString());
+                }
+            } catch (Exception e) {
+                // format không khớp → bỏ qua
             }
-        } catch (Exception e) {
-            // format không khớp → bỏ qua
         }
+        return text;
     }
-    return text;
+
+private String analyzeSentiment(String text) {
+    String[] words = text.split("\\s+");
+    int score = 0;
+    for (String word : words) {
+        score += sentimentDict.getOrDefault(word, 0);
+    }
+    if (score > 0) return "positive";
+    if (score < 0) return "negative";
+    return "neutral";
 }
 
-    private String analyzeSentiment(String text) {
-        // ví dụ dummy: có thể gọi model sentiment
-        if (text.contains("tích cực") || text.contains("vui") || text.contains("hy vọng")) return "positive";
-        if (text.contains("tiêu cực") || text.contains("lo lắng") || text.contains("thiệt hại")) return "negative";
-        return "neutral";
+private String mapDamageType(String text) {
+    for (String key : damageTypeDict.keySet()) {
+        if (text.contains(key)) return damageTypeDict.get(key);
     }
-
-    private String mapDamageType(String text) {
-        // ví dụ: map keywords sang loại thiệt hại
-        if (text.contains("nhà") || text.contains("tòa nhà")) return "Nhà cửa/tòa nhà";
-        if (text.contains("cơ sở hạ tầng")) return "Cơ sở hạ tầng";
-        if (text.contains("người")) return "Người bị ảnh hưởng";
-        if (text.contains("tài sản cá nhân")) return "Tài sản cá nhân";
-        if (text.contains("kinh tế") || text.contains("hoạt động sản xuất")) return "Gián đoạn hoạt động kinh tế";
-        return "Khác";
-    }
-
-    private String mapReliefItem(String text) {
-        // ví dụ: map keywords sang loại hàng cứu trợ
-        if (text.contains("thực phẩm")) return "Thực phẩm";
-        if (text.contains("nhà ở")) return "Nhà ở";
-        if (text.contains("giao thông")) return "Giao thông";
-        if (text.contains("y tế")) return "Y tế";
-        if (text.contains("tiền mặt")) return "Tiền mặt";
-        return "Khác";
-    }
+    return "Khác";
 }
 
+private String mapReliefItem(String text) {
+    for (String key : reliefItemDict.keySet()) {
+        if (text.contains(key)) return reliefItemDict.get(key);
+    }
+    return "Khác";
+}
+
+}
