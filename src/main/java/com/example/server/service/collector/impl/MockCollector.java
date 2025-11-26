@@ -16,16 +16,10 @@ public class MockCollector implements Collector {
 
         // Post giả lập từ Twitter
         posts.add(new SocialPostEntity(
-                "Nhà cửa bị hư hại nặng sau bão " + disasterName,
-                LocalDateTime.of(2024, 9, 6, 10, 0),
-                "Twitter"
         ));
 
         // Post giả lập từ Facebook
         posts.add(new SocialPostEntity(
-                "Người dân lo lắng về tác động của bão " + disasterName,
-                LocalDateTime.of(2024, 9, 7, 14, 30),
-                "Facebook"
         ));
         return posts;
     }
