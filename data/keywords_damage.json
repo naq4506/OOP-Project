@@ -1,0 +1,70 @@
+{
+  "Người bị ảnh hưởng": [
+    "bị thương",
+    "thiệt mạng",
+    "chết",
+    "mất mạng",
+    "mất người",
+    "thương vong",
+    "mất tích",
+    "mắc kẹt",
+    "sơ tán",
+    "trong trung tâm sơ tán",
+    "mất tích",
+    "bị thương nặng"
+  ],
+  "Nhà/tòa nhà": [
+    "sập nhà",
+    "mất nhà",
+    "hư nhà",
+    "ngập nhà",
+    "mất nhà cửa",
+    "nóc nhà",
+    "hư hỏng nhà",
+    "nhà bị sập",
+    "nhà tốc mái",
+    "mái nhà bay"
+  ],
+  "Cơ sở hạ tầng": [
+    "cầu sập",
+    "cầu gãy",
+    "đường sạt",
+    "đường bị tắc",
+    "đường hỏng",
+    "mất điện",
+    "hỏng điện",
+    "đứt cáp",
+    "đường sập",
+    "cầu hư",
+    "cống vỡ",
+    "nước máy bị"
+  ],
+  "Tài sản cá nhân": [
+    "xe máy",
+    "xe bị hỏng",
+    "tài sản",
+    "đồ đạc",
+    "đồ dùng bị hỏng",
+    "mất tài sản",
+    "đồ dùng bị hỏng",
+    "thiệt hại tài sản"
+  ],
+  "Gián đoạn Kinh tế": [
+    "mất việc",
+    "đóng cửa",
+    "mất nguồn thu",
+    "thiệt hại kinh tế",
+    "nghèo đói",
+    "thiệt hại sản xuất",
+    "thiệt hại nông nghiệp",
+    "mất mùa"
+  ],
+  "Khác": [
+    "mất liên lạc",
+    "cần hỗ trợ",
+    "kêu gọi ủng hộ",
+    "ung hộ",
+    "cứu trợ",
+    "kêu gọi cứu trợ"
+  ]
+}

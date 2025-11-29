@@ -1,6 +1,8 @@
-package com.example.server.service.collector;
+package com.example.server.service.collector.impl;
 
 import com.example.server.model.SocialPostEntity;
+import com.example.server.service.collector.Collector;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
