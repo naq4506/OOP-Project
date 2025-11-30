@@ -1,8 +1,8 @@
-package com.example.server.dto;
+package com.example.client.dto;
 
 import java.io.Serializable;
 
-public class AnalysisResponse<T> implements Serializable {
+public class ClientResponse<T> implements Serializable {
 
     private boolean success;      // true nếu xử lý thành công, false nếu có lỗi
     private T data;               // dữ liệu kết quả, null nếu lỗi
@@ -11,33 +11,33 @@ public class AnalysisResponse<T> implements Serializable {
 
 
     /** Constructor cho kết quả thành công */
-    public AnalysisResponse(T data) {
+    public ClientResponse(T data) {
         this.success = true;
         this.data = data;
         this.errorMessage = null;
     }
 
     /** Constructor cho lỗi */
-    public AnalysisResponse(String errorMessage) {
+    public ClientResponse(String errorMessage) {
         this.success = false;
         this.data = null;
         this.errorMessage = errorMessage;
     }
 
     /** Constructor linh hoạt: vừa data vừa lỗi (partial result) */
-    public AnalysisResponse(T data, boolean success, String errorMessage) {
+    public ClientResponse(T data, boolean success, String errorMessage) {
         this.success = success;
         this.data = data;
         this.errorMessage = errorMessage;
     }
 
 
-    public static <T> AnalysisResponse<T> success(T data) {
-        return new AnalysisResponse<>(data);
+    public static <T> ClientResponse<T> success(T data) {
+        return new ClientResponse<>(data);
     }
 
-    public static <T> AnalysisResponse<T> error(String errorMessage) {
-        return new AnalysisResponse<>(errorMessage);
+    public static <T> ClientResponse<T> error(String errorMessage) {
+        return new ClientResponse<>(errorMessage);
     }
 
 

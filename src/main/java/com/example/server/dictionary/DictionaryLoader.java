@@ -6,6 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets; // thêm
 import java.util.Map;
 
 public class DictionaryLoader {
@@ -27,7 +28,8 @@ public class DictionaryLoader {
     private <K, V> Map<K, V> loadMap(String fileName, Type type) {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
             if (is == null) throw new RuntimeException(fileName + " not found in resources!");
-            return gson.fromJson(new InputStreamReader(is), type);
+            // --- fix UTF-8 ---
+            return gson.fromJson(new InputStreamReader(is, StandardCharsets.UTF_8), type);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load " + fileName, e);
         }

@@ -1,10 +1,8 @@
-package com.example.server.dto;
+package com.example.client.dto;
 
 import java.util.List;
-
-public class AnalysisRequest {
-
-    private String disasterName;
+public class ClientRequest {
+        private String disasterName;
     private String startDate;
     private String endDate;
     private String keyword;

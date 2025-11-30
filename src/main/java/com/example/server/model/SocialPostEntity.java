@@ -15,6 +15,7 @@ public class SocialPostEntity {
     private String disasterName;
     private List<String> keywords;
     private String sentiment;
+    private List<String> commentSentiments = new ArrayList<>();
     private String damageType;
     private String reliefItem;
     // trường mới cho cào
@@ -136,6 +137,13 @@ public class SocialPostEntity {
     public void setSentiment(String sentiment) 
     { 
     	this.sentiment = sentiment; 
+    }
+    public List<String> getCommentSentiments() {
+        return commentSentiments;
+    }
+
+    public void setCommentSentiments(List<String> sentiments) {
+        this.commentSentiments = sentiments;
     }
     public String getDamageType() 
     { 

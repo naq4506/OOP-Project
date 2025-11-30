@@ -29,7 +29,7 @@ public class FacebookCollector extends BaseSeleniumCollector {
             driver.get(searchUrl);
             sleep(5000);
 
-            int targetPosts = 2; 
+            int targetPosts = 3; 
             int retryCount = 0;
 
             while (results.size() < targetPosts && retryCount < 20) {
