@@ -16,7 +16,6 @@ public class CollectorFactory {
         else if (platform.equalsIgnoreCase("mock") || platform.equalsIgnoreCase("test")) {
             return new MockCollector();
         }
-        // Mở rộng 
         
         return null;
     }

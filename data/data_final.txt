@@ -1,0 +1,540 @@
+=== BÁO CÁO DỮ LIỆU CHI TIẾT (FULL) ===
+Ngày xuất: 2025-12-07
+Tổng số bài: 5
+
+--------------------------------------------------
+BÀI VIẾT #1 (Ngày: 2024-09-07):
+Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.
+Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.
+
+[TỔNG QUAN] React: 5301, Comments: 40, Shares: 0
+[REACTIONS CHI TIẾT] Like: 3060, Sad: 1749
+[DANH SÁCH COMMENT]:
+   1. VÌ SAO CÓ TÊN LÀ YAGI?Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết. Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp. Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
+   2. VÌ SAO CÓ TÊN LÀ YAGI?
+   3. Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
+   4. Những điểm chính về cách đặt tên bão:1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
+   5. Những điểm chính về cách đặt tên bão:
+   6. 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.
+   7. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.
+   8. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.
+   9. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.
+   10. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
+   11. Bảo Li bão nào phá quá thì xui, bỏ, hông dùng nữa, vía nặng
+   12. Đề xuất thêm một vài tên bão như Ngoha (Ngộ ha), Keoly, Taichau,…
+   13. Nguyễn AnnaDũng Vũ Như đề xuất chieunayanlaubo
+   14. Trần Hằng đề xuất thêm tên potato
+   15. Khánh Linh m ác ghê :))))
+   16. Thao Pham Quỳnh Chi ctoi cũng muốn đề xuất tên
+   17. Nguyễn Linh biết đâu được duyệt
+   18. Nguyễn T. Thu Hương xin đề xuất tên Jack, Linda, meo meo
+   19. Nga Hoàng có bão Linda năm 1997 rồi mom =]]]
+   20. Nguyễn Trung Kiên tên bão dịu ha
+   21. Nguyễn Thanh Tùng bão Linda
+   22. Insight mất lòng khi nào có Domdom ới t
+   23. Insight mất lòng domdom nè
+   24. Insight mất lòng có DiuKha k
+   25. Insight mất lòng
+   26. Vóc Mai Thị Nguyễn Huyền ê
+   27. Insight mất lòng Nguyen Duc Cong :)))
+   28. Linh Lê đ mẹ đề xuất tên bão BN
+   29. Hồ Phúc Oanh ma kết nhưng rất silent treatmen của Xử nữ nè c
+   30. Anh Hoang tới hồi tới làm hết hồn nha má
+   31. Trinh Hoàng ma kết nguậy đục nước mấy ngày nay ròi
+   32. Vn là Sơn Tinh, Cà Mau, Ba Vì hả..
+   33. Thư Nguyễn đồng cung mà nó giật hơn t nữa
+   34. Quỳnh Quỳnh cái nết quá trời quá đất
+   35. Ma Kết bảo sao giỏi silent treatment gk3
+   36. Thu Uyên tóm lại là nói ma kết rất gớm phải k (°▽°)
+   37. Ngô Đức Việt lí do tụi t mang tiếng nè =))
+   38. Vũ Khánh Ngọc đề xuất tên bão là domdom ạ
+   39. Le Huong tên T hay S
+   40. Vũ Khánh Ngọc L thì saoo
+
+--------------------------------------------------
+BÀI VIẾT #2 (Ngày: 2025-09-04):
+Bài viết của Insight mất lòng
+Insight mất lòng
+ 
+·
+n
+r
+s
+e
+t
+o
+o
+d
+p
+S
+8
+7
+4
+h
+0
+u
+n
+2
+c
+m
+g
+5
+1
+8
+1
+l
+9
+t
+0
+7
+c
+t
+1
+m
+t
+1
+a
+f
+g
+2
+c
+a
+ 
+9
+ 
+l
+g
+i
+,
+3
+8
+7
+0
+7
+7
+ 
+0
+g
+3
+á
+ 
+·
+VÌ SAO CÓ TÊN LÀ YAGI?
+Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.
+Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.
+Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
+
+[TỔNG QUAN] React: 5301, Comments: 41, Shares: 153
+[REACTIONS CHI TIẾT] Like: 3009, Sad: 2028
+[DANH SÁCH COMMENT]:
+   1. VÌ SAO CÓ TÊN LÀ YAGI? Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.  Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.  Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
+   2. Những điểm chính về cách đặt tên bão: 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
+   3. Những điểm chính về cách đặt tên bão:
+   4. 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.
+   5. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.
+   6. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.
+   7. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.
+   8. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
+   9. Bảo Li bão nào phá quá thì xui, bỏ, hông dùng nữa, vía nặng
+   10. Đề xuất thêm một vài tên bão như Ngoha (Ngộ ha), Keoly, Taichau,…
+   11. Insight mất lòng
+   12. Nguyễn Trung Kiên tên bão dịu ha
+   13. Nguyễn Thanh Tùng bão Linda
+   14. Phương Lee
+   15. Insight mất lòng có DiuKha k
+   16. Insight mất lòng Thanh Dinh
+   17. Insight mất lòng Nguyen Duc Cong :)))
+   18. Linh Lê đ mẹ đề xuất tên bão BN
+   19. Trần Hằng đề xuất thêm tên potato
+   20. Khánh Linh m ác ghê :))))
+   21. Insight mất lòng kimchi, doao
+   22. Vóc Mai Thị Nguyễn Huyền ê
+   23. Nguyễn AnnaDũng Vũ Như đề xuất chieunayanlaubo
+   24. Insight mất lòng domdom nè
+   25. Nguyễn T. Thu Hương xin đề xuất tên Jack, Linda, meo meo
+   26. Nga Hoàng có bão Linda năm 1997 rồi mom =]]]
+   27. Thao Pham Quỳnh Chi ctoi cũng muốn đề xuất tên
+   28. Nguyễn Linh biết đâu được duyệt
+   29. Insight mất lòng khi nào có Domdom ới t
+   30. Hồ Phúc Oanh ma kết nhưng rất silent treatmen của Xử nữ nè c
+   31. Anh Hoang tới hồi tới làm hết hồn nha má
+   32. Trinh Hoàng ma kết nguậy đục nước mấy ngày nay ròi
+   33. Vn là Sơn Tinh, Cà Mau, Ba Vì hả..
+   34. Thư Nguyễn đồng cung mà nó giật hơn t nữa
+   35. Quỳnh Quỳnh cái nết quá trời quá đất
+   36. Ma Kết bảo sao giỏi silent treatment gk3
+   37. Thu Uyên tóm lại là nói ma kết rất gớm phải k (°▽°)
+   38. Ngô Đức Việt lí do tụi t mang tiếng nè =))
+   39. Vũ Khánh Ngọc đề xuất tên bão là domdom ạ
+   40. Le Huong tên T hay S
+   41. Vũ Khánh Ngọc L thì saoo
+
+--------------------------------------------------
+BÀI VIẾT #3 (Ngày: 2025-09-07):
+Ad cũng đã phân tích rất kỹ về cơn bão này nên cũng không đào quá sâu về cơn bão này nữa,tuy nhiên sáng hôm nay,JTWC (Trung tâm cảnh báo liên hợp của Mỹ) đã lên lại danh sách best TRACK,nhằm đánh giá lại cường độ của 1 số cơn bão mà năm 2024 đã đánh giá sai. Trong đó có cơn bão Yagi được chỉnh sửa lại khá nhiều,cụ thể như sau:
+Lưu ý:JTWC sử dụng gió 1 phút.
+Cường độ đỉnh (1->2 lần)
+Đỉnh lần 1:140kt,916mb ->140kt,912mb
+(Tức 260km/h duy trì 1 phút)
+Lúc 4~7 giờ sáng ngày 5/9/2024
+Đỉnh lần 2:130kt,923mb ->145kt,907mb
+(Tức 270km/h duy trì 1 phút)
+Lúc 1 giờ sáng ngày 6/9/2024
+
+[TỔNG QUAN] React: 2263, Comments: 74, Shares: 0
+[REACTIONS CHI TIẾT] Like: 1299, Sad: 696
+[DANH SÁCH COMMENT]:
+   1. TRÒN 1 NĂM SAU CƠN BÃO YAGI,CƠN BÃO LỊCH SỬ.Ad cũng đã phân tích rất kỹ về cơn bão này nên cũng không đào quá sâu về cơn bão này nữa,tuy nhiên sáng hôm nay,JTWC (Trung tâm cảnh báo liên hợp của Mỹ) đã lên lại danh sách best TRACK,nhằm đánh giá lại cường độ của 1 số cơn bão mà năm 2024 đã đánh giá sai. Trong đó có cơn bão Yagi được chỉnh sửa lại khá nhiều,cụ thể như sau:Lưu ý:JTWC sử dụng gió 1 phút.Cường độ đỉnh (1->2 lần)Đỉnh lần 1:140kt,916mb ->140kt,912mb (Tức 260km/h duy trì 1 phút)Lúc 4~7 giờ sáng ngày 5/9/2024Đỉnh lần 2:130kt,923mb ->145kt,907mb(Tức 270km/h duy trì 1 phút)Lúc 1 giờ sáng ngày 6/9/2024Như vậy có thể thấy Yagi đã làm điều mà các cơn bão khác trên biển đông chưa làm được là cơn bão mạnh nhất trên đông thời điểm hiện tại và là cơn siêu bão đầu tiên  đạt đỉnh 2 lần là siêu bão CAT 5 trên thang Saffir Simpson (các cơn siêu bão khác bao gồm Pamela,Rammasun,Rai cũng chỉ đồng đạt được 140kt và 1 đỉnh CAT 5). Cho thấy quả thực Yagi là cơn bão lịch sử,nó sẽ luôn là thước đo cho các cơn bão mạnh tương lai trên biển đông,và với hiện trạng biến đổi khí hậu,các cơn bão vượt mặt Yagi sẽ sớm xuất hiện.
+   2. TRÒN 1 NĂM SAU CƠN BÃO YAGI,CƠN BÃO LỊCH SỬ.
+   3. Như vậy có thể thấy Yagi đã làm điều mà các cơn bão khác trên biển đông chưa làm được là cơn bão mạnh nhất trên đông thời điểm hiện tại và là cơn siêu bão đầu tiên  đạt đỉnh 2 lần là siêu bão CAT 5 trên thang Saffir Simpson (các cơn siêu bão khác bao gồm Pamela,Rammasun,Rai cũng chỉ đồng đạt được 140kt và 1 đỉnh CAT 5). Cho thấy quả thực Yagi là cơn bão lịch sử,nó sẽ luôn là thước đo cho các cơn bão mạnh tương lai trên biển đông,và với hiện trạng biến đổi khí hậu,các cơn bão vượt mặt Yagi sẽ sớm xuất hiện.
+   4. Tớ là người QNinh, thực sự ở trong tâm bão được chứng kiến hành trình của nó là sau này thấy bão là rén. Nó có tiếng kêu rất ghê trong nhiều giờ mà chỉ những người trong tâm bão đi qua mới cảm nhận được.. Chưa bao giờ thấy cơn bão nảo khủng khiếp đến vậy, Hạ Long chỉ là 1 đống đổ nát, nhìn trả khác nào ở chiến trường Ukraina trên tivi, mất điện, nước sạch.. Người người nhà nhà dọn dẹp ngày đêm hàng chục ngày trời.. Nhưng thật may là Hạ Long có tiềm lực kinh tế nên sau 1 năm đã gần như xóa hết đấu vết của YAGI.. Giờ chỉ còn lại những vết thương trên các khu đồi rừng chưa hồi phục kịp, nó bẻ gãy nát hết các loại cây rừng luôn..
+   5. Lê Tuấn Hưng đấy là còn có Vịnh Hạ Long " Hàng Nghìn hòn đảo lớn nhỏ" che chắn trước khi về đất liền. Cứ tưởng tượng nếu nó về các tỉnh ven biển khác mà không phải Quảng Ninh thì hậu quả còn khủng khiếp đến mức nào
+   6. Cong Khien  vì tự tin có Vịnh có đảo lên khi Bão chưa vào bản thân mình thấy bình thường, nhưng rồi hỡi ôi nỗi kinh hoàng ập đến  giờ cứ nghĩ đến là hết hồn, hồn siêu phách lạc
+   7. Lê Tuấn Hưng QN đúng tâm bão, mà Cao Sơn nhà tớ là nặng nhất. 17ngày mới có điện. Giờ cứ có tin bão là mình sợ, dù cho là bão lớn hay bão bé. Vậy nên bão nào đổ bộ bà con cg ko đc chủ quan. Quả thật hãi tới già luôn.
+   8. Lê Tuấn Hưng nhìn cảnh nó bốc từng viên ngói, bê từng tấm tôn bay như tờ giấy. Thiệt hại Quảng Ninh là rất lớn. Có 1 điều mình thấy khá may mắn là bão vào từ trưa hôm trước đến sáng hôm sau là trời tạnh ráo, bà con khẩn trương mua ngói, vật liệu khắc phục bão, để có chỗ trú ẩn. Chứ hôm sau nó mà mưa trút thì thật sự ác mộng nữa. Sống sót qua Covid 19 và Yagi 2024 là thật sự thấy may mắn rồi
+   9. Lê Tuấn Hưng tiếng bão nó rú kiểu rất kinh dị luôn ấy chưa từng nghe thấy bao giờ. Sợ nổi hết cả gai ốc luôn, ng run lên vì sợ.
+   10. Nguyễn Hồng Thanh công nhận tiếng rít của nó thật kinh khủng. Hi vọng kg bao giờ phải trải qua 1 lần nữa. Mình nghe tiếng gió rít mà ù tai luôn!
+   11. Lê Tuấn Hưng hậu quả sau khi bão Yagi phá nát hết các cánh rừng là cháy rừng liên miên của năm 2025 sau đó. Khối lượng thực vật bị gãy khô tồn đọng quá nhiều ko thể dọn được
+   12. Lê Tuấn Hưng nhiều người giờ vẫn còn ám ảnh bởi yagi
+   13. Lê Tuấn Hưng tôi người hưng yên tâm bão cũng đi qua nhưng cũng giảm nhiều rồi mà mái xưởng vẫn tốc mấy tấm mái giếng trời bằng nhựa bay sạch
+   14. Lê Tuấn Hưng nghe tiếng kêu như ngày tận thế.
+   15. Lê Tuấn Hưng mình cũng ở Quảng Ninh mà bão Haiyan nó hú như là có con gì kêu ấy
+   16. Lê Tuấn Hưng tui hd hp nè nó quần cho sợ luôn
+   17. Ngọc Phương đến h vẫn sợ cơ
+   18. Ngọc Phương Gió nó hú như còi báo động ý
+   19. Thùy Dung gió nó rít mái tôn phập phồng cây dừa 30 năm tuổi đung đưa nhảy múa phát hãi bà ơi
+   20. Có ai ở Hạ Long Cẩm Phả lập hội để ngày 7/9 kỷ niệm 1 năm Yagi các bác nhỉ?!
+   21. M5/9: đưa các con đi khai giảng. M6/9: đón các con về sau buổi học đầu tiên. Quá oi bức. Nóng. Trở các con về mà chúng nó cũng kêu quá trời. Trời yên lặng phát lạ. K gợn gió. Xanh trong vắt. Mỗi tội là cực oi. M7/9: từ sáng đã gió mạnh. Đến 11h30 ai cũng tưởng bão đã về. Vì gió rít rất mạnh. Sóng biển đánh từ bờ này sang bờ kia. Mn quay vid gửi cho nhau. Đến đoạn 12h hơn là thôi xong mưa tôn, câu đổ gãy…. Đến tận 6h tối gió mới yên hẳn. Sáng 8/9: mn ai cũng dậy sớm và thấy mỗi sự đổ nát vỡ vụn.
+   22. M5/9: đưa các con đi khai giảng.
+   23. M6/9: đón các con về sau buổi học đầu tiên. Quá oi bức. Nóng. Trở các con về mà chúng nó cũng kêu quá trời. Trời yên lặng phát lạ. K gợn gió. Xanh trong vắt. Mỗi tội là cực oi.
+   24. M7/9: từ sáng đã gió mạnh. Đến 11h30 ai cũng tưởng bão đã về. Vì gió rít rất mạnh. Sóng biển đánh từ bờ này sang bờ kia. Mn quay vid gửi cho nhau. Đến đoạn 12h hơn là thôi xong mưa tôn, câu đổ gãy…. Đến tận 6h tối gió mới yên hẳn.
+   25. Sáng 8/9: mn ai cũng dậy sớm và thấy mỗi sự đổ nát vỡ vụn.
+   26. Ha Le sang ngày 8/9 nắng vỡ đầu, rát mặt! Cả Hạ Long ngấp ngoải trong sự mất điện!10/9 đổ 1 trận mưa lụt hết nhà cửa! Lại hò nhau đi khơi thông cống rãnh do lá cây làm tắc! Sang đến ngày thứ 5 bắt đầu lác đác có điện trở lại. Chỗ tôi mất điện đúng 99 giờ!
+   27. Ha Le sang ngày 8/9 nắng vỡ đầu, rát mặt! Cả Hạ Long ngấp ngoải trong sự mất điện!
+   28. 10/9 đổ 1 trận mưa lụt hết nhà cửa! Lại hò nhau đi khơi thông cống rãnh do lá cây làm tắc!
+   29. Sang đến ngày thứ 5 bắt đầu lác đác có điện trở lại. Chỗ tôi mất điện đúng 99 giờ!
+   30. Ha Le Tôi ở  Hưng Yên  tầm 3h  đến 5h chiều ngày 9 gió giật kinh khủng  Tôi vừa mổ u tủy  được  2 tháng  chưa đi lại được  thì gặp trận bão ,sang trấn tâm lý mất 4 tháng sau đó,mãi mới hồi phục  được  nhờ các con và Chồng nghĩ  lại giờ vẫn sợ
+   31. Bão Yagi nhớ lại tàn phá Hải Dương wa khủng khiếp
+   32. Ha Le đầu giờ chiều hôm đó tại hà nội bất ngờ mưa to, kèm gió rất mạnh. Mọi người tưởng bão về sớm, sở giáo dục hà nội cũng thông báo cho học sinh nghỉ sớm tránh bão, nhưng hoá ra đó mới chỉ là cơn dông “nháp” trước. Sau đó mới là bão về, gió kinh khủng khiếp, mình chạy lên tầng 3 quay clip mà gió to, tôn bay vù vù sợ quá lại phải tụt xuống.
+   33. Hoang Hong Diep đúng r bạn. Quay clip gửi cho nhau. R còn bảo nhau đứng cửa sổ hóng bão về r. Ai ngờ đâu ms chỉ là nháp.
+   34. Ha Le nháp nhưng cũng rất ra gì
+   35. Ha Le Chính  vì hóng bão mà tôi hoảng đến giờ mỗi khi gió
+   36. Trần Tô Thủy bạn không cô đơn. T cũng thế.
+   37. Cơn bão mạnh nhất lịch sử Việt Nam trong 70 năm qua, những hậu quả nó để lại thực sự khủng khiếp
+   38. May là nó vào quảng Ninh hải phòng chứ nó mà vào các tỉnh nghèo thì còn tan hoang nữa
+   39. Nhâm Văn Tú mình ở QN, và cũng nói câu y như b. Mặc dù sự thiệt hại nào thì cũng đều là mất mát nhưng mình nghĩ may thật là ko vào miền Trungz
+   40. Hiên Phan bản thân m cũng là người HP, cũng đã có suy nghĩ và mong muốn nó về HP để giảm thiểu cho mn ở miền Trung. Miền Trung khổ quá rồi, bão lụt quá sợ . Miền Bắc m cũng khổ không kém nhưng không bị lụt và sạt lở.
+   41. Thiên Kim  Miền Bắc ko có lụt và sạt nở? Nói câu muốn ***, bạn biết ở 1 mình HP bạn à? Điện Biên, Lai Châu, Lào Cai, Hà Giang lần nào bão hay áp thấp cũng có Ko có lụt và sạt nở. Vâng... Đúng rồi. Chỉ có "Làng Nủ" cuốn nguyên 1 làng đi thôi.
+   42. Thiên Kim  Miền Bắc ko có lụt và sạt nở? Nói câu muốn ***, bạn biết ở 1 mình HP bạn à? Điện Biên, Lai Châu, Lào Cai, Hà Giang lần nào bão hay áp thấp cũng có
+   43. Ko có lụt và sạt nở. Vâng... Đúng rồi. Chỉ có "Làng Nủ" cuốn nguyên 1 làng đi thôi.
+   44. Cơn bão đổ bộ gây thiệt hại lớn cho cộng đồng và xã hội. Đối với gia đình mình thì mình nhỡ mãi không quên những hình ảnh và sự thiệt hại mà cơn bão gây ra: Đúng hôm nhà mình chuẩn bị đổ mái tầng 2, cốp pha và sắt mái đã ghép xong hết rồi chỉ chờ ngày hôm sau là tiến hành đổ mái, vậy mà cơn bão đổ bộ hất tung cốp pha, 1 nửa mái bị gió hất lên như cánh chim đập lên đập xuống. Đám cưới thằng cháu đúng ngày hôm đó, cả nhà phải tháo dỡ hết nhà bạt và chạy đồ vào trong nhà. Mái ngói các nhà xung quanh bị hất tung hết lên. Cây cau chịu đựng gió bão giỏi như vậy mà bao nhiêu cây quanh nhà cũng bị đổ gục. Đúng là nhớ mãi không quên.
+   45. Duoc Le Van trong cơn bão 14h45  tôi đang ở xưởng, nghe tiếng rít nổ cái uỳnh tấm giếng trời 2mx2m trời cách xưởng tôi 3 nhà phóng thẳng sang mái chỗ tôi đang đứng thủng mái tôi bị kính cường lực dội hết vào người be bét thương tích . Người nhà cho đi cấp cứu mà xe như đu võng cây đổ vừa đi vừa dọn đường .hãi tới già
+   46. Thiệt hại của bảo yagi để lại đây
+   47. Duoc Le Van chỗ mình bao nhiêu cánh rừng bị xoá sổ
+   48. Nguyễn Thắng bão ý chính ra tôi thấy mưa k to nhưng gió lại cực to
+   49. Hoa Trên Đá chí linh Hải dương bạn
+   50. Nguyen Van Nghia  sau cơn bão như ngày tận thế trong phim.cánh rừng chỗ mình giờ vẫn trống không chưa phục hồi
+   51. Nguyễn Thắng chỗ tôi cây trồng cũng đổ hết có cây tầm 60 70 năm còn đổ vào nhà phải gọi xe cẩu mới nâng lên được vì nó to và nặng
+   52. Duoc Le Van cái cơ bản là bão đi rồi nhưng hậu quả để ng dân khác phục rất lâu.1 năm sau nhiều thứ vẫn còn bị ảnh hưởng .cây cối mất gần 1 năm mới phục hồi
+   53. Duoc Le Van nha tôi đổ mái 1 hôm đó.thầy xem chuẩn thật ko những nước lên lại còn gió to nữa
+   54. Có điều vô cùng lạ là trên một bên sân thượng một lọ thủy tinh rất mỏng manh tôi cắm nhiều cành phát lộc và chỉ buôc bằng một sợi băng nước (caô su non)vô cùng mỏng manh để ngày thường nó không bị gió thổi đổ nhưng bão gió nó cũng không đổ nhưng chậu cây cảnh cao to tôi bình đã có buộc dây chằng bão tôi buộc gia cố chắc chắn nhưng bão chỉ nhằm chậu cây kim tiền đó làm nó đổ vỡ khi bão vì lo sợ tốc hai mái tôn hai sân trước và sau tôi đã ngồi ở tum (thị uy với bão )mở các cửa tum để gió thoát vào cầu thang vì khinh nghiệm của tôi với bão ,điều ngạc nhiên hơn nữa là trong năm 2024 và năm trước khi tôi uống rượu bia say về nơi ở tum và sân thượng (năm nay do ốm tôi mới xuống dưới )tôi hay nói về siêu bão mà đến bây giờ tôi cũng chẳng hiểu gì ...
+   55. Tôi có một ảnh cây cảnh sân trên fb và lọ thủy tinh cành phát lộc ,ngày bão gió lọ thủy tinh vị trí đầu hàng hướng đông còn chậu kim tiền to nhất vị trí giữa ...
+   56. Anh Dung Đąng bài viết đọc chả hiểu gì
+   57. Hồng Trương ok không hiểu là phải đến như tôi nhiều thậm trí rất nhiều khi không thể tưởng tượng được nó ngoài sức tưởng tượng ...
+   58. bão yagi đi qua chỗ mình như k còn màu xanh , 1 hòn đảo k còn màu xanh nó phải kinh khủng ntnao như quay về thời tiền sử , phá nát mọi thứ nó đi qua , rừng cây gẫy rạp sau bão nắng hanh lại cháy trụi ! toàn bộ đảo mất điện nước và sóng điện thoại nội bất xuất ngoại bất nhập ( điện mât 21 ngày , sóng đt mất 10 ngày , tau bè k di rời 3-5 ngày ) để lại 1 hòn đảo hoang tàn xác xơ , nhà mất nóc mất mái , tec nước bay ngoài đường , cục điều hoà rụng như rơm như rạ ... trên đất đã thế còn dưới nước thì thiệt hại vô kể nhiều nhà đâm vào nợ lần k lối thoát
+   59. Lúc 13:02 07/09/2024  Quảng Yên đây ạ. Không giám quay nhiều lúc bão vào
+   60. Nguyễn Minh Vượng Một cơn bão lấy đi bao nhiêu mồ hôi công sức của bà con và cũng để lại quá nhiều kí ức.sợ thật sự lúc 2h17 7/9/2024 bão vào gió giật đưa cả một cái bán mái của nhà hàng bên cạnh úp vào nhà mình
+   61. Pham Chau Anh tầm khoảng 1h30 bão vào gió giật, cây đổ, ngói bay sợ lắm
+   62. Nguyễn Minh Vượng à, đây là chưa đúng lúc đỉnh. Cây cau nó vặn trái. Tâm bão đi qua nó vặn phải. 1 lúc sau cây cau nó quay tròn rồi gãy cơ
+   63. Phan Mạnh Long lúc nó vào sợ lắm
+   64. Nguyễn Minh Vượng Đông Mai đây
+   65. Phan Mạnh Long mình bên Hà Nam
+   66. Nguyễn Minh Vượng sau hôm bão m chạy đất xuống Nam TP. Tôn xốp lềnh bềnh khắp các ao hồ, nhà cửa tan hoang, cây cối đổ rạp. Cột điện gãy thành hàng. Nhìn sợ
+   67. Phan Mạnh Long hoang tàn lắm
+   68. Nếu yagi không xuất hiện thì giờ này cũng được về bờ .. tại nó mà mình giờ vẫn lênh đênh
+   69. Nguyễn Đông cố lên b êy, còn ng còn của, thằng e họ mjh nuôi hầu gần thu hoạch cũng vì e yagi mà mất mấy tỏi đấy
+   70. Hiền Vũ Thu đội cá lồng chỗ tui nó cuốn cả nhà cả lồng đi luôn
+   71. Hoàng Kim Anh thương lắm, năm nay tưởng gỡ gạc thì giá rớt thảm hại huhu
+   72. Nguyễn Đông nhiều khi không lường trước mà thu hoach truoc bão
+   73. bão này hoàn hảo về cấu trúc
+   74. Nam Le hoàn hảo cả về đường đi nữa.. nói nó là thước đo cũng k sai
+
+--------------------------------------------------
+BÀI VIẾT #4 (Ngày: 2024-09-07):
+Bài viết của BBC News Tiếng Việt
+BBC News Tiếng Việt
+ 
+ 
+·
+d
+s
+o
+S
+o
+r
+t
+p
+n
+e
+h
+l
+h
+n
+ 
+1
+a
+g
+g
+0
+7
+3
+9
+,
+8
+4
+ 
+c
+a
+9
+m
+á
+l
+6
+g
+8
+6
+m
+2
+h
+t
+1
+a
+1
+7
+7
+i
+f
+5
+7
+c
+2
+ 
+0
+1
+0
+t
+u
+3
+6
+ 
+·
+BÃO YAGI BẮT ĐẦU ẢNH HƯỞNG ĐẤT LIỀN QUẢNG NINH, HẢI PHÒNG
+Theo Trung tâm Dự báo khí tượng thủy văn quốc gia Việt Nam, trong 12 giờ tới, bão Yagi sẽ di chuyển theo hướng tây tây bắc với tốc độ 15-20km/h và hướng vào ven biển các tỉnh Đông Bắc Bộ.
+Theo Cục Quản lý đê điều và Phòng chống thiên tai (Bộ Nông nghiệp và Phát triển nông thôn Việt Nam) đến 5h sáng 7/9, các địa phương đã sơ tán 47.151 người ở Quảng Ninh, Hải Phòng, Nam Định và Ninh Bình.
+Getty Images
+#BBCNewsTiengViet #baoYagi #baoso3
+
+[TỔNG QUAN] React: 2671, Comments: 59, Shares: 89
+[REACTIONS CHI TIẾT] Like: 1583, Sad: 923
+[DANH SÁCH COMMENT]:
+   1. BÃO YAGI BẮT ĐẦU ẢNH HƯỞNG ĐẤT LIỀN QUẢNG NINH, HẢI PHÒNG9h sáng nay 7/9, tâm bão Yagi vẫn còn cách đất liền khoảng 120 km, nhưng các tỉnh ven biển Việt Nam gồm Quảng Ninh, Hải Phòng đã có mưa to, gió quật cây nghiêng ngả.Theo Trung tâm Dự báo khí tượng thủy văn quốc gia Việt Nam, trong 12 giờ tới, bão Yagi sẽ di chuyển theo hướng tây tây bắc với tốc độ 15-20km/h và hướng vào ven biển các tỉnh Đông Bắc Bộ.Theo Cục Quản lý đê điều và Phòng chống thiên tai (Bộ Nông nghiệp và Phát triển nông thôn Việt Nam) đến 5h sáng 7/9, các địa phương đã sơ tán 47.151 người ở Quảng Ninh, Hải Phòng, Nam Định và Ninh Bình.   Getty Images#BBCNewsTiengViet #baoYagi #baoso3
+   2. Getty Images
+   3. Quá khủng khiếp
+   4. Biết bão nhưng thích đi ra ngoài cho ngầu
+   5. Nam Mo A Di Đà Phật
+   6. Cầu mong cho mọi người trong vùng bão được an toàn ,
+   7. Cầu mong mọi người tai qua nạn khỏi và được bình an .
+   8. Nói mn thông cảm chứ . Nhà Nước nta thông báo rồi. Đây nước đổ đầu vịt thì cho gió nó cuốn
+   9. Ra ngoài tầm này thì ráng chịu. Dự báo ầm ầm vẫn lao ra đường
+   10. Người ta nói ở nhà không nghe lỡ có chuyện gì ráng chịu
+   11. Tin tức vậy mà nhiều người vẫn ra ngoài
+   12. Mà đã cảnh báo rồi nên mọi người hạn chế ra đường . Nguy hiểm quá
+   13. Máy cơ chụp hình có khác
+   14. Cầu xin cho sóng yên biển lặng mưa thuận gió hòa , mọi người được bình an
+   15. Rất nhiều cây xanh bị ngã đổ.gây tai nạn.. Mọi người hãy cảnh giác đề.phòng và ko nên ra ngoài khi ko cần thiết . mong cho tất cả dc bình an
+   16. Rất nhiều cây xanh bị ngã đổ.gây tai nạn.. Mọi người hãy cảnh giác đề.phòng và ko nên ra ngoài khi ko cần thiết .
+   17. mong cho tất cả dc bình an
+   18. Mưa bão ra đường chi zợ
+   19. Áo mưa tà gió to rất nguy hiểm
+   20. Matcha Đá Xay cb thắp nhang đi nhé
+   21. Hóng khi nào đồng bào miền bắc lên tivi nhận tiền hỗ trợ ạ!
+   22. Bão mà ra đường xứng đáng đc đầu t.hai
+   23. Mạng sống là vô giá, việc làm gì tầm này, mái tôn, bảng hiệu, cây đổ, sẵn sàng tiễn đưa bạn về nơi xa lắm, mọi người bảo trọng !
+   24. Bảo mạnh mà sau ko sợ dám ra đường vậy
+   25. Từ giờ đến 19h hôm này còn gió mạnh nữa mọi người hết sức đề phòng
+   26. Mặc váy chạy bão chắc an toàn nhất
+   27. Đi đón bão àh, mặc đồ mát thế
+   28. Vân ra đường.chịu
+   29. ĺmong mọi nhà được bình yên
+   30. Cầu nguyện bình an cho tất cả
+   31. Bão vào bàn ngày đở nguy hiểm hơn ban đêm
+   32. BBC có cầu nguyện cho Việt Nam không
+   33. Triệu Đuôi Bò đâu phải chuyện của họ
+   34. Thời tiết này mặc áo đầm   ra đường là an toàn nhất.
+   35. Sao mọi người vẫn ra đường làm gì ko biết
+   36. Đến quãng ninh thì có thái với yến ra dùng thần thông chống đỡ .
+   37. đã biết có bão mạnh nhất mà ra đường chi trời . tôn mà bay tới còn hơn dao chém . đã từng thấy nhiều rồi
+   38. Nghĩ sao còn đi ra đường, chắc chưa gặp bão bao giờ
+   39. Bướng, đã bảo ngồi nhà vẫn cố mặc váy đẹp ra đường
+   40. Thái Trần Thật không hiểu nổi !!? Trời dông bão cấp 13.. 17, sấm chớp ầm ầm, cây ngã đỗ tứ tung, báo đài nhắc nhở liên tục không ra đường… vậy mà vẫn có nhiều chị em mặc minijuip áo mưa choàng mỏng manh chạy như bay trên đường, gió nào có tha, nó quật cho một phát té ngã lăng quay ra đường kéo lê cho một đoạn …. Cũng may mà không sao, đừng nói là xui
+   41. Thái Trần
+   42. Thật không hiểu nổi !!?
+   43. Trời dông bão cấp 13.. 17, sấm chớp ầm ầm, cây ngã đỗ tứ tung, báo đài nhắc nhở liên tục không ra đường… vậy mà vẫn có nhiều chị em mặc minijuip áo mưa choàng mỏng manh chạy như bay trên đường, gió nào có tha, nó quật cho một phát té ngã lăng quay ra đường kéo lê cho một đoạn …. Cũng may mà không sao, đừng nói là xui
+   44. Cơn bão mạnh nhất trong vòng 100 năm qua
+   45. Bão gió to vậy bắt buộc phải za đg thì lên mặc Bộ áo mưa gọn hơn là mặc áo chùm thế kia rất nguy hiểm gió nó hất ngược là mình té đó mng
+   46. Duong Huyen SH cám ơn bạn nói rất đúng, mong mọi nguoi cẩn thận.
+   47. Đi vào khu vực bão nguy hiểm lắm Hình ảnh này báo con người ra đường phải cẩn thận đấy
+   48. Lúc này mới thấy sh nhập mới cũng ko bằng xe 4b cùi
+   49. Phạm Quốc Việt phản động. Cách mạng màu.
+   50. Nguyễn Anh Tú suỵt suỵt bão về nên chém gió tí :)))
+   51. Tại sao tất cả cơn bão đều đặt tên từ phụ nữ? Vì nó rất khó dự đoán!
+   52. Biết bão vào cố ra đường làm j
+   53. Ỉma Phạm thật cố ra đường làm mẹ j
+   54. Tao Là Zeus vì công việc người ta mới phải ra chứ ai muốn ra đường làm gì
+   55. Chị Oanh tính mạng rẻ hơn công việc à?
+   56. Chị Oanh giữa công việc với mạng sống rõ ràng như thế , bạn vẫn muoốn nguy hiểm à?
+   57. Chị Oanh bão thì cty này kia cũng c ho nghỉ, buôn bán thì có ra cũng ko bán cho ai, z công việc gì mà phải ra đường, cây đè, vật rơi trúng toi mạng thì lại bảo tại số
+   58. Chị Oanh ai cũng có công việc hết chứ có riêng mấy người đó đâu :)). Nhưng bão là phải nghỉ
+   59. Đông Phương đúng rồi do chủ quan chứ công việc bỏ thì cũng k sao mà đa phần sẽ k bị đuổi việc nếu sau khi nghỉ bão to
+
+--------------------------------------------------
+BÀI VIẾT #5 (Ngày: 2025-09-04):
+Bài viết của Weibo Việt Nam
+Chỉ báo trạng thái online
+Đang hoạt động
+Weibo Việt Nam
+ 
+ 
+·
+d
+s
+o
+S
+o
+r
+t
+p
+n
+e
+h
+l
+h
+n
+ 
+1
+a
+g
+g
+0
+7
+3
+9
+,
+8
+4
+ 
+c
+a
+9
+m
+á
+l
+6
+g
+8
+6
+m
+2
+h
+t
+1
+a
+1
+7
+7
+i
+f
+5
+7
+c
+2
+ 
+0
+1
+0
+t
+u
+3
+6
+ 
+·
+So sánh hình ảnh bão Yagi giữa Trung Quốc và Việt Nam dường như đều giống như nhau
+Ở đâu bão đi qua cũng đều bị gió giật làm ngã đổ cây cối, cuốn bay đồ đạc
++2
+
+[TỔNG QUAN] React: 2248, Comments: 62, Shares: 92
+[REACTIONS CHI TIẾT] Like: 1144, Sad: 859
+[DANH SÁCH COMMENT]:
+   1. Bão này bọn ca ve như mày sẽ phải chếc Sương Diễm
+   2. Trần Hải Dương
+   3. Duy Chu
+   4. Chang Chang
+   5. Thế mà có mấy thằng ngu ngục nó bảo là bão mạnh quái đâu mà dọa dân. Nó đăng bài lúc 1h bảo là bão tan rồi mà 3h bão mới vào đất liền. Xong chê ỏng chê ẻo, thêm vài con mụ vào bảo dọa nhiều nên t nhờn rồi, làm quái gì căng. :)))
+   6. Quá khủng khiếp
+   7. Thanh Tú
+   8. Ghê quá à
+   9. ý là sắp có dừa để lụm sau bão rồi hả
+   10. Luu Xuan Phuong Quyen Phuong Que Ngo Xuan Lưu Quốc Lâm
+   11. Nhì sợ vlon bão vào tới SG chắc nhà mình thành nhà mui trần luôn  Thanh Phúc
+   12. Ha Phuong
+   13. Siêu bão  Cơn mưa làm đẹp
+   14. Siêu bão
+   15. Cơn mưa làm đẹp
+   16. Hạ Long cố lên
+   17. Xin Hãy Cứu Giúp Gia Đình Tôi! Bão Yagi đã làm cây lớn đổ sập vào nhà, khiến gia đình tôi rơi vào tình cảnh khó khăn. Chúng tôi đang rất cần sự giúp đỡ để sửa chữa lại nhà và ổn định cuộc sống. Ngân hàng Techcombank Số tài khoản: 2933676868 Chủ tài khoản: Nguyễn Thị Bé Mong mọi người giúp đỡ để gia đình tôi vượt qua lúc hoạn nạn này. Xin cảm ơn rất nhiều!
+   18. Xin Hãy Cứu Giúp Gia Đình Tôi!
+   19. Bão Yagi đã làm cây lớn đổ sập vào nhà, khiến gia đình tôi rơi vào tình cảnh khó khăn. Chúng tôi đang rất cần sự giúp đỡ để sửa chữa lại nhà và ổn định cuộc sống.
+   20. Ngân hàng Techcombank
+   21. Số tài khoản: 2933676868
+   22. Chủ tài khoản: Nguyễn Thị Bé
+   23. Mong mọi người giúp đỡ để gia đình tôi vượt qua lúc hoạn nạn này. Xin cảm ơn rất nhiều!
+   24. Mong mn bình an
+   25. Ở Hà Nội mưa không to nhưng gió to cứ rít nghe sợ lắm luônn :((
+   26. Hong Anh Huynh Ho chưa tới đó, HN đêm nay mới tới cơ
+   27. Lương Hoàng Nhật Minh Mưa ít nhưng gió thổi cây nghiêng ngả nhìn sợ lắm :((
+   28. Hong Anh Huynh Ho đêm nay bão vào đó, cậu chú ý an toàn nhe. Chỗ tôi nát bấy luôn r
+   29. Lương Hoàng Nhật Minh Tiếc thật nhưng cậu không sao là tốt rồi   Cảm ơn cậu, cho tớ ôm cậu một cái nhé
+   30. Hug too
+   31. Toàn là ảnh ở Hạ Long
+   32. Hải Dương nóc nhà bay tùm lum
+   33. đang sấy tóc mà mất điện, em có nên đưa đầu ra nhờ máy sấy thiên nhiên sấy cho vài đường k ạ
+   34. Pchies 29 coi gió giật trụi mất tóc trước khi kịp khô
+   35. Pchies 29 Có tôn bay là cắt tóc free luôn bạn
+   36. em vẫn ổn nha ạ  trộm vía tóc khô được 95% rồi -)) ráng xíu nữa thôy, mong em và tóc đều an toàn cười vl đhs nghĩ ra được cái này, cơ mà nhanh khô thật ấy, nhà anh chị nào mà mưa ít gió nhiều thì rcm đi gội đầu nhé -)))))) ra đứng giống em nè đảm bảo 5p khô
+   37. em vẫn ổn nha ạ  trộm vía tóc khô được 95% rồi -)) ráng xíu nữa thôy, mong em và tóc đều an toàn
+   38. cười vl đhs nghĩ ra được cái này, cơ mà nhanh khô thật ấy, nhà anh chị nào mà mưa ít gió nhiều thì rcm đi gội đầu nhé -)))))) ra đứng giống em nè đảm bảo 5p khô
+   39. Pchies 29 sấy lạnh đàng hoàng
+   40. Bạn nào ở HP đừng ra đường nhé. Thông tin chính phủ đã lên bài " yêu cầu" dân HP k được ra đường rồi ấy. Đừng ỷ y gió cấp giảm gì cả
+   41. Khánh Huyền
+   42. thương quá à
+   43. Quỳnh Anh Mai Len Vũ
+   44. Mẹ bảo ở nhà đổ hết cây rồi
+   45. Hà Nội bão chưa đến mà gió to quá, cứ vù vù thổi cây nghiêng ngả
+   46. Mong bão mau suy yếu, cứ bão là thấy khổ, cấp nhẹ hay mạnh cũng thế
+   47. Có ai ở Hạ Long không? Gió to quá mn ơi   m ngồi trong nhà mà run luôn
+   48. Có ai ở Hạ Long không?
+   49. Gió to quá mn ơi   m ngồi trong nhà mà run luôn
+   50. Andrea Chen
+   51. Đi ngủ dậy tưởng quay xe, ai ngờ vào đất liền nhanh hơn.. vcl
+   52. Phương Thảo
+   53. Giảm 3 cấp so với TQ mà kết quả ko khác gì mấy nhỉ
+   54. Tuan Anh Le giảm 3 cấp nghĩ chắc do truyền thông trấn an dư luận thôi
+   55. Ânn Lâm cái này có thể xem trên các app đc mà. Nên muốn trấn an cũng khó.
+   56. Tuan Anh Le ồ vậy hả, mình ko biết xem
+   57. Tuan Anh Le đây mới là sơ bộ nhìn qua vài hình mà. Chưa có thống kê thiệt hại nên ko biết đc. Với giảm 3 cấp vẫn là bão to thiệt hại là ko tránh khỏi rồi
+   58. Tuan Anh Le đây mới là sơ bộ nhìn qua vài hình mà.
+   59. Chưa có thống kê thiệt hại nên ko biết đc.
+   60. Với giảm 3 cấp vẫn là bão to thiệt hại là ko tránh khỏi rồi
+   61. Tuan Anh Le tôi lướt cả mớ clip thì thấy cây cối k có tỉa tót gì bớt,nhà mái tôn đa phần k có chằng chống gì,ở các chung cư cao tầng cũng thế,có cái khách sạn gì kia cho vài ông nhân viên ra kẹp 1 cái bàn và 2 cái ghế xong đứng giữ cửa rất ư là nguy hiểm.ĐN t khi trước là ng ta thuê xe ben,xe tải hoặc cẩu nguyên cái container chặn cửa luôn.
+   62. Châu Dương huhu
+
