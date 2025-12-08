@@ -1,7 +1,6 @@
 package com.example.server.Preprocess;
 
 import java.util.List;
-
 import com.example.server.model.SocialPostEntity;
 
 public class DefaultPreprocess implements Preprocess {
@@ -12,7 +11,7 @@ public class DefaultPreprocess implements Preprocess {
             if (post.getContent() != null) {
                 post.setContent(cleanText(post.getContent()));
             }
-            // có thể lọc comment trùng, remove spam, normalize unicode
+
             if (post.getComments() != null) {
                 post.removeDuplicateComments();
                 List<String> cleanedComments = post.getComments().stream()
@@ -24,8 +23,9 @@ public class DefaultPreprocess implements Preprocess {
         return posts;
     }
 
+    
     protected String cleanText(String text) {
-        // ví dụ: loại bỏ emoji, ký tự đặc biệt, trim khoảng trắng
-        return text.replaceAll("[^\\p{L}\\p{N}\\p{P}\\p{Z}]", "").trim();
+        if (text == null) return "";
+        return text.trim();   // CHỈ GIỮ NGUYÊN VẬY
     }
 }

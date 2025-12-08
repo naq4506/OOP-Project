@@ -22,7 +22,8 @@ public class FacebookCollector extends BaseSeleniumCollector {
         List<SocialPostEntity> results = new ArrayList<>();
         Actions actions = new Actions(driver);
         String originalWindow = driver.getWindowHandle();
-        System.out.println(">>> [Facebook Version 44] Bắt đầu cào "+keyword);
+
+        System.out.println(">>> [Facebook] Bắt đầu cào: " + keyword);
 
         try {
             String searchUrl = "https://www.facebook.com/search/posts/?q=" + keyword.replace(" ", "%20");
@@ -35,7 +36,7 @@ public class FacebookCollector extends BaseSeleniumCollector {
             while (results.size() < targetPosts && retryCount < 20) {
                 List<WebElement> buttons = driver.findElements(By.xpath("//div[@aria-label='Bình luận'] | //span[contains(text(), 'Bình luận')]"));
                 WebElement targetBtn = null;
-                
+
                 for (WebElement btn : buttons) {
                     try {
                         if (btn.getDomAttribute("data-clicked") == null && btn.isDisplayed()) {
@@ -45,7 +46,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
                 }
 
                 if (targetBtn == null) {
-                    System.out.println("... Cuộn tìm bài mới ...");
                     scrollDown(800);
                     retryCount++;
                     continue;
@@ -55,72 +55,25 @@ public class FacebookCollector extends BaseSeleniumCollector {
                     js.executeScript("arguments[0].setAttribute('data-clicked', 'true');", targetBtn);
                     js.executeScript("arguments[0].scrollIntoView({block: 'center'});", targetBtn);
                     sleep(1000);
-                    
-                    System.out.println("   > Click mở bài...");
                     js.executeScript("arguments[0].click();", targetBtn);
                     sleep(3000); 
-                    
-                    // lỗi click nhầm vào link facebook
-                    if (!ensureSafePage(originalWindow)) {
-                        System.out.println(" Click nhầm link ngoài -> Skip bài này.");
-                        continue; 
-                    }
-                    
-                    // CHECK PHOTO MODE 
-                    if (driver.getCurrentUrl().contains("/photo") || driver.getCurrentUrl().contains("/media/")) {
-                        System.out.println(" Vào nhầm chế độ View Ảnh -> Thoát.");
-                        forceEscape(actions);
-                        continue;
-                    }
 
-                    // TÌM CONTAINER
-                    WebElement container = null;
-                    boolean isDialog = false;
-                    try {
-                        List<WebElement> dialogs = driver.findElements(By.xpath("//div[@role='dialog']"));
-                        for(WebElement d : dialogs) {
-                            if(d.isDisplayed()) { container = d; isDialog = true; break; }
-                        }
-                        if (container == null) throw new Exception("No dialog");
-                    } catch (Exception e) {
-                        try {
-                            container = targetBtn.findElement(By.xpath("./ancestor::div[@role='article']"));
-                        } catch (Exception ex) {
-                            container = driver.findElement(By.tagName("body"));
-                        }
-                    }
-                    
-                    if (isDialog) {
-                        try { actions.moveToElement(container).click().perform(); } catch (Exception e) {}
-                    }
+                    if (!ensureSafePage(originalWindow)) continue;
 
-                    // BUNG XEM THÊM
-                    try {
-                        List<WebElement> seeMores = container.findElements(By.xpath(".//div[text()='Xem thêm']"));
-                        for(WebElement btn : seeMores) {
-                            js.executeScript("arguments[0].click();", btn);
-                            sleep(500);
-                        }
-                        sleep(1000);
-                    } catch (Exception e) {}
-                    
-                    // LẤY NỘI DUNG 
-                    String cleanContent = "";
-                    String rawTextForStats = getTextViaJS(container); // Lấy text gốc để đếm like/share
-                    
-                    try {
-                        
-                        WebElement msgDiv = container.findElement(By.xpath(".//div[@data-ad-comet-preview='message']"));
-                        cleanContent = getTextViaJS(msgDiv);
-                        System.out.println("   -> Đã lấy được từ thẻ Message chuẩn.");
-                    } catch (Exception e) {
-                        System.out.println("   -> Không thấy thẻ Message, lấy toàn bộ và lọc sơ.");
-                        cleanContent = simpleExtractContent(rawTextForStats);
-                    }
-                    
+                    WebElement container = getContainer(targetBtn);
+                    String rawTextForStats = getTextViaJS(container);
+
+                    // --- FIX UTF-8 ---
+                    String cleanContent = fixUTF8(rawTextForStats);
+
+                    // Debug log để check text trước khi preprocess / analyzer
+                    System.out.println("=== RAW TEXT ===");
+                    System.out.println(rawTextForStats);
+                    System.out.println("=== FIXED UTF-8 TEXT ===");
+                    System.out.println(cleanContent);
+
                     if (cleanContent.length() < 10) {
-                        System.out.println(" Nội dung quá ngắn (" + cleanContent.length() + " chars) -> Skip. (Raw: " + rawTextForStats.length() + ")");
-                        if (isDialog) forceEscape(actions);
+                        System.out.println("Nội dung quá ngắn -> Skip.");
                         continue;
                     }
 
@@ -128,52 +81,73 @@ public class FacebookCollector extends BaseSeleniumCollector {
                     post.setContent(cleanContent);
                     post.setPlatform("Facebook");
                     post.setDisasterName(disasterName);
-                    post.setShareCount(parseStrictShareCount(rawTextForStats));
-                    post.setTotalReactions(parseReactionCount(rawTextForStats));
-                    
-                    // LẤY COMMENT
+
+                    // --- xử lý comment ---
                     selectAllCommentsInContainer(container);
-                    
-                    System.out.println("   > Cuộn tải comment...");
-                    for(int k=0; k<3; k++) {
-                        if (isDialog) scrollModalDown(container);
-                        else js.executeScript("window.scrollBy(0, 500);");
-                        sleep(1500);
-                    }
                     expandRepliesInContainer(container);
-                    
+
                     List<WebElement> cmts = container.findElements(By.xpath(".//div[@dir='auto'] | .//span[@lang]"));
                     for (WebElement cmt : cmts) {
                         try {
-                            String t = getTextViaJS(cmt).trim(); 
+                            String t = fixUTF8(getTextViaJS(cmt)).trim();
                             if (t.isEmpty()) continue;
-                            if (cleanContent.contains(t) && t.length() > 30) continue; 
                             if (!isValidComment(t)) continue;
                             post.addComment(t);
                         } catch (StaleElementReferenceException ex) {}
                     }
-                    
+
                     post.removeDuplicateComments();
                     post.setCommentCount(post.getComments().size());
-                    
+
                     results.add(post);
                     System.out.println(" [LƯU " + results.size() + "/" + targetPosts + "] Len: " + cleanContent.length() + " | Cmt: " + post.getCommentCount());
-                    
-                    if (isDialog) forceEscape(actions);
+
                     scrollDown(700);
                     retryCount = 0;
 
                 } catch (Exception e) {
-                    System.out.println(" Lỗi: " + e.getMessage());
-                    forceEscape(actions);
+                    e.printStackTrace();
                 }
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return results;
+    }
+
+    // --- FIX UTF-8 chuẩn ---
+    private String fixUTF8(String s) {
+        if (s == null) return null;
+        // Facebook trả UTF-16 trong DOM, đọc Java String đã đúng, chỉ cần normalize
+        return java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFC);
+    }
+
+    private String getTextViaJS(WebElement element) {
+        try {
+            String raw = (String) js.executeScript("return arguments[0].innerText;", element);
+            return raw != null ? raw : "";
+        } catch (Exception e) {
+            return "";
+        }
+    }
+
+    // --- Giữ nguyên các hàm helper như selectAllCommentsInContainer, expandRepliesInContainer, scrollDown, ensureSafePage, isValidComment ---
+    // ... (copy từ code cũ)
+    
+    private WebElement getContainer(WebElement targetBtn) {
+        WebElement container = null;
+        try {
+            List<WebElement> dialogs = driver.findElements(By.xpath("//div[@role='dialog']"));
+            for (WebElement d : dialogs) {
+                if (d.isDisplayed()) { container = d; break; }
+            }
+            if (container == null) container = targetBtn.findElement(By.xpath("./ancestor::div[@role='article']"));
+        } catch (Exception e) {
+            container = driver.findElement(By.tagName("body"));
+        }
+        return container;
     }
 
     
@@ -266,9 +240,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
         }
     }
 
-    private String getTextViaJS(WebElement element) {
-        try { return (String) js.executeScript("return arguments[0].innerText;", element); } catch (Exception e) { return ""; }
-    }
     
     private boolean isValidComment(String text) {
         if (text.length() < 1) return false;
