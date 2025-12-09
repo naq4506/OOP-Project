@@ -19,7 +19,6 @@ public class SocialPost {
         this.comments.add(cmt);
     }
 
-    // LỌC TRÙNG COMMENT 
     public void removeDuplicateComments() {
         if (this.comments == null || this.comments.isEmpty()) return;
         Set<String> set = new LinkedHashSet<>(this.comments);

@@ -1,5 +1,6 @@
 package com.example.server.model;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -11,29 +12,34 @@ public class SocialPostEntity {
     private Long id;
     private String content;
     private LocalDateTime postDate;
-    private String platform; //source của ông tôi đổi thành platform nhé
+    private String platform; 
     private String disasterName;
     private List<String> keywords;
     private String sentiment;
-    private List<String> commentSentiments = new ArrayList<>();
     private String damageType;
     private String reliefItem;
-    // trường mới cho cào
     private int totalReactions;
     private int shareCount;
     private int commentCount;
+    
+    private int reactionLike = 0;
+    private int reactionLove = 0;
+    private int reactionHaha = 0;
+    private int reactionWow = 0;
+    private int reactionSad = 0;
+    private int reactionAngry = 0;
+    private int reactionCare = 0; 
+   
     private List<String> comments = new ArrayList<>(); 
 
     public SocialPostEntity() { }
 
     
-    // thêm comment vào list
     public void addComment(String cmt) {
         if (this.comments == null) this.comments = new ArrayList<>();
         this.comments.add(cmt);
     }
 
-    // xóa comment trùng
     public void removeDuplicateComments() {
         if (this.comments == null || this.comments.isEmpty()) return;
         Set<String> set = new LinkedHashSet<>(this.comments);
@@ -41,7 +47,6 @@ public class SocialPostEntity {
         this.comments.addAll(set);
     }
 
-    // chuyển list comment thành chuỗi để lưu CSV
     public String getCommentsAsCsvString() {
         if (comments == null || comments.isEmpty()) return "";
         return comments.stream().collect(Collectors.joining(" ||| "));
@@ -138,13 +143,6 @@ public class SocialPostEntity {
     { 
     	this.sentiment = sentiment; 
     }
-    public List<String> getCommentSentiments() {
-        return commentSentiments;
-    }
-
-    public void setCommentSentiments(List<String> sentiments) {
-        this.commentSentiments = sentiments;
-    }
     public String getDamageType() 
     { 
     	return damageType; 
@@ -162,11 +160,34 @@ public class SocialPostEntity {
     	this.reliefItem = reliefItem; 
     }
 
+    public int getReactionLike() { return reactionLike; }
+    public void setReactionLike(int reactionLike) { this.reactionLike = reactionLike; }
+
+    public int getReactionLove() { return reactionLove; }
+    public void setReactionLove(int reactionLove) { this.reactionLove = reactionLove; }
+
+    public int getReactionHaha() { return reactionHaha; }
+    public void setReactionHaha(int reactionHaha) { this.reactionHaha = reactionHaha; }
+
+    public int getReactionWow() { return reactionWow; }
+    public void setReactionWow(int reactionWow) { this.reactionWow = reactionWow; }
+
+    public int getReactionSad() { return reactionSad; }
+    public void setReactionSad(int reactionSad) { this.reactionSad = reactionSad; }
+
+    public int getReactionAngry() { return reactionAngry; }
+    public void setReactionAngry(int reactionAngry) { this.reactionAngry = reactionAngry; }
+    
+    public int getReactionCare() { return reactionCare; }
+    public void setReactionCare(int reactionCare) { this.reactionCare = reactionCare; }
+
     @Override
     public String toString() {
         return "SocialPostEntity{" +
                 "content='" + (content != null && content.length() > 20 ? content.substring(0, 20) + "..." : content) + '\'' +
-                ", reacts=" + totalReactions +
+                ", date=" + postDate +
+                ", likes=" + reactionLike +
+                ", angry=" + reactionAngry +
                 ", shares=" + shareCount +
                 ", cmts=" + (comments != null ? comments.size() : 0) +
                 '}';
