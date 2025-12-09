@@ -1,5 +1,7 @@
 package com.example.server.dto;
 
+import java.util.List;
+
 public class AnalysisRequest {
 
     private String disasterName;
@@ -7,6 +9,7 @@ public class AnalysisRequest {
     private String endDate;
     private String keyword;
     private String analysisType;
+    private List<String> platforms;
 
     public String getDisasterName() {
         return disasterName; 
@@ -41,5 +44,9 @@ public class AnalysisRequest {
     }
     public void setAnalysisType(String analysisType) { 
         this.analysisType = analysisType; 
+    }
+
+    public List<String> getPlatforms() {
+        return platforms;
     }
 }

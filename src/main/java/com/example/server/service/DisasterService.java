@@ -65,8 +65,8 @@ public class DisasterService {
 
         // Lấy danh sách analyzer client muốn chạy
         List<String> requestedAnalyzers = new ArrayList<>();
-        if (request.getAnalyzers() != null && !request.getAnalyzers().isEmpty()) {
-            requestedAnalyzers.addAll(request.getAnalyzers());
+        if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
+            requestedAnalyzers.add(request.getAnalysisType());
         } else if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
             requestedAnalyzers.add(request.getAnalysisType());
         } else {
@@ -117,7 +117,12 @@ public class DisasterService {
                 Collector collector = CollectorFactory.getCollector(platform);
                 if (collector == null) continue;
 
-                List<SocialPostEntity> posts = collector.collect(disasterName, keyword, startDate, endDate);
+                List<SocialPostEntity> posts = collector.collect(
+                    disasterName,
+                    keyword,
+                    startDate.atStartOfDay(),
+                    endDate.atTime(23, 59, 59)
+                );
                 if (preprocess != null) {
                     posts = preprocess.clean(posts);
                 }

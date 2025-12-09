@@ -2,7 +2,6 @@ package com.example.server.service.collector;
 
 import com.example.server.service.collector.impl.FacebookCollector;
 //import com.example.server.service.collector.impl.InstagramCollector;
-import com.example.server.service.collector.impl.MockCollector;
 import com.example.server.service.collector.impl.ThreadsCollector;
 
 public class CollectorFactory {
@@ -21,16 +20,7 @@ public class CollectorFactory {
         {
         	return new ThreadsCollector();
         }
-        
-        
-//        else if (platform.equalsIgnoreCase("instagram")) {
-//            return new InstagramCollector();
-//        }
-//        
-        else if (platform.equalsIgnoreCase("mock") || platform.equalsIgnoreCase("test")) {
-            return new MockCollector();
-        }
-        
         return null;
+        
     }
 }

@@ -21,6 +21,7 @@ public class SocialPostEntity {
     private int totalReactions;
     private int shareCount;
     private int commentCount;
+    private List<String> commentSentiments;
     
     private int reactionLike = 0;
     private int reactionLove = 0;
@@ -180,6 +181,14 @@ public class SocialPostEntity {
     
     public int getReactionCare() { return reactionCare; }
     public void setReactionCare(int reactionCare) { this.reactionCare = reactionCare; }
+
+    public List<String> getCommentSentiments() {
+        return commentSentiments;
+    }
+
+    public void setCommentSentiments(List<String> sentiments) {
+        this.commentSentiments = sentiments;
+    }
 
     @Override
     public String toString() {

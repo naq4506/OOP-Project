@@ -6,4 +6,4 @@ import java.util.List;
 
 public interface Collector {
 	List<SocialPostEntity> collect(String disasterName, String keyword, LocalDateTime startDate, LocalDateTime endDate);
-	}
+}
