@@ -26,7 +26,8 @@ public class FacebookCollector extends BaseSeleniumCollector {
         System.out.println(">>> [Facebook] Bắt đầu cào: " + keyword);
 
         try {
-            String searchUrl = "https://www.facebook.com/search/posts/?q=" + keyword.replace(" ", "%20");
+            String query = (keyword + " " + disasterName).trim();
+            String searchUrl = "https://www.facebook.com/search/posts/?q=" + query.replace(" ", "%20");
             driver.get(searchUrl);
             sleep(5000);
 
