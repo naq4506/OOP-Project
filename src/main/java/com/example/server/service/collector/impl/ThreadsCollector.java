@@ -21,10 +21,8 @@ public class ThreadsCollector extends BaseSeleniumCollector {
     private static final int MAX_POSTS_TO_COLLECT = 10; 
     private static final int MAX_COMMENTS_PER_POST = 200;
 
-    // Regex bắt số (VD: 9,2K | 246 | 1.5M)
     private static final Pattern METRIC_TOKEN_PATTERN = Pattern.compile("^[\\d.,]+[KkMmBbtTỷ]?$");
     
-    // Regex ngày tháng
     private static final Pattern DATE_GLOBAL_PATTERN = Pattern.compile("(\\d{1,2}[/-]\\d{1,2}[/-]\\d{4})|([A-Z][a-z]{2}\\s\\d{1,2},\\s\\d{4})");
     private static final Pattern RELATIVE_TIME_PATTERN = Pattern.compile("(\\d+)\\s*(h|giờ|m|phút|d|ngày|w|tuần|y|năm)");
 
@@ -42,7 +40,6 @@ public class ThreadsCollector extends BaseSeleniumCollector {
             long maxDuration = 300000; 
 
             while (results.size() < MAX_POSTS_TO_COLLECT && (System.currentTimeMillis() - startTime) < maxDuration) {
-                // Lấy các bài post
                 List<WebElement> postElements = driver.findElements(By.xpath("//div[contains(@class, 'x1a2a7pz')][.//a[contains(@href, '/post/')]]"));
                 int postsBefore = results.size();
 
@@ -56,15 +53,12 @@ public class ThreadsCollector extends BaseSeleniumCollector {
 
                             if (isWithinRange) {
                                 if (!isDuplicate(results, post)) {
-                                    // Lấy link để cào comment
                                     WebElement linkEl = container.findElement(By.xpath(".//a[contains(@href, '/post/')]"));
                                     String postUrl = linkEl.getAttribute("href");
                                     
-                                    // Cào comment
                                     List<String> comments = crawlCommentsSmart(postUrl, post.getContent());
                                     post.setCommentSentiments(comments);
                                     
-                                    // Nếu cào được comment thực tế nhiều hơn số hiển thị thì update lại
                                     if (comments.size() > post.getCommentCount()) {
                                         post.setCommentCount(comments.size());
                                     }
@@ -75,7 +69,7 @@ public class ThreadsCollector extends BaseSeleniumCollector {
                                             post.getReactionLike(),
                                             post.getCommentCount(),
                                             post.getShareCount(),
-                                            post.getShareCount() // Tạm log chung
+                                            post.getShareCount() 
                                     ));
                                 }
                             }
@@ -101,7 +95,6 @@ public class ThreadsCollector extends BaseSeleniumCollector {
 
         try {
             String fullText = container.getText().trim();
-            // Tách các từ bằng dấu xuống dòng hoặc khoảng trắng
             String[] tokens = fullText.split("[\\n\\s]+");
             int n = tokens.length;
 
@@ -112,43 +105,33 @@ public class ThreadsCollector extends BaseSeleniumCollector {
             
             String content = fullText;
 
-            // --- LOGIC XỬ LÝ 3 HOẶC 4 SỐ CUỐI ---
-            
-            // Case 1: 4 token cuối đều là số/metric (Like - Cmt - Repost - Share)
             if (n >= 4 && isMetric(tokens[n-4]) && isMetric(tokens[n-3]) && isMetric(tokens[n-2]) && isMetric(tokens[n-1])) {
                 like = parseMetric(tokens[n-4]);
                 cmt = parseMetric(tokens[n-3]);
                 repost = parseMetric(tokens[n-2]);
                 share = parseMetric(tokens[n-1]);
                 
-                // Cắt bỏ 4 token cuối khỏi content
                 content = removeTailTokens(fullText, tokens[n-4]);
             }
-            // Case 2: 3 token cuối là số (Like - Cmt - Share) -> Repost = 0
             else if (n >= 3 && isMetric(tokens[n-3]) && isMetric(tokens[n-2]) && isMetric(tokens[n-1])) {
                 like = parseMetric(tokens[n-3]);
                 cmt = parseMetric(tokens[n-2]);
                 share = parseMetric(tokens[n-1]);
                 repost = 0;
                 
-                // Cắt bỏ 3 token cuối khỏi content
                 content = removeTailTokens(fullText, tokens[n-3]);
             }
             else {
-                // Fallback: Nếu không tìm thấy pattern số ở cuối, random nhẹ Like
                 like = ThreadLocalRandom.current().nextInt(10, 50);
             }
 
-            // Cộng dồn Repost vào Share (theo yêu cầu của bạn Share tổng hợp)
             post.setReactionLike(like);
             post.setTotalReactions(like);
             post.setCommentCount(cmt);
-            post.setShareCount(share + repost); // Share = Share + Repost
+            post.setShareCount(share + repost); 
 
-            // Xử lý Content và Ngày tháng
             post.setContent(cleanText(content));
             
-            // Parse Date
             post.setPostDate(extractDate(fullText));
 
             return post;
@@ -171,7 +154,7 @@ public class ThreadsCollector extends BaseSeleniumCollector {
 
     private int parseMetric(String text) {
         if (text == null) return 0;
-        text = text.replace(",", "."); // Đổi 9,2K -> 9.2K
+        text = text.replace(",", "."); 
         Pattern p = Pattern.compile("([\\d.]+)([KkMmBbtTỷ]?)");
         Matcher m = p.matcher(text);
         if (m.find()) {
@@ -205,7 +188,6 @@ public class ThreadsCollector extends BaseSeleniumCollector {
         return LocalDateTime.now();
     }
     
-    // --- COMMENT CRAWLER (Đã thêm lọc số rác) ---
     private List<String> crawlCommentsSmart(String postUrl, String parentContent) {
         Set<String> uniqueComments = new HashSet<>();
         String originalWindow = driver.getWindowHandle();
@@ -213,7 +195,7 @@ public class ThreadsCollector extends BaseSeleniumCollector {
             driver.switchTo().newWindow(WindowType.TAB);
             driver.get(postUrl);
             sleep(2500);
-            scrollDown(1000); // Kích hoạt load comment
+            scrollDown(1000); 
 
             List<WebElement> commentEls = driver.findElements(By.xpath("//div[@data-pressable-container='true']//span[@dir='auto']"));
 
@@ -223,12 +205,10 @@ public class ThreadsCollector extends BaseSeleniumCollector {
                 if (uniqueComments.size() >= MAX_COMMENTS_PER_POST) break;
                 String raw = el.getText().trim();
                 
-                // Lọc rác: Bỏ qua nếu là số thuần túy (VD: "150", "1,2K") -> Đây là metrics của cmt
                 if (isMetric(raw)) continue; 
                 if (!isValidComment(raw)) continue;
                 
                 String clean = cleanText(raw);
-                // Bỏ trùng với content gốc
                 if (clean.length() > 10 && cleanParent.contains(clean)) continue;
                 
                 uniqueComments.add(clean);
@@ -240,24 +220,20 @@ public class ThreadsCollector extends BaseSeleniumCollector {
         return new ArrayList<>(uniqueComments);
     }
 
-    // --- UTILS ---
 
     private boolean isValidComment(String text) {
         if (text.length() < 2) return false;
         String lower = text.toLowerCase();
         if (lower.equals("trả lời") || lower.equals("reply")) return false;
-        // Bỏ ngày tháng (VD: 6 ngày)
         if (text.matches("^\\d+\\s*(h|m|d|y|w|giờ|phút|ngày|tuần|năm)$")) return false;
         return true;
     }
 
     private String cleanText(String input) {
         if (input == null) return "";
-        // Replace xuống dòng bằng dấu chấm
         return input.replace("\n", ". ").replace("\r", " ").replace("\"", "'").trim();
     }
 
-    // --- DATE PARSERS (GIỮ NGUYÊN) ---
     private LocalDateTime parseStrictDateVN(String dateStr) {
         try {
             dateStr = dateStr.replace("-", "/");

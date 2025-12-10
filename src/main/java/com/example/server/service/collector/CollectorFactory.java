@@ -1,7 +1,7 @@
 package com.example.server.service.collector;
 
 import com.example.server.service.collector.impl.FacebookCollector;
-//import com.example.server.service.collector.impl.InstagramCollector;
+import com.example.server.service.collector.impl.InstagramCollector;
 import com.example.server.service.collector.impl.MockCollector;
 import com.example.server.service.collector.impl.ThreadsCollector;
 
@@ -23,13 +23,27 @@ public class CollectorFactory {
         }
         
         
-//        else if (platform.equalsIgnoreCase("instagram")) {
-//            return new InstagramCollector();
-//        }
+        else if (platform.equalsIgnoreCase("instagram")) {
+            return new InstagramCollector();
+        }
+        
         
 //      else if (platform.equalsIgnoreCase("X")) {
 //      return new XCollector();
 //  }
+        
+        
+  //      else if (platform.equalsIgnoreCase("Dan Tri")) {
+//          return new DanTriCollector();
+    //  }
+        
+        
+//      else if (platform.equalsIgnoreCase("Youtube")) {
+//      return new YoutubeCollector();
+//  }
+        
+        
+    
         
         else if (platform.equalsIgnoreCase("mock") || platform.equalsIgnoreCase("test")) {
             return new MockCollector();

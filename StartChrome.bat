@@ -49,4 +49,4 @@ start "" "%CHROME_PATH%" --remote-debugging-port=9222 --user-data-dir="%~dp0Chro
 echo ... Chrome da mo xong! Hay lam theo huong dan tren.
 pause
 --no-first-run
---no-default-browser-check
+--no-default-browser-checks
