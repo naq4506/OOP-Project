@@ -4,6 +4,7 @@ import com.example.server.service.collector.impl.FacebookCollector;
 import com.example.server.service.collector.impl.InstagramCollector;
 import com.example.server.service.collector.impl.MockCollector;
 import com.example.server.service.collector.impl.ThreadsCollector;
+import com.example.server.service.collector.impl.XCollector;
 
 public class CollectorFactory {
 
@@ -28,9 +29,9 @@ public class CollectorFactory {
         }
         
         
-//      else if (platform.equalsIgnoreCase("X")) {
-//      return new XCollector();
-//  }
+        else if (platform.equalsIgnoreCase("x") || platform.equalsIgnoreCase("twitter")) {
+            return new XCollector();
+        }
         
         
   //      else if (platform.equalsIgnoreCase("Dan Tri")) {

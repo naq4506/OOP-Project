@@ -5,14 +5,16 @@ import com.example.server.service.collector.BaseSeleniumCollector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WindowType;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,6 +23,9 @@ public class InstagramCollector extends BaseSeleniumCollector {
 
     private static final String TAG_URL = "https://www.instagram.com/explore/tags/";
     private static final int MAX_POSTS = 10;
+    
+    private static final int BATCH_CHAR_LIMIT = 800; 
+    private static final String BATCH_DELIMITER = "\n"; 
     
     private static final Pattern NUMBER_PATTERN = Pattern.compile("([\\d.,]+)[KkMm]?");
 
@@ -31,7 +36,7 @@ public class InstagramCollector extends BaseSeleniumCollector {
 
         try {
             String hashtag = normalizeToHashtag(keyword);
-            System.out.println(">>> [Instagram V2] Auto Mode. Hashtag: #" + hashtag);
+            System.out.println(">>> [Instagram V5] Fix URL Limit & Translate All. Hashtag: #" + hashtag);
             
             driver.get(TAG_URL + hashtag + "/");
             sleep(5000); 
@@ -50,12 +55,12 @@ public class InstagramCollector extends BaseSeleniumCollector {
             long startTime = System.currentTimeMillis();
             
             while (results.size() < MAX_POSTS && retry < 10) {
-                if (System.currentTimeMillis() - startTime > 300000) break;
+                if (System.currentTimeMillis() - startTime > 600000) break;
 
                 try {
                     WebElement article = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//article[@role='presentation'] | //article")));
                     
-                    expandComments(article);
+                    expandContent(article);
 
                     SocialPostEntity post = parseInstagramPost(article, disasterName);
                     
@@ -64,10 +69,26 @@ public class InstagramCollector extends BaseSeleniumCollector {
                         
                         if (isWithinRange) {
                             if (!isDuplicate(results, post)) {
+                                
+                                if (post.getContent() != null && post.getContent().length() > 5 && !post.getContent().equals("[Image Only]")) {
+                                    String translatedCap = translateViaGoogle(post.getContent(), false); 
+                                    if (translatedCap != null && !translatedCap.isEmpty()) {
+                                        post.setContent(translatedCap);
+                                    }
+                                }
+
+                                List<String> originalCmts = post.getCommentSentiments();
+                                if (originalCmts != null && !originalCmts.isEmpty()) {
+                                    System.out.print("   [~] Dịch " + originalCmts.size() + " comments... ");
+                                    List<String> translatedCmts = translateBatchComments(originalCmts);
+                                    post.setCommentSentiments(translatedCmts);
+                                    System.out.println("Xong.");
+                                }
+
                                 results.add(post);
-                                System.out.println(String.format(" [+] Insta #%d: %s... | Like: %d | Cmt: %d", 
+                                System.out.println(String.format(" [+] #%d: %s... | Like: %d | Cmt: %d", 
                                         results.size(),
-                                        post.getContent().length() > 15 ? post.getContent().substring(0, 15) : post.getContent(),
+                                        post.getContent().length() > 20 ? post.getContent().substring(0, 20).replace("\n", " ") : post.getContent(),
                                         post.getReactionLike(),
                                         post.getCommentCount()));
                                 retry = 0;
@@ -77,7 +98,7 @@ public class InstagramCollector extends BaseSeleniumCollector {
 
                     WebElement body = driver.findElement(By.tagName("body"));
                     body.sendKeys(Keys.ARROW_RIGHT);
-                    sleep(2000 + ThreadLocalRandom.current().nextInt(2000));
+                    sleep(2000 + ThreadLocalRandom.current().nextInt(1500));
 
                 } catch (Exception e) {
                     System.out.println(" (!) Lỗi parse/next. Thử tiếp...");
@@ -94,21 +115,83 @@ public class InstagramCollector extends BaseSeleniumCollector {
 
         return results;
     }
-    
-    private void expandComments(WebElement article) {
-        try {
-            List<WebElement> expandBtns = article.findElements(By.xpath(".//span[contains(text(), 'Xem câu trả lời') or contains(text(), 'View replies') or contains(text(), 'Xem thêm bình luận')]"));
+
+    private List<String> translateBatchComments(List<String> comments) {
+        List<String> finalResult = new ArrayList<>();
+        StringBuilder buffer = new StringBuilder();
+        int currentBufferLen = 0;
+        
+        for (String cmt : comments) {
+            String safeCmt = cmt.replace("\n", ". ").replace("\r", "");
             
-            int clicked = 0;
-            for (WebElement btn : expandBtns) {
-                if (clicked >= 5) break; 
-                try {
-                    btn.click();
-                    sleep(1000); 
-                    clicked++;
-                } catch (Exception e) {}
+            int estimatedLen = (int) (safeCmt.length() * 1.5);
+
+            if (currentBufferLen + estimatedLen > BATCH_CHAR_LIMIT) {
+                String translatedChunk = translateViaGoogle(buffer.toString(), true); // true = force translate
+                if (translatedChunk != null) {
+                    String[] parts = translatedChunk.split("\\n");
+                    for (String p : parts) {
+                        if (!p.trim().isEmpty()) finalResult.add(p.trim());
+                    }
+                }
+                buffer.setLength(0);
+                currentBufferLen = 0;
             }
-        } catch (Exception e) {}
+            
+            if (buffer.length() > 0) buffer.append(BATCH_DELIMITER);
+            buffer.append(safeCmt);
+            currentBufferLen += estimatedLen;
+        }
+        
+        if (buffer.length() > 0) {
+            String translatedChunk = translateViaGoogle(buffer.toString(), true);
+            if (translatedChunk != null) {
+                String[] parts = translatedChunk.split("\\n");
+                for (String p : parts) {
+                     if (!p.trim().isEmpty()) finalResult.add(p.trim());
+                }
+            }
+        }
+        
+        if (finalResult.isEmpty() && !comments.isEmpty()) return comments;
+        
+        return finalResult;
+    }
+
+    private String translateViaGoogle(String text, boolean forceTranslate) {
+        if (text == null || text.trim().isEmpty()) return text;
+        
+        if (!forceTranslate && text.matches(".*[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ].*")) {
+            return text; 
+        }
+
+        String originalTab = driver.getWindowHandle();
+        String result = text; 
+
+        try {
+            driver.switchTo().newWindow(WindowType.TAB);
+            String url = "https://translate.google.com/?sl=auto&tl=vi&text=" + URLEncoder.encode(text, StandardCharsets.UTF_8) + "&op=translate";
+         
+            driver.get(url);
+
+            try {
+                WebElement resBox = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[@jsname='W297wb'] | //span[contains(@class, 'ryNqvb')]")));
+                result = resBox.getText();
+            } catch (Exception e) {
+                 try {
+                     List<WebElement> spans = driver.findElements(By.xpath("//div[@data-language='vi']//span"));
+                     StringBuilder sb = new StringBuilder();
+                     for(WebElement s : spans) sb.append(s.getText());
+                     if (sb.length() > 0) result = sb.toString();
+                 } catch (Exception ex) {}
+            }
+            sleep(2000 + ThreadLocalRandom.current().nextInt(500));
+
+        } catch (Exception e) {
+        } finally {
+            try { driver.close(); driver.switchTo().window(originalTab); } catch (Exception e) {}
+        }
+        return result;
     }
 
     private SocialPostEntity parseInstagramPost(WebElement article, String disasterName) {
@@ -128,35 +211,27 @@ public class InstagramCollector extends BaseSeleniumCollector {
                 post.setPostDate(LocalDateTime.now());
             }
 
-            Set<String> validTexts = new HashSet<>(); 
+            String caption = "[Image Only]";
             try {
-                List<WebElement> userTexts = article.findElements(By.xpath(".//h1 | .//ul//span[@dir='auto'] | .//ul//span[not(@class)]"));
-                
-                for (WebElement el : userTexts) {
+                List<WebElement> h1s = article.findElements(By.xpath(".//h1"));
+                if (!h1s.isEmpty()) {
+                    caption = cleanText(h1s.get(0).getText());
+                } else {
+                    WebElement ownerText = article.findElement(By.xpath(".//div[@role='button']/following-sibling::div/span | .//ul/preceding-sibling::div//span"));
+                    caption = cleanText(ownerText.getText());
+                }
+            } catch (Exception e) {}
+            post.setContent(caption);
+
+            try {
+                List<WebElement> commentEls = article.findElements(By.xpath(".//ul//span[@dir='auto'] | .//ul//span[not(@class)]"));
+                for (WebElement el : commentEls) {
                     String t = cleanText(el.getText());
-                    if (isValidComment(t)) {
-                        validTexts.add(t);
+                    if (isValidComment(t) && !t.equals(caption)) {
+                        post.addCommentSentiments(t);
                     }
                 }
             } catch (Exception e) {}
-
-            List<String> textList = new ArrayList<>(validTexts);
-            
-            if (!textList.isEmpty()) {
-                String caption = textList.get(0);
-                post.setContent(caption);
-                
-                for (int i = 1; i < textList.size(); i++) {
-                    post.addCommentSentiments(textList.get(i));
-                }
-            } else {
-                try {
-                   String alt = article.findElement(By.xpath(".//img")).getAttribute("alt");
-                   post.setContent(cleanText(alt));
-                } catch (Exception ex) {
-                   post.setContent("[Image Only]");
-                }
-            }
             post.setCommentCount(post.getCommentSentiments().size());
 
             int likes = 0;
@@ -170,7 +245,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
                     }
                 }
             } catch (Exception e) {}
-            
             if (likes == 0) likes = ThreadLocalRandom.current().nextInt(100, 1000);
             
             post.setReactionLike(likes);
@@ -178,24 +252,34 @@ public class InstagramCollector extends BaseSeleniumCollector {
             post.setShareCount(0); 
 
             return post;
-
         } catch (Exception e) {
             return null;
         }
     }
 
+    private void expandContent(WebElement article) {
+        try {
+            List<WebElement> moreBtns = article.findElements(By.xpath(".//span[contains(text(), 'more') or contains(text(), 'Xem thêm')]"));
+            for (WebElement btn : moreBtns) { if(btn.isDisplayed()) try { btn.click(); sleep(500); } catch(Exception e){} }
+
+            List<WebElement> expandBtns = article.findElements(By.xpath(".//span[contains(text(), 'Xem câu trả lời') or contains(text(), 'View replies') or contains(text(), 'Xem thêm bình luận')]"));
+            int clicked = 0;
+            for (WebElement btn : expandBtns) {
+                if (clicked >= 5) break; 
+                try { btn.click(); sleep(1000); clicked++; } catch (Exception e) {}
+            }
+        } catch (Exception e) {}
+    }
+
     private boolean isValidComment(String text) {
         if (text == null || text.length() < 2) return false;
-        
         if (text.matches("^\\d+\\s*(tuần|ngày|giờ|phút|giây|năm|tháng|w|d|h|m|s|y).*")) return false;
-        
         String lower = text.toLowerCase();
         if (lower.contains("trả lời") || lower.contains("reply")) return false;
         if (lower.contains("xem bản dịch") || lower.contains("see translation")) return false;
         if (lower.contains("đã chỉnh sửa") || lower.contains("edited")) return false;
         if (lower.contains("xem thêm") || lower.contains("view more")) return false;
-        if (lower.contains("lượt thích")) return false; // Ví dụ "1 lượt thích" dính vào comment
-
+        if (lower.contains("lượt thích")) return false; 
         return true;
     }
     
