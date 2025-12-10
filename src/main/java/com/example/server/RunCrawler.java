@@ -21,7 +21,7 @@ public class RunCrawler {
         final LocalDateTime END_DATE = LocalDateTime.now();  
         
         try {
-            Collector bot = CollectorFactory.getCollector("facebook");
+            Collector bot = CollectorFactory.getCollector("threads");
             
             if (bot == null) {
                 System.err.println("Chưa config bot 'threads' trong Factory!");
@@ -38,7 +38,8 @@ public class RunCrawler {
             System.out.println(">>> Tổng bài lấy được: " + results.size());
             
             if (!results.isEmpty()) {
-                DataExporter.saveToCsv(results, "data/facebook_data.csv");
+                DataExporter.saveToCsv(results, "data/threads_data.csv");
+                DataExporter.saveToTxtReport(results, "data/threads_data.txt");
             }
 
         } catch (Exception e) {

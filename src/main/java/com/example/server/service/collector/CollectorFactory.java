@@ -26,7 +26,11 @@ public class CollectorFactory {
 //        else if (platform.equalsIgnoreCase("instagram")) {
 //            return new InstagramCollector();
 //        }
-//        
+        
+//      else if (platform.equalsIgnoreCase("X")) {
+//      return new XCollector();
+//  }
+        
         else if (platform.equalsIgnoreCase("mock") || platform.equalsIgnoreCase("test")) {
             return new MockCollector();
         }

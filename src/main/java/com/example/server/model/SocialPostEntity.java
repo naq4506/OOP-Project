@@ -30,26 +30,28 @@ public class SocialPostEntity {
     private int reactionAngry = 0;
     private int reactionCare = 0; 
    
-    private List<String> comments = new ArrayList<>(); 
+    private List<String> commentSentiments  = new ArrayList<>(); 
 
     public SocialPostEntity() { }
 
     
-    public void addComment(String cmt) {
-        if (this.comments == null) this.comments = new ArrayList<>();
-        this.comments.add(cmt);
+    public void addCommentSentiments(String cmt) {
+        if (this.commentSentiments == null) this.commentSentiments = new ArrayList<>();
+        this.commentSentiments.add(cmt);
     }
-
+    public List<String> getComments() {
+        return this.commentSentiments;
+    }
     public void removeDuplicateComments() {
-        if (this.comments == null || this.comments.isEmpty()) return;
-        Set<String> set = new LinkedHashSet<>(this.comments);
-        this.comments.clear();
-        this.comments.addAll(set);
+        if (this.commentSentiments == null || this.commentSentiments.isEmpty()) return;
+        Set<String> set = new LinkedHashSet<>(this.commentSentiments);
+        this.commentSentiments.clear();
+        this.commentSentiments.addAll(set);
     }
 
     public String getCommentsAsCsvString() {
-        if (comments == null || comments.isEmpty()) return "";
-        return comments.stream().collect(Collectors.joining(" ||| "));
+        if (commentSentiments == null || commentSentiments.isEmpty()) return "";
+        return commentSentiments.stream().collect(Collectors.joining(" ||| "));
     }
 
     public void setPlatform(String platform) 
@@ -86,13 +88,13 @@ public class SocialPostEntity {
     	this.commentCount = commentCount; 
     }
 
-    public List<String> getComments() 
+    public List<String> getCommentSentiments() 
     { 
-    	return comments; 
+    	return commentSentiments; 
     }
-    public void setComments(List<String> comments) 
+    public void setCommentSentiments(List<String> comments) 
     { 
-    	this.comments = comments; 
+    	this.commentSentiments = comments; 
     }
 
     public Long getId() 
@@ -189,7 +191,7 @@ public class SocialPostEntity {
                 ", likes=" + reactionLike +
                 ", angry=" + reactionAngry +
                 ", shares=" + shareCount +
-                ", cmts=" + (comments != null ? comments.size() : 0) +
+                ", cmts=" + (commentSentiments != null ? commentSentiments.size() : 0) +
                 '}';
     }
 }

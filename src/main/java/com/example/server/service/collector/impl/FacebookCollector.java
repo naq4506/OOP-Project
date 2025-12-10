@@ -141,12 +141,12 @@ public class FacebookCollector extends BaseSeleniumCollector {
                             if (t.isEmpty()) continue;
                             if (cleanContent.contains(t) && t.length() > 20) continue; 
                             if (!isValidCommentBilingual(t)) continue; 
-                            post.addComment(t);
+                            post.addCommentSentiments(t);
                         } catch (StaleElementReferenceException ex) {}
                     }
                     
                     post.removeDuplicateComments();
-                    post.setCommentCount(post.getComments().size());
+                    post.setCommentCount(post.getCommentSentiments().size());
                     
                     results.add(post);
                     System.out.println(" [LƯU " + results.size() + "] Date: " + post.getPostDate().toLocalDate() + 
