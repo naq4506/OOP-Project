@@ -1,0 +1,22 @@
+=== BÁO CÁO DỮ LIỆU CHI TIẾT (FULL) ===
+Ngày xuất: 2025-12-13
+Tổng số bài: 2
+
+--------------------------------------------------
+BÀI VIẾT #1 (Ngày: 2025-12-13):
+Cần cứu trợ gấp tại khu vực A
+
+[TỔNG QUAN] React: 0, Comments: 0, Shares: 0
+[REACTIONS CHI TIẾT] Like: 0, Sad: 0
+[DANH SÁCH COMMENT]:
+   (Không có comment)
+
+--------------------------------------------------
+BÀI VIẾT #2 (Ngày: 2025-12-13):
+Mọi người bình tĩnh, nước đang rút
+
+[TỔNG QUAN] React: 0, Comments: 0, Shares: 0
+[REACTIONS CHI TIẾT] Like: 0, Sad: 0
+[DANH SÁCH COMMENT]:
+   (Không có comment)
+

@@ -10,6 +10,7 @@ import com.example.server.service.analyzer.Analyzer;
 import com.example.server.service.analyzer.AnalyzerFactory;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,8 +108,8 @@ public class DisasterService {
     private List<SocialPostEntity> collectAndPreprocess(AnalysisRequest request) {
         List<SocialPostEntity> allPosts = new ArrayList<>();
 
-        LocalDate startDate = LocalDate.parse(request.getStartDate());
-        LocalDate endDate = LocalDate.parse(request.getEndDate());
+        LocalDateTime startDate = LocalDate.parse(request.getStartDate()).atStartOfDay();
+        LocalDateTime endDate = LocalDate.parse(request.getEndDate()).atTime(23, 59, 59);
         String disasterName = request.getDisasterName();
         String keyword = request.getKeyword() != null ? request.getKeyword() : "";
 

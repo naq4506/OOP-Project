@@ -127,7 +127,7 @@ public class InstagramCollector extends BaseSeleniumCollector {
             int estimatedLen = (int) (safeCmt.length() * 1.5);
 
             if (currentBufferLen + estimatedLen > BATCH_CHAR_LIMIT) {
-                String translatedChunk = translateViaGoogle(buffer.toString(), true); // true = force translate
+                String translatedChunk = translateViaGoogle(buffer.toString(), true);
                 if (translatedChunk != null) {
                     String[] parts = translatedChunk.split("\\n");
                     for (String p : parts) {

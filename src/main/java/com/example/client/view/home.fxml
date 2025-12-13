@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane fx:id="rootPane" prefHeight="600.0" prefWidth="800.0" styleClass="intro-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.HomeController">
+   
+   <VBox alignment="CENTER" spacing="30.0" styleClass="overlay-pane">
+      <children>
+         <Label styleClass="did-you-know-label" text="BẠN CÓ BIẾT?" />
+         
+         <Label styleClass="fact-text" text="Năm 2024, thế giới chứng kiến sự gia tăng kỷ lục về tần suất các thảm họa thiên nhiên. Từ bão Yagi tàn phá cơ sở hạ tầng đến lũ lụt chia cắt hàng triệu người. Logistics nhân đạo không chỉ là vận chuyển, đó là ranh giới giữa sự sống và cái chết." />
+         
+         <Label style="-fx-font-size: 14px; -fx-text-fill: #aaa; -fx-font-style: italic;" text="&quot;Dữ liệu mạng xã hội là chìa khóa để cứu trợ nhanh hơn, đúng chỗ hơn.&quot;" />
+         
+         <Button onAction="#onExploreClick" styleClass="explore-button" text="KHÁM PHÁ NGAY ➔" />
+      </children>
+      <padding>
+         <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+      </padding>
+   </VBox>
+</StackPane>

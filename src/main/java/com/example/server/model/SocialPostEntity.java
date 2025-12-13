@@ -33,7 +33,9 @@ public class SocialPostEntity {
     private List<String> commentSentiments  = new ArrayList<>(); 
 
     public SocialPostEntity() { }
-
+    public void setComments(List<String> comments) {
+        this.commentSentiments = comments; // Lưu ý: map vào biến commentSentiments có sẵn
+    }
     
     public void addCommentSentiments(String cmt) {
         if (this.commentSentiments == null) this.commentSentiments = new ArrayList<>();
@@ -42,6 +44,7 @@ public class SocialPostEntity {
     public List<String> getComments() {
         return this.commentSentiments;
     }
+   
     public void removeDuplicateComments() {
         if (this.commentSentiments == null || this.commentSentiments.isEmpty()) return;
         Set<String> set = new LinkedHashSet<>(this.commentSentiments);

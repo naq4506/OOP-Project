@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="CENTER" spacing="40.0" styleClass="menu-background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.MenuController">
+   
+   <Label style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;" text="CHỌN MỤC TIÊU PHÂN TÍCH" />
+   
+   <FlowPane alignment="CENTER" hgap="30.0" vgap="30.0" prefWidth="800.0">
+      <VBox styleClass="problem-card" onMouseClicked="#onProblem1Click">
+         <Label style="-fx-font-size: 40px;" text="📈" />
+         <Label styleClass="problem-title" text="Bài toán 1: Theo dõi tâm lý công chúng (Sentiment Trend)" />
+      </VBox>
+
+      <VBox styleClass="problem-card" onMouseClicked="#onProblem2Click">
+         <Label style="-fx-font-size: 40px;" text="🏚️" />
+         <Label styleClass="problem-title" text="Bài toán 2: Đánh giá thiệt hại (Damage Assessment)" />
+      </VBox>
+
+      <VBox styleClass="problem-card" onMouseClicked="#onProblem3Click">
+         <Label style="-fx-font-size: 40px;" text="🚚" />
+         <Label styleClass="problem-title" text="Bài toán 3: Mức độ hài lòng cứu trợ (Relief Satisfaction)" />
+      </VBox>
+
+      <VBox styleClass="problem-card" onMouseClicked="#onProblem4Click">
+         <Label style="-fx-font-size: 40px;" text="🏥" />
+         <Label styleClass="problem-title" text="Bài toán 4: Phân tích chi tiết từng loại hàng hóa" />
+      </VBox>
+   </FlowPane>
+</VBox>
