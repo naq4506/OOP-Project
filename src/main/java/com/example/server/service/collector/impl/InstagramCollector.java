@@ -35,7 +35,8 @@ public class InstagramCollector extends BaseSeleniumCollector {
         initDriver();
 
         try {
-            String hashtag = normalizeToHashtag(keyword);
+            String searchKeyword = keyword + (disasterName != null ? " " + disasterName : "");
+            String hashtag = normalizeToHashtag(searchKeyword);
             System.out.println(">>> [Instagram V5] Fix URL Limit & Translate All. Hashtag: #" + hashtag);
             
             driver.get(TAG_URL + hashtag + "/");

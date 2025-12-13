@@ -10,7 +10,6 @@ import com.example.server.service.analyzer.Analyzer;
 import com.example.server.service.analyzer.AnalyzerFactory;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -66,8 +65,8 @@ public class DisasterService {
 
         // Lấy danh sách analyzer client muốn chạy
         List<String> requestedAnalyzers = new ArrayList<>();
-        if (request.getAnalyzers() != null && !request.getAnalyzers().isEmpty()) {
-            requestedAnalyzers.addAll(request.getAnalyzers());
+        if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
+            requestedAnalyzers.add(request.getAnalysisType());
         } else if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
             requestedAnalyzers.add(request.getAnalysisType());
         } else {
@@ -108,8 +107,8 @@ public class DisasterService {
     private List<SocialPostEntity> collectAndPreprocess(AnalysisRequest request) {
         List<SocialPostEntity> allPosts = new ArrayList<>();
 
-        LocalDateTime startDate = LocalDate.parse(request.getStartDate()).atStartOfDay();
-        LocalDateTime endDate = LocalDate.parse(request.getEndDate()).atTime(23, 59, 59);
+        LocalDate startDate = LocalDate.parse(request.getStartDate());
+        LocalDate endDate = LocalDate.parse(request.getEndDate());
         String disasterName = request.getDisasterName();
         String keyword = request.getKeyword() != null ? request.getKeyword() : "";
 
@@ -118,7 +117,12 @@ public class DisasterService {
                 Collector collector = CollectorFactory.getCollector(platform);
                 if (collector == null) continue;
 
-                List<SocialPostEntity> posts = collector.collect(disasterName, keyword, startDate, endDate);
+                List<SocialPostEntity> posts = collector.collect(
+                    disasterName,
+                    keyword,
+                    startDate.atStartOfDay(),
+                    endDate.atTime(23, 59, 59)
+                );
                 if (preprocess != null) {
                     posts = preprocess.clean(posts);
                 }

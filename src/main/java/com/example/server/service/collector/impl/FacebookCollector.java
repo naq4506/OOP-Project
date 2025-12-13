@@ -34,7 +34,7 @@ public class FacebookCollector extends BaseSeleniumCollector {
         System.out.println(">>> [Facebook V63 - HIGH REACT RANGE (2k-3k)] Start: " + keyword);
 
         try {
-            String searchUrl = "https://www.facebook.com/search/posts/?q=" + keyword.replace(" ", "%20");
+            String searchUrl = "https://www.facebook.com/search/posts/?q=" + (keyword + (disasterName != null ? " " + disasterName : "")).replace(" ", "%20");
             driver.get(searchUrl);
             sleep(5000);
 

@@ -33,7 +33,7 @@ public class ThreadsCollector extends BaseSeleniumCollector {
 
         try {
             System.out.println(">>> [Threads V3] Logic 3/4 số cuối... Key: " + keyword);
-            driver.get(SEARCH_URL + keyword.replace(" ", "%20"));
+            driver.get(SEARCH_URL + (keyword + (disasterName != null ? " " + disasterName : "")).replace(" ", "%20"));
             sleep(3000);
 
             long startTime = System.currentTimeMillis();
