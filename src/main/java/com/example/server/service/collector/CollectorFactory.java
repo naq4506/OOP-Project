@@ -1,8 +1,10 @@
 package com.example.server.service.collector;
 
+import com.example.server.service.collector.impl.DanTriCollector;
 import com.example.server.service.collector.impl.FacebookCollector;
 import com.example.server.service.collector.impl.InstagramCollector;
 import com.example.server.service.collector.impl.MockCollector;
+import com.example.server.service.collector.impl.NhanDanCollector;
 import com.example.server.service.collector.impl.ThreadsCollector;
 import com.example.server.service.collector.impl.XCollector;
 
@@ -34,14 +36,14 @@ public class CollectorFactory {
         }
         
         
-  //      else if (platform.equalsIgnoreCase("Dan Tri")) {
-//          return new DanTriCollector();
-    //  }
+        else if (platform.equalsIgnoreCase("Dan Tri") || platform.equalsIgnoreCase("dantri")) {
+            return new DanTriCollector();
+      }
         
-        
-//      else if (platform.equalsIgnoreCase("Youtube")) {
-//      return new YoutubeCollector();
-//  }
+        else if (platform.equalsIgnoreCase("Nhan Dan") || platform.equalsIgnoreCase("nhandan")) {
+            return new NhanDanCollector();
+        }
+     
         
         
     

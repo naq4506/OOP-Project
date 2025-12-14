@@ -2,27 +2,16 @@ package com.example.client.controller;
 
 import com.example.client.dto.ClientRequest;
 import com.example.client.dto.ClientResponse;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.chart.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class DashboardController {
 
-    // --- FXML UI Elements ---
     @FXML private TextField txtDisasterName;
     @FXML private TextField txtKeyword;
     @FXML private DatePicker dpStartDate;
@@ -33,252 +22,169 @@ public class DashboardController {
     @FXML private Label titleLabel; 
     @FXML private VBox chartContainer;
 
-    // --- Dữ liệu và Service ---
     private final ClientController clientController = new ClientController("http://localhost:8080"); 
     private String currentAnalysisType;
 
-    public void setAnalysisType(String type) {
-        this.currentAnalysisType = type;
-        setDashboardTitle(mapAnalysisTypeToTitle(type));
-    }
-    
-    public void setDashboardTitle(String title) {
-        if (titleLabel != null) titleLabel.setText(title);
-    }
-    
-    private String mapAnalysisTypeToTitle(String type) {
-        return switch (type) {
-            case "SENTIMENT" -> "Theo dõi Tâm lý Công chúng theo Thời gian";
-            case "DAMAGE" -> "Đánh giá Thiệt hại Phổ biến";
-            case "RELIEF" -> "Đánh giá Hài lòng Cứu trợ (Tổng quan)";
-            case "RELIEF_TIMELINE" -> "Phân tích Hàng cứu trợ theo Thời gian";
-            default -> "Dashboard Phân tích Tổng hợp";
-        };
-    }
+    public void setAnalysisType(String type) { this.currentAnalysisType = type; }
+    public void setDashboardTitle(String title) { if (titleLabel != null) titleLabel.setText(title); }
     
     private String getPlatformCode(String label) {
-        if (label.contains("Facebook")) return "facebook";
-        if (label.contains("X") || label.contains("Twitter")) return "x";
-        if (label.contains("Instagram")) return "instagram";
-        return "mock";
+        if (label == null) return "facebook";
+        String lower = label.toLowerCase();
+        // Đã xóa Reuters và AP News
+        if (lower.contains("facebook")) return "facebook";
+        if (lower.contains("instagram")) return "instagram";
+        if (lower.contains("threads")) return "threads";
+        if (lower.contains("x") || lower.contains("twitter")) return "x";
+        if (lower.contains("dân trí")) return "dantri";
+        if (lower.contains("nhân dân")) return "nhandan";
+        return "facebook"; // Mặc định
     }
 
     @FXML
     protected void onStartCrawl() {
         String disasterName = txtDisasterName.getText().trim();
         String keyword = txtKeyword.getText().trim();
-        LocalDate localStartDate = dpStartDate.getValue();
-        LocalDate localEndDate = dpEndDate.getValue();
+        LocalDate start = dpStartDate.getValue();
+        LocalDate end = dpEndDate.getValue();
 
-        if (disasterName.isEmpty() || localStartDate == null || localEndDate == null) {
-            showAlert("Thiếu thông tin", "Vui lòng nhập Tên thảm họa và chọn Khoảng thời gian!");
+        if (disasterName.isEmpty() || start == null || end == null) {
+            showAlert("Thiếu thông tin", "Vui lòng nhập Tên thảm họa và Thời gian!");
             return;
         }
         
         RadioButton selectedRadio = (RadioButton) platformGroup.getSelectedToggle();
-        String platformCode = getPlatformCode(selectedRadio != null ? selectedRadio.getText() : "mock");
-
-        if (currentAnalysisType == null || currentAnalysisType.isEmpty()) {
-             showAlert("Lỗi", "Không xác định được loại phân tích.");
-             return;
-        }
+        String label = (selectedRadio != null) ? selectedRadio.getText() : "Facebook"; 
+        String platformCode = getPlatformCode(label);
 
         ClientRequest request = new ClientRequest();
         request.setDisasterName(disasterName);
         request.setKeyword(keyword);
-        request.setStartDate(localStartDate.toString());
-        request.setEndDate(localEndDate.toString());
-        request.setPlatforms(java.util.Arrays.asList(platformCode)); 
+        request.setStartDate(start.toString());
+        request.setEndDate(end.toString());
+        request.setPlatforms(Collections.singletonList(platformCode)); 
         request.setAnalysisType(currentAnalysisType);
 
         btnStart.setDisable(true);
-        statusLabel.setText("Đang gửi yêu cầu thu thập và phân tích tới Server...");
-        chartContainer.getChildren().clear(); // Xóa biểu đồ cũ
+        statusLabel.setText("⏳ Đang phân tích dữ liệu từ " + label + "...");
+        chartContainer.getChildren().clear(); 
 
         new Thread(() -> {
             try {
                 ClientResponse<Map<String, Object>> response = clientController.sendAnalysis(request);
-                
-                if (response.isSuccess()) {
-                    updateStatus("✅ Phân tích hoàn tất. Đang hiển thị kết quả...");
-                    final Map<String, Object> results = response.getData();
-                    Platform.runLater(() -> showAnalysisResults(results, currentAnalysisType));
-                } else {
-                    updateStatus("❌ Lỗi Server: " + response.getErrorMessage());
-                }
-
+                Platform.runLater(() -> {
+                    if (response.isSuccess()) {
+                        statusLabel.setText("✅ Hoàn tất.");
+                        showAnalysisResults(response.getData(), currentAnalysisType);
+                    } else {
+                        statusLabel.setText("❌ Lỗi Server: " + response.getErrorMessage());
+                    }
+                });
             } catch (Exception e) {
-                e.printStackTrace();
-                updateStatus("❌ Lỗi kết nối Client: " + e.getMessage());
+                Platform.runLater(() -> statusLabel.setText("❌ Lỗi kết nối: " + e.getMessage()));
             } finally {
                 Platform.runLater(() -> btnStart.setDisable(false));
             }
         }).start();
     }
     
-    private void updateStatus(String message) {
-        Platform.runLater(() -> statusLabel.setText(message));
-    }
-
-    private void showAlert(String title, String message) {
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
-        });
-    }
-    
-    // =========================================================
-    // XỬ LÝ HIỂN THỊ KẾT QUẢ & CHECK LỖI KHÔNG TÌM THẤY BÀI
-    // =========================================================
-
     private void showAnalysisResults(Map<String, Object> allResults, String analysisType) {
         chartContainer.getChildren().clear();
-
-        // 1. Check nếu Server trả về null
+        
         if (allResults == null || allResults.isEmpty()) {
-            showEmptyDataMessage("Server trả về dữ liệu rỗng.");
+            chartContainer.getChildren().add(new Label("Không có dữ liệu để hiển thị."));
             return;
         }
 
-        // 2. Lấy kết quả cụ thể
-        Object rawResult = allResults.get(analysisType.toUpperCase());
-
-        // 3. Check nếu bài toán cụ thể không có dữ liệu
-        if (rawResult == null) {
-            showEmptyDataMessage("Không tìm thấy dữ liệu cho bài toán: " + analysisType);
-            return;
-        }
+        Object dataObj = allResults.get(analysisType);
         
-        if (rawResult instanceof Map && ((Map<?,?>)rawResult).isEmpty()) {
-            showEmptyDataMessage("Rất tiếc! Không tìm thấy bài viết nào phù hợp với từ khóa và thời gian bạn chọn.\n\nHãy thử lại với từ khóa phổ biến hơn hoặc khoảng thời gian rộng hơn.");
-            return;
+        if (dataObj == null && !allResults.isEmpty()) {
+            dataObj = allResults.values().iterator().next();
         }
 
-        // 4. Nếu có dữ liệu -> Vẽ biểu đồ
-        try {
-            switch (analysisType.toUpperCase()) {
-                case "SENTIMENT":
-                    drawLineChartSentiment((Map<String, Map<String, Integer>>) rawResult);
-                    break;
-                case "DAMAGE":
-                    drawBarChartDamage((Map<String, Integer>) rawResult);
-                    break;
-                case "RELIEF":
-                    drawStackedBarChartRelief((Map<String, Map<String, Integer>>) rawResult);
-                    break;
-                case "RELIEF_TIMELINE":
-                    drawLineChartReliefTimeline((Map<String, Map<String, Map<String, Integer>>>) rawResult);
-                    break;
+        if (dataObj instanceof Map) {
+            Map<String, Object> dataMap = (Map<String, Object>) dataObj;
+            
+            if ("SENTIMENT".equals(analysisType) || "SENTIMENT_TREND".equals(analysisType)) {
+                drawSentimentChart(dataMap);
+            } else {
+                drawGenericChart(dataMap, analysisType);
             }
-        } catch (Exception e) {
-             showAlert("Lỗi Vẽ biểu đồ", "Dữ liệu server trả về không đúng định dạng: " + e.getMessage());
-             e.printStackTrace();
+        } else {
+            chartContainer.getChildren().add(new Label("Định dạng dữ liệu không hỗ trợ vẽ biểu đồ."));
         }
     }
 
-    private void showEmptyDataMessage(String message) {
-        Label icon = new Label("❌");
-        icon.setFont(Font.font("System", 40));
+    private void drawSentimentChart(Map<String, Object> data) {
+        CategoryAxis xAxis = new CategoryAxis();
+        xAxis.setLabel("Ngày");
+        NumberAxis yAxis = new NumberAxis();
+        yAxis.setLabel("Số lượng phản hồi");
+
+        BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
+        barChart.setTitle("Diễn biến Tâm lý Cộng đồng");
+        barChart.setAnimated(true);
+        // Để biểu đồ tự giãn theo container
+        barChart.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+
+        XYChart.Series<String, Number> seriesPos = new XYChart.Series<>();
+        seriesPos.setName("Tích cực 😊");
         
-        Label msg = new Label(message);
-        msg.setFont(Font.font("System", FontWeight.BOLD, 16));
-        msg.setStyle("-fx-text-fill: #e74c3c;");
-        msg.setWrapText(true);
-        msg.setAlignment(Pos.CENTER);
+        XYChart.Series<String, Number> seriesNeg = new XYChart.Series<>();
+        seriesNeg.setName("Tiêu cực 😡");
         
-        VBox emptyBox = new VBox(10, icon, msg);
-        emptyBox.setAlignment(Pos.CENTER);
+        XYChart.Series<String, Number> seriesNeu = new XYChart.Series<>();
+        seriesNeu.setName("Trung lập 😐");
+
+        TreeMap<String, Object> sortedData = new TreeMap<>(data);
+
+        for (Map.Entry<String, Object> entry : sortedData.entrySet()) {
+            String date = entry.getKey();
+            if (entry.getValue() instanceof Map) {
+                Map<String, Number> stats = (Map<String, Number>) entry.getValue();
+                Number pos = stats.getOrDefault("positive", 0);
+                Number neg = stats.getOrDefault("negative", 0);
+                Number neu = stats.getOrDefault("neutral", 0);
+                
+                seriesPos.getData().add(new XYChart.Data<>(date, pos));
+                seriesNeg.getData().add(new XYChart.Data<>(date, neg));
+                seriesNeu.getData().add(new XYChart.Data<>(date, neu));
+            }
+        }
+
+        barChart.getData().addAll(seriesNeg, seriesNeu, seriesPos);
         
-        chartContainer.getChildren().add(emptyBox);
-        updateStatus("⚠️ Hoàn tất nhưng không có dữ liệu.");
+        // Thêm chart vào container và cho nó mọc (grow) hết cỡ
+        VBox.setVgrow(barChart, javafx.scene.layout.Priority.ALWAYS);
+        chartContainer.getChildren().add(barChart);
     }
-
-    // --- CÁC HÀM VẼ BIỂU ĐỒ ---
-
-    private void drawBarChartDamage(Map<String, Integer> data) {
+    
+    private void drawGenericChart(Map<String, Object> data, String title) {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-        barChart.setTitle("Thống kê loại thiệt hại");
-        xAxis.setLabel("Loại Thiệt hại");
-        yAxis.setLabel("Số lượng");
-
+        barChart.setTitle(title);
+        barChart.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Bài đăng");
-        data.forEach((type, count) -> series.getData().add(new XYChart.Data<>(type, count)));
-
-        barChart.getData().add(series);
-        chartContainer.getChildren().add(barChart);
-    }
-    
-    private void drawLineChartSentiment(Map<String, Map<String, Integer>> timelineData) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Diễn biến tâm lý");
-        xAxis.setLabel("Ngày");
-        yAxis.setLabel("Số lượng");
+        series.setName("Dữ liệu");
         
-        List<String> sortedDates = new ArrayList<>(timelineData.keySet());
-        Collections.sort(sortedDates);
-        
-        XYChart.Series<String, Number> pos = new XYChart.Series<>(); pos.setName("Tích cực");
-        XYChart.Series<String, Number> neg = new XYChart.Series<>(); neg.setName("Tiêu cực");
-
-        for (String d : sortedDates) {
-            Map<String, Integer> counts = timelineData.get(d);
-            String dateLabel = d.length() > 5 ? d.substring(5) : d;
-            pos.getData().add(new XYChart.Data<>(dateLabel, counts.getOrDefault("positive", 0)));
-            neg.getData().add(new XYChart.Data<>(dateLabel, counts.getOrDefault("negative", 0)));
-        }
-        lineChart.getData().addAll(pos, neg);
-        chartContainer.getChildren().add(lineChart);
-    }
-
-    private void drawStackedBarChartRelief(Map<String, Map<String, Integer>> reliefData) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        StackedBarChart<String, Number> barChart = new StackedBarChart<>(xAxis, yAxis);
-        barChart.setTitle("Mức độ hài lòng về cứu trợ");
-        xAxis.setLabel("Hạng mục");
-        yAxis.setLabel("Số lượng");
-
-        XYChart.Series<String, Number> pos = new XYChart.Series<>(); pos.setName("Tích cực");
-        XYChart.Series<String, Number> neu = new XYChart.Series<>(); neu.setName("Trung lập");
-        XYChart.Series<String, Number> neg = new XYChart.Series<>(); neg.setName("Tiêu cực");
-
-        reliefData.forEach((item, counts) -> {
-            pos.getData().add(new XYChart.Data<>(item, counts.getOrDefault("positive", 0)));
-            neu.getData().add(new XYChart.Data<>(item, counts.getOrDefault("neutral", 0)));
-            neg.getData().add(new XYChart.Data<>(item, counts.getOrDefault("negative", 0)));
-        });
-
-        barChart.getData().addAll(neg, neu, pos);
-        chartContainer.getChildren().add(barChart);
-    }
-    
-    private void drawLineChartReliefTimeline(Map<String, Map<String, Map<String, Integer>>> data) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        LineChart<String, Number> lineChart = new LineChart<>(xAxis, yAxis);
-        lineChart.setTitle("Diễn biến cứu trợ theo thời gian");
-        xAxis.setLabel("Ngày");
-        
-        List<String> allDates = data.values().stream().flatMap(m -> m.keySet().stream()).distinct().sorted().toList();
-
-        data.forEach((item, dailyStats) -> {
-            XYChart.Series<String, Number> series = new XYChart.Series<>();
-            series.setName(item);
-            for (String d : allDates) {
-                int total = dailyStats.getOrDefault(d, Collections.emptyMap()).values().stream().mapToInt(Integer::intValue).sum();
-                String dateLabel = d.length() > 5 ? d.substring(5) : d;
-                series.getData().add(new XYChart.Data<>(dateLabel, total));
+        for (Map.Entry<String, Object> entry : data.entrySet()) {
+            if (entry.getValue() instanceof Number) {
+                series.getData().add(new XYChart.Data<>(entry.getKey(), (Number) entry.getValue()));
             }
-            lineChart.getData().add(series);
-        });
-        chartContainer.getChildren().add(lineChart);
+        }
+        
+        barChart.getData().add(series);
+        VBox.setVgrow(barChart, javafx.scene.layout.Priority.ALWAYS);
+        chartContainer.getChildren().add(barChart);
+    }
+
+    private void showAlert(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

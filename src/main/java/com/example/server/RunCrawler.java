@@ -15,13 +15,13 @@ public class RunCrawler {
         System.out.println("================= START X CRAWLER ===================");
 
         final String DISASTER_NAME = " ";
-        final String SINGLE_KEYWORD = "typhoon yagi "; 
+        final String SINGLE_KEYWORD = "typhoon yagi"; 
         
         final LocalDateTime START_DATE = LocalDate.of(2024, 1, 1).atStartOfDay(); 
         final LocalDateTime END_DATE = LocalDateTime.now();  
         
         try {
-            Collector bot = CollectorFactory.getCollector("facebook");
+            Collector bot = CollectorFactory.getCollector("Reuters");
             
             if (bot == null) {
                 System.err.println("Chưa config bot 'instagram' trong Factory!");
@@ -38,8 +38,8 @@ public class RunCrawler {
             System.out.println(">>> Tổng bài lấy được: " + results.size());
             
             if (!results.isEmpty()) {
-                DataExporter.saveToCsv(results, "data/facebook_data.csv");
-                DataExporter.saveToTxtReport(results, "data/facebook_data.txt");
+                DataExporter.saveToCsv(results, "data/Reuters_data.csv");
+                DataExporter.saveToTxtReport(results, "data/Reuters_data.txt");
             }
 
         } catch (Exception e) {

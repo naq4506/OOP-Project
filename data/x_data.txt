@@ -3,497 +3,78 @@ Ngày xuất: 2025-12-14
 Tổng số bài: 5
 
 --------------------------------------------------
-BÀI VIẾT #1 (Ngày: 2024-09-02):
-Bài viết của Bão Nhiệt Đới
-Bão Nhiệt Đới
- 
-·
-o
-r
-s
-n
-o
-t
-e
-d
-p
-S
-2
-m
-n
-t
-a
-5
-c
-g
-á
-g
-6
- 
- 
-8
-9
-a
-5
-f
-7
-a
-0
-1
-0
-0
-t
-h
-,
-2
-h
-c
-2
-i
-4
-7
-m
-7
-l
-8
-t
-t
-2
-4
-9
-3
-5
-0
- 
-t
-9
-8
- 
-·
-Vì Sao Bão YAGI “dễ” lên SIÊU BÃO(Phân tích phổ thông dễ hiểu)
-Đầu Tiên hiện nay vẫn còn sớm để đưa ra khu vực đổ bộ cho bão Yagi nhưng miền Bắc và Bắc Trung Bộ cần đặc biệt cảnh giác đề phòng bão lệch Nam nhiều hơn. Trong bài đăng này Ad sẽ phân tích về cường độ của nó và vì sao nó khả năng cao sẽ mạnh lên thành SUPER TYPHOON.
-Để cơn một cơn bão nhiệt đới bình thường phát triển thành Siêu Bão cần có các yếu tố chính sau:
-1)Độ đứt gió phải nhỏ hơn 15kt : Đối với các cơn bão nhiệt đới, gió đứt quan trọng chủ yếu theo hướng thẳng đứng, vì những cơn bão này chiếm một phần lớn không gian dọc từ mực nước biển đến đỉnh tầng đối lưu, kéo dài tới độ cao khoảng 12km ở vùng nhiệt đới. Cấu trúc theo chiều dọc cũa bão sẽ bị nghiêng khi gặp đứt gió theo chiều dọc mạnh . điều này làm gián đoạn và phá vỡ dòng chảy nhiệt độ và độ ẩm , khiến chiếc động cơ nhiệt (bão) làm việc kém hiệu quả và từ đó sẽ suy yếu. Giá trị đứt gió nhỏ hơn 15kt (tương đương 7 m/s) là lí tưởng.
-2)Độ ẩm cao: thực tế một số cơn bão gặp vùng biển mát nhưng độ ẩm trong khí quyển cao thì nó vẫn duy trì thậm chí tăng cường độ.
-3) Nhiệt độ nước biển phải cực kỳ ấm (gần bằng hoặc trên 30 °C), và nước ở nhiệt độ này phải đủ sâu để những con sóng không làm nước lạnh phía dưới trồi lên trên bề mặt
-4)Quá trình phân kỳ bên trên phải rất mạnh : Vì ở dưới thấp dòng gió xoáy của bão là “dồn” không khí từ phía ngoài vào tâm bão (hội tụ) nên không khí buộc phải chuyển động đi lên. Khi lên đến mực trên cao dòng khí cần phải “toả ra” (phân kỳ) để đảm bảo tính bảo toàn khối lượng. Do đó phân kỳ càng mãnh liệt bão càng giảm áp suất và sức gió tăng lên và nếu phân kỳ yếu đi bão sẽ tăng áp và sức gió suy yếu dần.
-Khi cơn bão Yagi tiến vào khu vực Bắc Biển Đông thì nó sẽ ở trong một môi trường hội tụ đủ các yếu tố trên, chắc các yếu tố 1,2,3 các bạn đều có thể dễ hiểu nhưng về yếu tố phân kỳ sẽ như thế nào??
-Về Phân Kỳ của cơn bão Yagi: Trong thời gian này ở khu vực Đông Nam Á , Nam Á, Tây Á thường có sự hiện diện của dòng  gió Đông trên cao được gọi là dòng xiết gió Đông trên cao (cần lưu ý khác với dòng xiết gió Tây trên cao), để dễ hình dung các bạn mở ứng dụng windy, kéo lên mực 150hpa hay mực 13,5km sẽ thấy, đây là mực khí quyển trên cao là nơi xảy ra quá trình phân kỳ của cơn bão(tất nhiên phải chỉnh thời gian tương ứng với khi cơn bão Yagi đang trên Bắc Biển Đông). Dòng xiết gió Đông này sẽ hỗ trợ cho quá trình phân kỳ trên cao của cơn bão khiến dòng phân kỳ trở nên mạnh mẽ.
-Như vậy có đến 80% Yagi sẽ thành Siêu Bão, 20% còn lại là bão đi rất nhanh không đủ thời gian để mạnh lên!!!
-Tin phát lúc 17h ngày 02/09/2024 tại fanpage ”BÃO NHIỆT ĐỚI”
+BÀI VIẾT #1 (Ngày: 2024-09-07):
+Bão Yagi đổ bộ vào Hạ Long, miền Bắc Việt Nam, với sức gió 205 km/h.
 
-[TỔNG QUAN] React: 2865, Comments: 12, Shares: 10
-[REACTIONS CHI TIẾT] Like: 2227, Sad: 8
+[TỔNG QUAN] React: 519, Comments: 15, Shares: 229
+[REACTIONS CHI TIẾT] Like: 519, Sad: 0
 [DANH SÁCH COMMENT]:
-   1. Vì Sao Bão YAGI “dễ” lên SIÊU BÃO(Phân tích phổ thông dễ hiểu)Đầu Tiên hiện nay vẫn còn sớm để đưa ra khu vực đổ bộ cho bão Yagi nhưng miền Bắc và Bắc Trung Bộ cần đặc biệt cảnh giác đề phòng bão lệch Nam nhiều hơn. Trong bài đăng này Ad sẽ phân tích về cường độ của nó và vì sao nó khả năng cao sẽ mạnh lên thành SUPER TYPHOON.Để cơn một cơn bão nhiệt đới bình thường phát triển thành Siêu Bão cần có các yếu tố chính sau:1)Độ đứt gió phải nhỏ hơn 15kt : Đối với các cơn bão nhiệt đới, gió đứt quan trọng chủ yếu theo hướng thẳng đứng, vì những cơn bão này chiếm một phần lớn không gian dọc từ mực nước biển đến đỉnh tầng đối lưu, kéo dài tới độ cao khoảng 12km ở vùng nhiệt đới. Cấu trúc theo chiều dọc cũa bão sẽ bị nghiêng khi gặp đứt gió theo chiều dọc mạnh . điều này làm gián đoạn và phá vỡ dòng chảy nhiệt độ và độ ẩm , khiến chiếc động cơ nhiệt (bão) làm việc kém hiệu quả và từ đó sẽ suy yếu. Giá trị đứt gió nhỏ hơn 15kt (tương đương 7 m/s) là lí tưởng.2)Độ ẩm cao: thực tế một số cơn bão gặp vùng biển mát nhưng độ ẩm trong khí quyển cao thì nó vẫn duy trì thậm chí tăng cường độ.3) Nhiệt độ nước biển phải cực kỳ ấm (gần bằng hoặc trên 30 °C), và nước ở nhiệt độ này phải đủ sâu để những con sóng không làm nước lạnh phía dưới trồi lên trên bề mặt4)Quá trình phân kỳ bên trên phải rất mạnh : Vì ở dưới thấp dòng gió xoáy của bão là “dồn” không khí từ phía ngoài vào tâm bão (hội tụ) nên không khí buộc phải chuyển động đi lên. Khi lên đến mực trên cao dòng khí cần phải “toả ra” (phân kỳ) để đảm bảo tính bảo toàn khối lượng. Do đó phân kỳ càng mãnh liệt bão càng giảm áp suất và sức gió tăng lên và nếu phân kỳ yếu đi bão sẽ tăng áp và sức gió suy yếu dần.Khi cơn bão Yagi tiến vào khu vực Bắc Biển Đông thì nó sẽ ở trong một môi trường hội tụ đủ các yếu tố trên, chắc các yếu tố 1,2,3 các bạn đều có thể dễ hiểu nhưng về yếu tố phân kỳ sẽ như thế nào??Về Phân Kỳ của cơn bão Yagi: Trong thời gian này ở khu vực Đông Nam Á , Nam Á, Tây Á thường có sự hiện diện của dòng  gió Đông trên cao được gọi là dòng xiết gió Đông trên cao (cần lưu ý khác với dòng xiết gió Tây trên cao), để dễ hình dung các bạn mở ứng dụng windy, kéo lên mực 150hpa hay mực 13,5km sẽ thấy, đây là mực khí quyển trên cao là nơi xảy ra quá trình phân kỳ của cơn bão(tất nhiên phải chỉnh thời gian tương ứng với khi cơn bão Yagi đang trên Bắc Biển Đông). Dòng xiết gió Đông này sẽ hỗ trợ cho quá trình phân kỳ trên cao của cơn bão khiến dòng phân kỳ trở nên mạnh mẽ. Như vậy có đến 80% Yagi sẽ thành Siêu Bão, 20% còn lại là bão đi rất nhanh không đủ thời gian để mạnh lên!!!Tin phát lúc 17h ngày 02/09/2024 tại fanpage ”BÃO NHIỆT ĐỚI”
-   2. Miền trung thời gian tới có mưa được k vậy ad
-   3. Hôm trước xem windy thấy rất lệch sẽ đi qua Đài Loan nên nghĩ bụng thông tin ad đưa ra chưa chính xác, giờ coi lại thấy khá đúng. Cảm ơn ad vì đã dự báo kịp thời và phân tích hay
-   4. Liệu từ giờ tới cuối năm số lượng bão và áp thấp có nhiều hơn năm ngoái ko ad.
-   5. Cảm ơn bài viết chi tiết của ad ạ
-   6. Thiên thời địa lợi nhân hòa rồi còn gì, chắc con này đi lệt nam nữa cho mà xem.
-   7. đừng vào việt nam
-   8. Ad phân tích đọc mê.
-   9. Liệu còn lệch tây nữa ko ad hay đây là chốt dg đi lun
-   10. Bài viết rất hay ạ, cảm ơn ad rất nhiều
-   11. Windy dự báo như vậy....
-   12. …
+   1. ベトナム北部、風速205km/hで上陸 この台風はやっぱりでかい
+   2. x.com/LimWeather/sta … @zoom_earth  look at that hotel in haikou before and after
+   3. 225
+   4. thật vãi chưởng
+   5. OMG
+   6. :(
+   7. You goto my profile.
+   8. x.com/_chlobo_1/stat … #Yagi
+   9. Wow, that's huge.
 
 --------------------------------------------------
-BÀI VIẾT #2 (Ngày: 2024-01-16):
-Bài viết của Hoa Hoc Tro Magazine
-Hoa Hoc Tro Magazine
- 
- 
-·
-o
-r
-s
-n
-o
-t
-e
-d
-p
-S
-1
-m
-g
-h
-a
-5
-c
-g
-n
- 
-6
- 
-t
-6
-1
-a
-5
-f
-7
-a
-0
-1
-0
-0
-t
-á
-,
-2
-h
-c
-2
-i
-4
-7
-m
-7
-l
-8
-t
-t
-2
-4
-9
-3
-5
-0
-1
-t
- 
-8
- 
-·
-Nhiều người đã tưởng rằng một siêu bão như Yagi là thuộc loại mạnh hiếm có và là cơn bão mạnh nhất 2024 ở châu Á, nhưng giờ thì siêu bão Man-yi đã vượt qua Yagi.
-Mời bạn xem chi tiết: https://hoahoctro.tienphong.vn/sieu-bao-man-yi-vuot-qua...
-#hoahoctro #manyi #typhoon
+BÀI VIẾT #2 (Ngày: 2025-12-14):
+Tình trạng khẩn cấp ở Yapacaní: Mưa lớn khiến các con sông tràn bờ, một lần nữa ảnh hưởng đến nhiều cộng đồng dân cư trong khu vực.
 
-[TỔNG QUAN] React: 2542, Comments: 0, Shares: 0
-[REACTIONS CHI TIẾT] Like: 1965, Sad: 13
+[TỔNG QUAN] React: 0, Comments: 0, Shares: 0
+[REACTIONS CHI TIẾT] Like: 0, Sad: 0
 [DANH SÁCH COMMENT]:
-   (Không có comment)
+   1. El COED de #SantaCruz reporta 11 comunidades afectadas por la riada en El Torno y 70 personas evacuadas, vía aérea, a lugares seguros. . . #BTVInforma
 
 --------------------------------------------------
-BÀI VIẾT #3 (Ngày: 2024-09-26):
-Bài viết của Nhà Hàng Nhật Bản Hatoyama
-Chỉ báo trạng thái online
-Đang hoạt động
-Nhà Hàng Nhật Bản Hatoyama
- 
-o
-t
-r
-S
-n
-d
-e
-s
-p
-o
-h
-f
-ư
-4
-4
-0
-c
-0
-3
-m
-à
-i
-l
-u
-t
-0
-g
-l
-r
-h
-g
-8
-u
-i
-f
-ợ
-2
-1
-m
-l
-1
-0
-Đ
-l
-1
-u
-t
-i
- 
-u
-6
-t
-c
-9
-2
-f
-t
-7
-ợ
- 
- 
-·
-LẨU VƯƠNG VỊ BIỂN KHƠI: THƯỞNG THỨC CÀNG CUA KING CRAB THƯỢNG HẠNG - MÓN QUÀ CHO MÙA TIỆC CUỐI NĂM
-Đặt bàn ngay: https://hatoyama.vn/uu-dai
-Giữa mùa tiệc cuối năm, Hatoyama kính mời thực khách trải nghiệm Tarabagani Nabe  (タラバ蟹鍋) – Lẩu càng cua King Crab - "Vương vị biển khơi" dành cho những bữa tiệc tôn vinh thành tựu.
-Từ chiếc càng chắc nịch của những chú cua King nặng từ 7–8kg ở vùng biển lạnh, bào ngư tươi ngon, đến rau Mizuna nhập khẩu từ Nhật Bản... mọi nguyên liệu đều được chọn lựa khắt khe và chế biến công phu, tôn lên hương vị nguyên bản. Trong nồi nước lẩu hầm thủ công thanh ngọt, từng thớ thịt trắng ngần bung tỏa hương vị đại dương, tạo nên trải nghiệm ẩm thực chuẩn Nhật: đẳng cấp, hiếm có và đáng giá để thưởng thức.
-Cơ hội duy nhất trong năm: Hatoyama dành món quà tri ân cho thực khách thưởng thức Lẩu Càng cua King Crab - "Vương vị biển khơi" (タラバ蟹鍋):
-Tặng 2.000.000đ – chỉ còn 2.350.000đ/suất
-Áp dụng cho mùa tiệc cuối năm (05/11/2025 – 15/02/2026)
-Kính mời thực khách đặt bàn ngay hôm nay để giữ chỗ cho mùa tiệc tôn vinh thành tựu: https://hatoyama.vn/uu-dai
--------------------------------------------------------
-Hotline đặt bàn: 1900636061
-Chương trình áp dụng tại:
-Add 1: Số 8 Vạn Phúc, P. Ngọc Hà, Hà Nội.
-Khu Vip: Số 2 Vạn Phúc, P. Ngọc Hà, Hà Nội (Cạnh đại sứ quán Nhật).
-Add 2: 39 Nguyễn Chánh, P. Yên Hòa, Hà Nội.
-Add 3: 13 Lý Thường Kiệt, P. Cửa Nam, Hà Nội.
-Add 5: Số 36 Điện Biên Phủ, P. Ba Đình, Hà Nội.
-Add 6: BT‑F09, Khu đô thị Ngoại Giao Đoàn, P. Xuân Đỉnh, Hà Nội.
-HATOYAMA.VN
-Trải nghiệm lẩu càng cua King Crab thượng hạng
-Tặng ngay 2.000.000đ khi sử dụng món “Vương vị biển khơi” – chỉ còn 2.350.000đ (giá gốc 4.350.000đ)—Cuối năm, người Nhật thường cùng nhau nâng chén bên món cua King Crab (タラバガニ), như một nghi lễ vinh danh những nỗ lực và thành t.....
-o
-t
-r
-S
-n
-d
-e
-s
-p
-o
-h
-f
-ặ
-4
-4
-0
- 
-0
-3
-m
-5
-i
-l
-u
-a
-0
-g
-l
-3
-h
-g
-8
-u
-i
-f
-t
-2
-1
-m
-l
-1
-0
-Đ
-l
-1
-u
-g
-8
-n
-u
-6
-t
-c
-9
-2
-f
-t
-7
-y
-t
+BÀI VIẾT #3 (Ngày: 2025-12-13):
+Làm sao mà ra khỏi IKEA được chứ?
 
-[TỔNG QUAN] React: 2465, Comments: 1, Shares: 3
-[REACTIONS CHI TIẾT] Like: 1872, Sad: 0
+[TỔNG QUAN] React: 594592, Comments: 4030, Shares: 39915
+[REACTIONS CHI TIẾT] Like: 594592, Sad: 0
 [DANH SÁCH COMMENT]:
-   1. LẨU VƯƠNG VỊ BIỂN KHƠI: THƯỞNG THỨC CÀNG CUA KING CRAB THƯỢNG HẠNG - MÓN QUÀ CHO MÙA TIỆC CUỐI NĂM  Đặt bàn ngay: https://hatoyama.vn/uu-dai  Giữa mùa tiệc cuối năm, Hatoyama kính mời thực khách trải nghiệm Tarabagani Nabe  (タラバ蟹鍋) – Lẩu càng cua King Crab - "Vương vị biển khơi" dành cho những bữa tiệc tôn vinh thành tựu. Từ chiếc càng chắc nịch của những chú cua King nặng từ 7–8kg ở vùng biển lạnh, bào ngư tươi ngon, đến rau Mizuna nhập khẩu từ Nhật Bản... mọi nguyên liệu đều được chọn lựa khắt khe và chế biến công phu, tôn lên hương vị nguyên bản. Trong nồi nước lẩu hầm thủ công thanh ngọt, từng thớ thịt trắng ngần bung tỏa hương vị đại dương, tạo nên trải nghiệm ẩm thực chuẩn Nhật: đẳng cấp, hiếm có và đáng giá để thưởng thức.  Cơ hội duy nhất trong năm: Hatoyama dành món quà tri ân cho thực khách thưởng thức Lẩu Càng cua King Crab - "Vương vị biển khơi" (タラバ蟹鍋): Tặng 2.000.000đ – chỉ còn 2.350.000đ/suất  Áp dụng cho mùa tiệc cuối năm (05/11/2025 – 15/02/2026)  Kính mời thực khách đặt bàn ngay hôm nay để giữ chỗ cho mùa tiệc tôn vinh thành tựu: https://hatoyama.vn/uu-dai ------------------------------------------------------- Hotline đặt bàn: 1900636061 Chương trình áp dụng tại: Add 1: Số 8 Vạn Phúc, P. Ngọc Hà, Hà Nội. Khu Vip: Số 2 Vạn Phúc, P. Ngọc Hà, Hà Nội (Cạnh đại sứ quán Nhật). Add 2: 39 Nguyễn Chánh, P. Yên Hòa, Hà Nội. Add 3: 13 Lý Thường Kiệt, P. Cửa Nam, Hà Nội. Add 5: Số 36 Điện Biên Phủ, P. Ba Đình, Hà Nội. Add 6: BT‑F09, Khu đô thị Ngoại Giao Đoàn, P. Xuân Đỉnh, Hà Nội.
+   1. how the fuck you get out of ikea
+   2. Wake Up Dead Man: A Knives Out Mystery is now on Netflix!  It may not be the best Benoit Blanc film, but it satisfies by playing along with genre expectations instead of trying to outsmart them.  Our review:  bit.ly/4mlLvDQ
+   3. Milla Jovovich is coming to Hitman: World of Assassination this February! #TheGameAwards
+   4. When you think Sunday is peaceful… a deer just demolished a living room, broke a TV, and made a dramatic escape through a window. Nature’s wild side strikes again! #DeerGoneWild #AnimalMischief
+   5. In bad times, always celebrate those who heroically risk themselves for others … the Anzac Spirit right here in Bondi
+   6. That was embarrassing lol.
+   7. KITT is now real
+   8. Over 2,000 members of the Jewish community held a Hanukkah celebration at Bondi Beach, Australia.  Two men armed with guns opened fire on the crowd in a mass shooting.  This is a terror attack.
 
 --------------------------------------------------
-BÀI VIẾT #4 (Ngày: 2024-01-16):
-Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.
-Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.
+BÀI VIẾT #4 (Ngày: 2024-09-07):
+Siêu bão #YAGI đổ bộ vào #Việt Nam
+Thật khủng khiếp, nhiều người #Việt Nam vẫn chưa nhận ra sức mạnh khủng khiếp của siêu bão này.
 
-[TỔNG QUAN] React: 5301, Comments: 39, Shares: 0
-[REACTIONS CHI TIẾT] Like: 4076, Sad: 17
+[TỔNG QUAN] React: 508, Comments: 17, Shares: 159
+[REACTIONS CHI TIẾT] Like: 508, Sad: 0
 [DANH SÁCH COMMENT]:
-   1. VÌ SAO CÓ TÊN LÀ YAGI?Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết. Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp. Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
-   2. VÌ SAO CÓ TÊN LÀ YAGI?
-   3. Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
-   4. Những điểm chính về cách đặt tên bão:1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
-   5. Những điểm chính về cách đặt tên bão:
-   6. 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.
-   7. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.
-   8. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.
-   9. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.
-   10. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
-   11. Bảo Li bão nào phá quá thì xui, bỏ, hông dùng nữa, vía nặng
-   12. Đề xuất thêm một vài tên bão như Ngoha (Ngộ ha), Keoly, Taichau,…
-   13. Nguyễn AnnaDũng Vũ Như đề xuất chieunayanlaubo
-   14. Trần Hằng đề xuất thêm tên potato
-   15. Khánh Linh m ác ghê :))))
-   16. Thao Pham Quỳnh Chi ctoi cũng muốn đề xuất tên
-   17. Nguyễn Linh biết đâu được duyệt
-   18. Nguyễn T. Thu Hương xin đề xuất tên Jack, Linda, meo meo
-   19. Nga Hoàng có bão Linda năm 1997 rồi mom =]]]
-   20. Nguyễn Trung Kiên tên bão dịu ha
-   21. Nguyễn Thanh Tùng bão Linda
-   22. Insight mất lòng khi nào có Domdom ới t
-   23. Insight mất lòng domdom nè
-   24. Insight mất lòng có DiuKha k
-   25. Insight mất lòng
-   26. Vóc Mai Thị Nguyễn Huyền ê
-   27. Insight mất lòng Nguyen Duc Cong :)))
-   28. Hồ Phúc Oanh ma kết nhưng rất silent treatmen của Xử nữ nè c
-   29. Anh Hoang tới hồi tới làm hết hồn nha má
-   30. Trinh Hoàng ma kết nguậy đục nước mấy ngày nay ròi
-   31. Vn là Sơn Tinh, Cà Mau, Ba Vì hả..
-   32. Thư Nguyễn đồng cung mà nó giật hơn t nữa
-   33. Quỳnh Quỳnh cái nết quá trời quá đất
-   34. Ma Kết bảo sao giỏi silent treatment gk3
-   35. Thu Uyên tóm lại là nói ma kết rất gớm phải k (°▽°)
-   36. Ngô Đức Việt lí do tụi t mang tiếng nè =))
-   37. Vũ Khánh Ngọc đề xuất tên bão là domdom ạ
-   38. Le Huong tên T hay S
-   39. Vũ Khánh Ngọc L thì saoo
+   1. #Vietnamese traffic police (#CSGT) on duty on the road during the #typhoon #YAGI
+   2. A car driver backs up to rescue a woman (her motorbike is in the distance) when she gets stuck in the middle of the road during a strong storm. #YAGI #Vietnam
+   3. Many trucks and containers drive very slowly to block the wind for motorbikes to cross the bridge during super typhoon #YAGI in #Vietnam. Touching. Wish everyone safety.
+   4. Super typhoon #YAGI hits #Vietnam  Vietnam
+   5. Cars help shield motorbikes from the wind during super typhoon #YAGI in #Vietnam. Touching.
+   6. Most of those structures seem to be holding up quite well!
+   7. Bão cấp 1, gió 150km/h, áp lực gió đẩy vào người >150 kí. Không ai đứng vững được, ngay xe vận tải có thể bị lật.
+   8. beneran berarti ini kejadiannya..
 
 --------------------------------------------------
-BÀI VIẾT #5 (Ngày: 2024-09-09):
-Bài viết của Insight mất lòng
-Insight mất lòng
- 
-·
-o
-S
-t
-e
-o
-r
-n
-p
-s
-d
-2
-m
-1
-5
-0
-5
- 
-2
-n
-f
-2
-c
-g
- 
-4
-7
-9
-á
-t
-l
-c
-1
-h
-a
-,
-h
-u
-f
-0
-3
-6
-g
-4
-7
-6
-7
-8
-l
-a
-9
-g
-h
- 
-t
-l
-1
-2
-2
-c
-9
- 
-·
-VÌ SAO CÓ TÊN LÀ YAGI?
-Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.
-Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.
-Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
+BÀI VIẾT #5 (Ngày: 2025-12-13):
+Fidias làm Chủ tịch EU!
 
-[TỔNG QUAN] React: 5301, Comments: 41, Shares: 153
-[REACTIONS CHI TIẾT] Like: 4446, Sad: 5
+[TỔNG QUAN] React: 99883, Comments: 4953, Shares: 15512
+[REACTIONS CHI TIẾT] Like: 99883, Sad: 0
 [DANH SÁCH COMMENT]:
-   1. VÌ SAO CÓ TÊN LÀ YAGI? Cơn bão Yagi, hay còn gọi là bão số 3 năm 2024, hiện là một trong những cơn bão mạnh nhất tại Tây Thái Bình Dương. Yagi trong tiếng Nhật có nghĩa là “con dê”, nằm trong chòm sao Ma Kết.  Yagi là tên được lấy từ Ngân hàng tên bão tại khu vực Tây Thái Bình Dương, được quản lý bởi Ủy ban Bão của Tổ chức Khí tượng Thế giới, chứa 140 tên bão do 14 quốc gia và vùng lãnh thổ trong khu vực đóng góp.  Mỗi quốc gia cung cấp 10 tên theo vòng luân phiên. Việt Nam đã đóng góp các tên như Sontinh, Camau, Bavi,… thể hiện nét đặc trưng văn hóa và địa lý. Khi một cơn bão gây thiệt hại nghiêm trọng, tên của nó có thể bị loại bỏ khỏi danh sách và thay thế. Các tên này được trộn lẫn sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian (Yagi đã được sử dụng 5 lần trước đó).
-   2. Những điểm chính về cách đặt tên bão: 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
-   3. Những điểm chính về cách đặt tên bão:
-   4. 1. Danh sách cố định và luân phiên: Danh sách tên bão gồm 140 tên, do 14 quốc gia và vùng lãnh thổ đóng góp, mỗi nước cung cấp 10 tên. Các tên này được sử dụng luân phiên, và khi một tên đã được dùng xong, nó sẽ quay lại danh sách sau một thời gian.
-   5. 2. Tiêu chí lựa chọn tên: Tên bão được chọn từ các tên địa danh, hiện tượng tự nhiên, hoặc các biểu tượng văn hóa. Những tên phải ngắn gọn, dễ phát âm, và không gây hiểu lầm hoặc mang nghĩa tiêu cực.
-   6. 3. Loại bỏ và thay thế tên: Khi một cơn bão gây thiệt hại nghiêm trọng hoặc có ý nghĩa lịch sử lớn, tên của nó có thể bị loại bỏ và thay thế bằng một tên khác. Ví dụ, sau cơn bão Haiyan (Yolanda) năm 2013, tên này đã bị loại khỏi danh sách do mức độ tàn phá quá lớn.
-   7. 4. Quốc gia đóng góp: Mỗi quốc gia thành viên của khu vực Tây Thái Bình Dương đóng góp một số tên với ý nghĩa văn hóa hoặc đặc trưng địa phương, chẳng hạn như Việt Nam đã đóng góp các tên như Sơn Tinh, Cà Mau, và Ba Vì.
-   8. Danh sách tên bão này giúp cho việc theo dõi và dự báo thời tiết dễ dàng hơn, giúp các quốc gia chuẩn bị tốt hơn trong việc đối phó với các cơn bão lớn.
-   9. Bảo Li bão nào phá quá thì xui, bỏ, hông dùng nữa, vía nặng
-   10. Đề xuất thêm một vài tên bão như Ngoha (Ngộ ha), Keoly, Taichau,…
-   11. Insight mất lòng
-   12. Nguyễn Trung Kiên tên bão dịu ha
-   13. Nguyễn Thanh Tùng bão Linda
-   14. Phương Lee
-   15. Insight mất lòng có DiuKha k
-   16. Insight mất lòng Thanh Dinh
-   17. Insight mất lòng Nguyen Duc Cong :)))
-   18. Linh Lê đ mẹ đề xuất tên bão BN
-   19. Trần Hằng đề xuất thêm tên potato
-   20. Khánh Linh m ác ghê :))))
-   21. Insight mất lòng kimchi, doao
-   22. Vóc Mai Thị Nguyễn Huyền ê
-   23. Nguyễn AnnaDũng Vũ Như đề xuất chieunayanlaubo
-   24. Insight mất lòng domdom nè
-   25. Nguyễn T. Thu Hương xin đề xuất tên Jack, Linda, meo meo
-   26. Nga Hoàng có bão Linda năm 1997 rồi mom =]]]
-   27. Thao Pham Quỳnh Chi ctoi cũng muốn đề xuất tên
-   28. Nguyễn Linh biết đâu được duyệt
-   29. Insight mất lòng khi nào có Domdom ới t
-   30. Hồ Phúc Oanh ma kết nhưng rất silent treatmen của Xử nữ nè c
-   31. Anh Hoang tới hồi tới làm hết hồn nha má
-   32. Trinh Hoàng ma kết nguậy đục nước mấy ngày nay ròi
-   33. Vn là Sơn Tinh, Cà Mau, Ba Vì hả..
-   34. Thư Nguyễn đồng cung mà nó giật hơn t nữa
-   35. Quỳnh Quỳnh cái nết quá trời quá đất
-   36. Ma Kết bảo sao giỏi silent treatment gk3
-   37. Thu Uyên tóm lại là nói ma kết rất gớm phải k (°▽°)
-   38. Ngô Đức Việt lí do tụi t mang tiếng nè =))
-   39. Vũ Khánh Ngọc đề xuất tên bão là domdom ạ
-   40. Le Huong tên T hay S
-   41. Vũ Khánh Ngọc L thì saoo
+   1. Fidias for President of the EU!
+   2. Over 2,000 members of the Jewish community held a Hanukkah celebration at Bondi Beach, Australia.  Two men armed with guns opened fire on the crowd in a mass shooting.  This is a terror attack.
+   3. Pakistani man waves around a Palestine flag on a horse on Bondi Beach while taunting and screaming at little kids.  This video is from a while back. Shows how much hate these jihadis have.
+   4. Jeff Garcia, who played Sheen in Jimmy Neutron and Pip in Barnyard, has died at the age of 50.  bit.ly/4pAJmXp
+   5. HEARTBREAKING  A Brown University student texted his mother during today’s active shooter lockdown:  “Mom, there’s a live shooting on campus. I’m going to run. I love you.”  He’s now barricaded in a supply closet with a dozen others. Lights off. Silent. One student having a
+   6. theyʼre so cute  :  xhslink.com/o/8wVBo8Dgeuu #CORTIS #코르티스
+   7. BREAKING: One of the terrorists involved in the horrific attack at Bondi Beach, Sydney, Australia, has been identified as Naveed Akram from Pakistan.
+   8. Attack on Bondi Beach in Sydney, full video.
+   9. US prosecutors have released new security camera footage capturing the fatal shooting of United Healthcare CEO Brian Thompson outside a Midtown hotel on December 4, 2024.  Days later, Coward Luigi Mangione was arrested in Pennsylvania and faces first-degree murder charges.
 

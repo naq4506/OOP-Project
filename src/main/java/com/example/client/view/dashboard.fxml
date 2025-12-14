@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
@@ -18,11 +19,11 @@
 
 <StackPane styleClass="dashboard-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.DashboardController">
     
-    <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" prefWidth="900.0" spacing="30.0" styleClass="card-pane" StackPane.alignment="CENTER">
+    <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" spacing="20.0" styleClass="card-pane" StackPane.alignment="CENTER">
         
         <VBox alignment="CENTER" spacing="5.0">
             <Label styleClass="title-label" text="🔍 CẤU HÌNH CRAWLER" />
-            <Label style="-fx-text-fill: #666; -fx-font-size: 14px;" text="Thiết lập thông số để thu thập dữ liệu mạng xã hội" />
+            <Label style="-fx-text-fill: #666; -fx-font-size: 14px;" text="Thiết lập thông số để thu thập dữ liệu mạng xã hội &amp; Báo chí" />
             <Line endX="250.0" stroke="#e0e0e0" strokeWidth="2.0">
                 <VBox.margin>
                     <Insets top="10.0" />
@@ -30,11 +31,10 @@
             </Line>
         </VBox>
 
-        <GridPane hgap="20.0" vgap="20.0">
+        <GridPane hgap="20.0" vgap="15.0">
             <columnConstraints>
                 <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="140.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350.0" />
-            </columnConstraints>
+                <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" /> </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
@@ -61,68 +61,72 @@
                 </VBox>
                 <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <children>
-                        <DatePicker fx:id="dpStartDate" prefHeight="40.0" prefWidth="180.0" promptText="Ngày bắt đầu" style="-fx-font-size: 13px;" />
+                        <DatePicker fx:id="dpStartDate" prefHeight="40.0" prefWidth="200.0" promptText="Ngày bắt đầu" style="-fx-font-size: 13px;" />
                         <Label style="-fx-font-weight: bold; -fx-text-fill: #888;" text="➔" />
-                        <DatePicker fx:id="dpEndDate" prefHeight="40.0" prefWidth="180.0" promptText="Ngày kết thúc" style="-fx-font-size: 13px;" />
+                        <DatePicker fx:id="dpEndDate" prefHeight="40.0" prefWidth="200.0" promptText="Ngày kết thúc" style="-fx-font-size: 13px;" />
                     </children>
                 </HBox>
 
                 <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
                     <Label styleClass="field-label" text="Chọn nguồn tin" />
                 </VBox>
-                <HBox alignment="CENTER_LEFT" spacing="25.0" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-border-color: #dee2e6; -fx-border-radius: 8; -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                
+                <VBox GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-background-color: #f8f9fa; -fx-background-radius: 8; -fx-border-color: #dee2e6; -fx-border-radius: 8;">
                     <children>
-                        <fx:define>
-                            <ToggleGroup fx:id="platformGroup" />
-                        </fx:define>
-                        <RadioButton fx:id="rbFacebook" selected="true" style="-fx-font-size: 13px;" text="Facebook" toggleGroup="$platformGroup" />
-                        <RadioButton fx:id="rbX" style="-fx-font-size: 13px;" text="X (Twitter)" toggleGroup="$platformGroup" />
-                        <RadioButton fx:id="rbInstagram" style="-fx-font-size: 13px;" text="Instagram" toggleGroup="$platformGroup" />
-                        <RadioButton fx:id="rbMock" style="-fx-font-size: 13px; -fx-text-fill: #d35400; -fx-font-weight: bold;" text="Test Mode" toggleGroup="$platformGroup" />
+                         <FlowPane hgap="20.0" vgap="15.0">
+                            <padding>
+                                <Insets top="15" right="15" bottom="15" left="15"/>
+                            </padding>
+                            <children>
+                                <fx:define>
+                                    <ToggleGroup fx:id="platformGroup" />
+                                </fx:define>
+                                <RadioButton fx:id="rbFacebook" selected="true" text="Facebook" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                <RadioButton fx:id="rbInstagram" text="Instagram" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                <RadioButton fx:id="rbThreads" text="Threads" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                <RadioButton fx:id="rbX" text="X (Twitter)" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                <RadioButton fx:id="rbDanTri" text="Dân trí" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                <RadioButton fx:id="rbNhanDan" text="Nhân dân" toggleGroup="$platformGroup" style="-fx-font-size: 13px;" />
+                                </children>
+                        </FlowPane>
                     </children>
-                </HBox>
+                </VBox>
             </children>
-            <VBox.margin>
-                <Insets top="10.0" />
-            </VBox.margin>
         </GridPane>
 
-        <VBox alignment="CENTER" spacing="15.0">
-            <VBox.margin>
-                <Insets top="10.0" />
-            </VBox.margin>
-            <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onStartCrawl" prefHeight="50.0" prefWidth="350.0" styleClass="action-button" text="🚀 KÍCH HOẠT HỆ THỐNG" textFill="WHITE">
+        <VBox alignment="CENTER" spacing="10.0">
+            <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onStartCrawl" prefHeight="45.0" prefWidth="300.0" styleClass="action-button" text="🚀 KÍCH HOẠT HỆ THỐNG" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font></Button>
             <Label fx:id="statusLabel" styleClass="status-label" text="Hệ thống đang ở trạng thái chờ..." />
         </VBox>
         
-        <Line endX="500.0" stroke="#e0e0e0" strokeWidth="2.0" />
+        <Line endX="1000.0" stroke="#e0e0e0" strokeWidth="2.0" />
         
-        <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" minHeight="400.0" spacing="15.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="TOP_CENTER" spacing="10.0" VBox.vgrow="ALWAYS">
             <Label fx:id="titleLabel" styleClass="title-label" text="📈 KẾT QUẢ PHÂN TÍCH">
                <font>
                   <Font size="20.0" />
                </font>
             </Label>
             
-            <VBox fx:id="chartContainer" alignment="CENTER" prefHeight="500.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.05), 10, 0, 0, 0);" VBox.vgrow="ALWAYS">
+            <VBox fx:id="chartContainer" alignment="CENTER" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #eee; -fx-border-radius: 10;" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Vui lòng nhập thông tin và nhấn nút Kích hoạt" textFill="#999999">
+                  <Label text="Dữ liệu biểu đồ sẽ hiển thị tại đây..." textFill="#999999">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                </children>
                <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                   <Insets top="10" right="10" bottom="10" left="10"/>
                </padding>
             </VBox>
         </VBox>
 
         <padding>
-            <Insets bottom="30.0" left="40.0" right="40.0" top="30.0" />
+            <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
         </padding>
 
     </VBox>

@@ -38,7 +38,7 @@ public class ClientController {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setConnectTimeout(10000); // 10 giây để kết nối
-            connection.setReadTimeout(600000);
+            connection.setReadTimeout(6000000);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
