@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,61 +25,52 @@ public class DisasterController {
         this.disasterService = disasterService;
     }
 
+    // Endpoint chính mà Client đang gọi
+    @PostMapping("/analyze/all")
+    public ResponseEntity<AnalysisResponse<Map<String, Object>>> analyzeAll(@RequestBody AnalysisRequest request) {
+        
+        // 1. Validate cơ bản
+        ValidationResult validation = validateRequest(request);
+        if (!validation.isValid()) {
+            return ResponseEntity.badRequest()
+                    .body(AnalysisResponse.error(validation.getErrorResponse().getErrorMessage()));
+        }
+
+        // 2. Validate xem Client có gửi loại phân tích lên không
+        if (request.getAnalysisType() == null || request.getAnalysisType().isEmpty()) {
+             return ResponseEntity.badRequest()
+                    .body(AnalysisResponse.error("Thiếu thông tin loại phân tích (analysisType)."));
+        }
+
+        try {
+            // 3. Gọi Service xử lý
+            return ResponseEntity.ok(disasterService.processAllAnalysis(request));
+            
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(AnalysisResponse.error(e.getMessage()));
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi ra console server để dễ debug
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(AnalysisResponse.error("Lỗi Server: " + e.getMessage()));
+        }
+    }
+
+    // Các endpoint lẻ (giữ nguyên để backup nếu cần)
     @PostMapping("/analyze/damage")
     public ResponseEntity<AnalysisResponse<DamageStats>> analyzeDamage(@RequestBody AnalysisRequest request) {
         return analyzeWithType(request, AnalyzerFactory.AnalyzerType.DAMAGE);
     }
+    // ... (các endpoint khác giữ nguyên) ...
 
-    @PostMapping("/analyze/relief")
-    public ResponseEntity<AnalysisResponse<Map<String, ReliefStats>>> analyzeRelief(@RequestBody AnalysisRequest request) {
-        return analyzeWithType(request, AnalyzerFactory.AnalyzerType.RELIEF);
-    }
-
-    @PostMapping("/analyze/sentiment")
-    public ResponseEntity<AnalysisResponse<Map<LocalDate, SentimentStats>>> analyzeSentiment(@RequestBody AnalysisRequest request) {
-        return analyzeWithType(request, AnalyzerFactory.AnalyzerType.SENTIMENT);
-    }
-
-    @PostMapping("/analyze/relief-timeline")
-    public ResponseEntity<AnalysisResponse<Map<String, Map<LocalDate, ReliefStats>>>> analyzeReliefTimeline(@RequestBody AnalysisRequest request) {
-        return analyzeWithType(request, AnalyzerFactory.AnalyzerType.RELIEF_TIMELINE);
-    }
-
-    @PostMapping("/analyze/all")
-    public ResponseEntity<AnalysisResponse<Map<String, Object>>> analyzeAll(@RequestBody AnalysisRequest request) {
+    private <T> ResponseEntity<AnalysisResponse<T>> analyzeWithType(AnalysisRequest request, AnalyzerFactory.AnalyzerType type) {
         ValidationResult validation = validateRequest(request);
         if (!validation.isValid()) {
-            return ResponseEntity.badRequest()
-                    .body(AnalysisResponse.error(validation.getErrorResponse().getErrorMessage()));
+            return ResponseEntity.badRequest().body(AnalysisResponse.error(validation.getErrorResponse().getErrorMessage()));
         }
-
-        try {
-            return ResponseEntity.ok(disasterService.processAllAnalysis(request));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(AnalysisResponse.error(e.getMessage()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(AnalysisResponse.error("Server error: " + e.getMessage()));
-        }
-    }
-
-    private <T> ResponseEntity<AnalysisResponse<T>> analyzeWithType(
-            AnalysisRequest request,
-            AnalyzerFactory.AnalyzerType type
-    ) {
-        ValidationResult validation = validateRequest(request);
-        if (!validation.isValid()) {
-            return ResponseEntity.badRequest()
-                    .body(AnalysisResponse.error(validation.getErrorResponse().getErrorMessage()));
-        }
-
         try {
             return ResponseEntity.ok(disasterService.processSingleAnalysis(request, type));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(AnalysisResponse.error(e.getMessage()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(AnalysisResponse.error("Server error: " + e.getMessage()));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(AnalysisResponse.error("Server error: " + e.getMessage()));
         }
     }
 
@@ -88,16 +78,13 @@ public class DisasterController {
         if (request.getDisasterName() == null || request.getDisasterName().isEmpty()) {
             return ValidationResult.invalid("Disaster name must not be empty");
         }
-        if (request.getStartDate() == null || request.getEndDate() == null ||
-                request.getStartDate().isEmpty() || request.getEndDate().isEmpty()) {
+        if (request.getStartDate() == null || request.getEndDate() == null) {
             return ValidationResult.invalid("Start date and end date must not be empty");
         }
         try {
             LocalDate s = LocalDate.parse(request.getStartDate());
             LocalDate e = LocalDate.parse(request.getEndDate());
-            if (s.isAfter(e)) {
-                return ValidationResult.invalid("Start date cannot be after end date");
-            }
+            if (s.isAfter(e)) return ValidationResult.invalid("Start date cannot be after end date");
         } catch (DateTimeParseException e) {
             return ValidationResult.invalid("Invalid date format (YYYY-MM-DD)");
         }
@@ -110,20 +97,9 @@ public class DisasterController {
     private static class ValidationResult {
         private final boolean valid;
         private final AnalysisResponse<?> errorResponse;
-
-        private ValidationResult(boolean valid, AnalysisResponse<?> resp) {
-            this.valid = valid;
-            this.errorResponse = resp;
-        }
-
-        static ValidationResult valid() {
-            return new ValidationResult(true, null);
-        }
-
-        static ValidationResult invalid(String msg) {
-            return new ValidationResult(false, AnalysisResponse.error(msg));
-        }
-
+        private ValidationResult(boolean valid, AnalysisResponse<?> resp) { this.valid = valid; this.errorResponse = resp; }
+        static ValidationResult valid() { return new ValidationResult(true, null); }
+        static ValidationResult invalid(String msg) { return new ValidationResult(false, AnalysisResponse.error(msg)); }
         public boolean isValid() { return valid; }
         public AnalysisResponse<?> getErrorResponse() { return errorResponse; }
     }

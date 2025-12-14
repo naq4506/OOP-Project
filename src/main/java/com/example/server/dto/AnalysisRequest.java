@@ -8,11 +8,14 @@ public class AnalysisRequest {
     private String startDate;
     private String endDate;
     private String keyword;
-    private String analysisType;
     
-    // Thêm 2 biến này để Controller không bị lỗi
+    // Quan trọng: Field này để Client báo Server biết cần chạy bài toán nào
+    private String analysisType; 
+    
     private List<String> platforms;
     private List<String> analyzers;
+
+    // --- Getters and Setters ---
 
     public String getDisasterName() { return disasterName; }
     public void setDisasterName(String disasterName) { this.disasterName = disasterName; }
@@ -29,7 +32,6 @@ public class AnalysisRequest {
     public String getAnalysisType() { return analysisType; }
     public void setAnalysisType(String analysisType) { this.analysisType = analysisType; }
 
-    // --- Getter/Setter cho Platforms và Analyzers (QUAN TRỌNG) ---
     public List<String> getPlatforms() { return platforms; }
     public void setPlatforms(List<String> platforms) { this.platforms = platforms; }
 

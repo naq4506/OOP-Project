@@ -17,82 +17,113 @@
 <?import javafx.scene.text.Font?>
 
 <StackPane styleClass="dashboard-bg" stylesheets="@style.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.client.controller.DashboardController">
-   
-   <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="650.0" spacing="20.0" styleClass="card-pane">
-      
-      <VBox alignment="CENTER" spacing="5.0">
-         <Label styleClass="title-label" text="🔍 CẤU HÌNH CRAWLER" />
-         <Label style="-fx-text-fill: #666; -fx-font-size: 14px;" text="Thiết lập thông số để thu thập dữ liệu" />
-         <Line endX="250.0" stroke="#e0e0e0" strokeWidth="2.0">
-            <VBox.margin>
-               <Insets top="10.0" />
-            </VBox.margin>
-         </Line>
-      </VBox>
-
-      <GridPane hgap="20.0" vgap="20.0">
-        <columnConstraints>
-          <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="130.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         
-         <children>
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
-               <Label styleClass="field-label" text="Tên thảm họa" />
-               <Label style="-fx-font-size: 11px; -fx-text-fill: #999;" text="(Bắt buộc)" />
+    <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" prefWidth="850.0" spacing="30.0" styleClass="card-pane" StackPane.alignment="CENTER">
+        
+        <VBox alignment="TOP_CENTER" spacing="20.0">
+            <VBox alignment="CENTER" spacing="5.0">
+                <Label styleClass="title-label" text="🔍 CẤU HÌNH CRAWLER" />
+                <Label style="-fx-text-fill: #666; -fx-font-size: 14px;" text="Thiết lập thông số để thu thập dữ liệu" />
+                <Line endX="250.0" stroke="#e0e0e0" strokeWidth="2.0">
+                    <VBox.margin>
+                        <Insets top="10.0" />
+                    </VBox.margin>
+                </Line>
             </VBox>
-            <TextField fx:id="txtDisasterName" promptText="Nhập tên sự kiện (VD: Bão Yagi)" GridPane.columnIndex="1" />
 
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
-               <Label styleClass="field-label" text="Từ khóa chính" />
-               <Label style="-fx-font-size: 11px; -fx-text-fill: #999;" text="(Để tìm kiếm)" />
-            </VBox>
-            <TextField fx:id="txtKeyword" promptText="VD: sạt lở, cứu trợ, ngập lụt..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <GridPane hgap="20.0" vgap="20.0">
+                <columnConstraints>
+                    <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="130.0" />
+                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="350.0" />
+                </columnConstraints>
+                <rowConstraints>
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                    <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                </rowConstraints>
+                
+                <children>
+                    <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label styleClass="field-label" text="Tên thảm họa" />
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #999;" text="(Bắt buộc)" />
+                    </VBox>
+                    <TextField fx:id="txtDisasterName" promptText="Nhập tên sự kiện (VD: Bão Yagi)" GridPane.columnIndex="1" />
 
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
-               <Label styleClass="field-label" text="Khoảng thời gian" />
+                    <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label styleClass="field-label" text="Từ khóa chính" />
+                        <Label style="-fx-font-size: 11px; -fx-text-fill: #999;" text="(Để tìm kiếm)" />
+                    </VBox>
+                    <TextField fx:id="txtKeyword" promptText="VD: sạt lở, cứu trợ, ngập lụt..." GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                    <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label styleClass="field-label" text="Khoảng thời gian" />
+                    </VBox>
+                    <HBox alignment="CENTER_LEFT" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <children>
+                            <DatePicker fx:id="dpStartDate" prefHeight="40.0" prefWidth="160.0" promptText="Ngày bắt đầu" />
+                            <Label style="-fx-font-weight: bold; -fx-text-fill: #888;" text="➔" />
+                            <DatePicker fx:id="dpEndDate" prefHeight="40.0" prefWidth="160.0" promptText="Ngày kết thúc" />
+                        </children>
+                    </HBox>
+
+                    <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
+                        <Label styleClass="field-label" text="Chọn nguồn tin" />
+                    </VBox>
+                    <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #f1f3f5; -fx-background-radius: 10; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                        <children>
+                            <fx:define>
+                                <ToggleGroup fx:id="platformGroup" />
+                            </fx:define>
+                            <RadioButton fx:id="rbFacebook" selected="true" styleClass="radio-button" text="Facebook" toggleGroup="$platformGroup" />
+                            <RadioButton fx:id="rbX" styleClass="radio-button" text="X (Twitter)" toggleGroup="$platformGroup" />
+                            <RadioButton fx:id="rbInstagram" styleClass="radio-button" text="Instagram" toggleGroup="$platformGroup" />
+                            <RadioButton fx:id="rbMock" styleClass="radio-button" text="Test Mode" textFill="#e67e22" toggleGroup="$platformGroup" />
+                        </children>
+                    </HBox>
+                </children>
+                <VBox.margin>
+                    <Insets top="10.0" />
+                </VBox.margin>
+            </GridPane>
+
+            <VBox alignment="CENTER" spacing="15.0">
+                <VBox.margin>
+                    <Insets top="20.0" />
+                </VBox.margin>
+                <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onStartCrawl" prefHeight="50.0" prefWidth="300.0" styleClass="action-button" text="🚀 KÍCH HOẠT HỆ THỐNG" />
+                <Label fx:id="statusLabel" styleClass="status-label" text="Hệ thống đang ở trạng thái chờ..." />
             </VBox>
-            <HBox spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER_LEFT">
+        </VBox>
+        
+        <Line endX="450.0" stroke="#e0e0e0" strokeWidth="2.0" />
+        
+        <VBox alignment="TOP_CENTER" maxHeight="Infinity" maxWidth="Infinity" minHeight="500.0" prefHeight="600.0" spacing="15.0">
+            <Label fx:id="titleLabel" styleClass="title-label" text="📈 KẾT QUẢ PHÂN TÍCH (Bài toán X)" VBox.vgrow="NEVER">
+               <font>
+                  <Font size="22.0" />
+               </font>
+            </Label>
+            <Label style="-fx-text-fill: #666; -fx-font-size: 14px;" text="Biểu đồ trực quan hóa dữ liệu được phân tích từ Server." />
+            <Line endX="250.0" stroke="#e0e0e0" strokeWidth="2.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Line>
+            
+            <VBox fx:id="chartContainer" alignment="CENTER" prefHeight="500.0" VBox.vgrow="ALWAYS">
                <children>
-                  <DatePicker fx:id="dpStartDate" prefHeight="40.0" prefWidth="160.0" promptText="Ngày bắt đầu" />
-                  <Label style="-fx-font-weight: bold; -fx-text-fill: #888;" text="➔" />
-                  <DatePicker fx:id="dpEndDate" prefHeight="40.0" prefWidth="160.0" promptText="Ngày kết thúc" />
+                  <Label text="Chưa có dữ liệu để hiển thị biểu đồ. Vui lòng nhấn nút 'KÍCH HOẠT HỆ THỐNG'." textFill="#666666">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
-            </HBox>
-
-            <VBox spacing="5.0" GridPane.columnIndex="0" GridPane.rowIndex="3">
-               <Label styleClass="field-label" text="Chọn nguồn tin" />
             </VBox>
-            <HBox alignment="CENTER_LEFT" spacing="20.0" style="-fx-background-color: #f1f3f5; -fx-background-radius: 10; -fx-padding: 12;" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <children>
-                  <fx:define>
-                     <ToggleGroup fx:id="platformGroup" />
-                  </fx:define>
-                  <RadioButton fx:id="rbFacebook" selected="true" styleClass="radio-button" text="Facebook" toggleGroup="$platformGroup" />
-                  <RadioButton fx:id="rbX" styleClass="radio-button" text="X (Twitter)" toggleGroup="$platformGroup" />
-                  <RadioButton fx:id="rbInstagram" styleClass="radio-button" text="Instagram" toggleGroup="$platformGroup" />
-                  <RadioButton fx:id="rbMock" styleClass="radio-button" text="Test Mode" textFill="#e67e22" toggleGroup="$platformGroup" />
-               </children>
-            </HBox>
-         </children>
-         <VBox.margin>
-            <Insets top="10.0" />
-         </VBox.margin>
-      </GridPane>
+        </VBox>
 
-      <VBox alignment="CENTER" spacing="15.0">
-         <VBox.margin>
-            <Insets top="20.0" />
-         </VBox.margin>
-         <Button fx:id="btnStart" mnemonicParsing="false" onAction="#onStartCrawl" prefHeight="50.0" prefWidth="300.0" styleClass="action-button" text="🚀 KÍCH HOẠT HỆ THỐNG" />
-         <Label fx:id="statusLabel" styleClass="status-label" text="Hệ thống đang ở trạng thái chờ..." />
-      </VBox>
-      
-   </VBox>
+        <padding>
+            <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+        </padding>
+
+    </VBox>
 </StackPane>

@@ -37,8 +37,8 @@ public class ClientController {
             URL url = new URL(serverUrl + "/api/disaster/analyze/all");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(5000); // 5s timeout
-            connection.setReadTimeout(10000);   // 10s read timeout
+            connection.setConnectTimeout(10000); // 10 giây để kết nối
+            connection.setReadTimeout(600000);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 

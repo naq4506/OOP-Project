@@ -1,11 +1,9 @@
 package com.example.server.stats;
 
+import com.fasterxml.jackson.annotation.JsonValue; // Import cái này
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Thống kê số lượng post theo loại thiệt hại
- */
 public class DamageStats implements AnalysisStats {
 
     private final Map<String, Integer> counts = new HashMap<>();
@@ -18,6 +16,7 @@ public class DamageStats implements AnalysisStats {
     }
 
     @Override
+    @JsonValue  // <--- THÊM DÒNG NÀY: Để in map trực tiếp ra JSON
     public Map<String, Integer> getCounts() {
         return counts;
     }

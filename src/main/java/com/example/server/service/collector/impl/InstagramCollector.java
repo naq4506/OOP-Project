@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class InstagramCollector extends BaseSeleniumCollector {
 
     private static final String TAG_URL = "https://www.instagram.com/explore/tags/";
-    private static final int MAX_POSTS = 10;
+    private static final int MAX_POSTS = 3;
     
     private static final int BATCH_CHAR_LIMIT = 800; 
     private static final String BATCH_DELIMITER = "\n"; 

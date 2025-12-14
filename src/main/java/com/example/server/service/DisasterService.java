@@ -28,82 +28,60 @@ public class DisasterService {
         this.analyzerFactory = analyzerFactory;
     }
 
-    // ------------------------
-    // SINGLE ANALYSIS (USING analysisType OR analyzers)
-    // ------------------------
-    public <T> AnalysisResponse<T> processSingleAnalysis(AnalysisRequest request, AnalyzerFactory.AnalyzerType defaultType) {
+    // ---------------------------------------------------------
+    // XỬ LÝ CHÍNH CHO CLIENT MỚI (Dùng analysisType)
+    // ---------------------------------------------------------
+    public AnalysisResponse<Map<String, Object>> processAllAnalysis(AnalysisRequest request) {
+        
+        // 1. Thu thập dữ liệu (Crawl) & Tiền xử lý (Clean/Normalize)
+        System.out.println(">>> [Service] Bắt đầu thu thập dữ liệu...");
         List<SocialPostEntity> allPosts = collectAndPreprocess(request);
+        System.out.println(">>> [Service] Thu thập xong: " + allPosts.size() + " bài viết.");
 
-        // Nếu client dùng analysisType
-        AnalyzerFactory.AnalyzerType type = defaultType;
-        if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
-            try {
-                type = AnalyzerFactory.AnalyzerType.valueOf(request.getAnalysisType().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                return AnalysisResponse.error("Invalid analysisType: " + request.getAnalysisType());
-            }
-        }
-
-        Analyzer<T> analyzer = analyzerFactory.getAnalyzer(type);
-        if (analyzer == null) {
-            return AnalysisResponse.error("Analyzer not found for type: " + type);
+        Map<String, Object> resultMap = new HashMap<>();
+        
+        // 2. Xác định loại phân tích từ Request
+        String analysisTypeStr = request.getAnalysisType();
+        if (analysisTypeStr == null) {
+            return AnalysisResponse.error("Analysis Type is null");
         }
 
         try {
-            return analyzer.analyze(allPosts);
-        } catch (Exception e) {
-            return AnalysisResponse.error("Analysis error: " + e.getMessage());
-        }
-    }
-
-    // ------------------------
-    // FULL ANALYSIS (SELECTED TYPES)
-    // ------------------------
-    public AnalysisResponse<Map<String, Object>> processAllAnalysis(AnalysisRequest request) {
-        List<SocialPostEntity> allPosts = collectAndPreprocess(request);
-        Map<String, Object> resultMap = new HashMap<>();
-
-        // Lấy danh sách analyzer client muốn chạy
-        List<String> requestedAnalyzers = new ArrayList<>();
-        if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
-            requestedAnalyzers.add(request.getAnalysisType());
-        } else if (request.getAnalysisType() != null && !request.getAnalysisType().isEmpty()) {
-            requestedAnalyzers.add(request.getAnalysisType());
-        } else {
-            // Nếu không có gì, mặc định chạy tất cả
-            for (AnalyzerFactory.AnalyzerType type : AnalyzerFactory.AnalyzerType.values()) {
-                requestedAnalyzers.add(type.name());
-            }
-        }
-
-        for (String analyzerName : requestedAnalyzers) {
-            AnalyzerFactory.AnalyzerType type;
-            try {
-                type = AnalyzerFactory.AnalyzerType.valueOf(analyzerName.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                resultMap.put(analyzerName, "Invalid analyzer type");
-                continue;
-            }
-
-            Analyzer<Object> analyzer = analyzerFactory.getAnalyzer(type);
+            // Chuyển String sang Enum (VD: "SENTIMENT" -> AnalyzerType.SENTIMENT)
+            AnalyzerFactory.AnalyzerType type = AnalyzerFactory.AnalyzerType.valueOf(analysisTypeStr.toUpperCase());
+            
+            // Lấy Analyzer tương ứng từ Factory
+            // Ép kiểu về Analyzer<Object> để chạy chung
+            @SuppressWarnings("unchecked")
+            Analyzer<Object> analyzer = (Analyzer<Object>) analyzerFactory.getAnalyzer(type);
+            
             if (analyzer != null) {
+                // Chạy phân tích
                 AnalysisResponse<Object> resp = analyzer.analyze(allPosts);
+                
                 if (resp.isSuccess()) {
+                    // Đưa kết quả vào Map với Key là tên loại phân tích (để Client lấy ra)
                     resultMap.put(type.name(), resp.getData());
                 } else {
-                    resultMap.put(type.name(), "Error: " + resp.getErrorMessage());
+                    return AnalysisResponse.error("Analyzer Error: " + resp.getErrorMessage());
                 }
             } else {
-                resultMap.put(type.name(), "Analyzer not found");
+                return AnalysisResponse.error("Không tìm thấy Analyzer cho loại: " + type);
             }
+
+        } catch (IllegalArgumentException e) {
+            return AnalysisResponse.error("Loại phân tích không hợp lệ: " + analysisTypeStr);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return AnalysisResponse.error("Lỗi trong quá trình phân tích: " + e.getMessage());
         }
 
         return AnalysisResponse.success(resultMap);
     }
 
-    // ------------------------
-    // COLLECT AND PREPROCESS
-    // ------------------------
+    // ---------------------------------------------------------
+    // LOGIC THU THẬP & TIỀN XỬ LÝ (GIỮ NGUYÊN)
+    // ---------------------------------------------------------
     private List<SocialPostEntity> collectAndPreprocess(AnalysisRequest request) {
         List<SocialPostEntity> allPosts = new ArrayList<>();
 
@@ -117,19 +95,31 @@ public class DisasterService {
                 Collector collector = CollectorFactory.getCollector(platform);
                 if (collector == null) continue;
 
+                // Gọi Collector
                 List<SocialPostEntity> posts = collector.collect(
                     disasterName,
                     keyword,
                     startDate.atStartOfDay(),
                     endDate.atTime(23, 59, 59)
                 );
+                
+                // Gọi Preprocess (Làm sạch & Gán nhãn)
                 if (preprocess != null) {
                     posts = preprocess.clean(posts);
                 }
+                
                 allPosts.addAll(posts);
             }
         }
-
         return allPosts;
+    }
+
+    // (Giữ hàm cũ này nếu cần tương thích ngược, không ảnh hưởng)
+    public <T> AnalysisResponse<T> processSingleAnalysis(AnalysisRequest request, AnalyzerFactory.AnalyzerType defaultType) {
+        List<SocialPostEntity> allPosts = collectAndPreprocess(request);
+        @SuppressWarnings("unchecked")
+        Analyzer<T> analyzer = (Analyzer<T>) analyzerFactory.getAnalyzer(defaultType);
+        if (analyzer == null) return AnalysisResponse.error("Analyzer not found");
+        return analyzer.analyze(allPosts);
     }
 }

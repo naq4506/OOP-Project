@@ -1,11 +1,9 @@
 package com.example.server.stats;
 
+import com.fasterxml.jackson.annotation.JsonValue; // Import
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Thống kê số lượng post theo sentiment
- */
 public class SentimentStats implements AnalysisStats {
 
     private final Map<String, Integer> counts = new HashMap<>();
@@ -18,6 +16,7 @@ public class SentimentStats implements AnalysisStats {
     }
 
     @Override
+    @JsonValue // <--- THÊM DÒNG NÀY
     public Map<String, Integer> getCounts() {
         return counts;
     }
