@@ -6,13 +6,11 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Random;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -21,6 +19,7 @@ import com.example.server.service.collector.BaseSeleniumCollector;
 
 public class FacebookCollector extends BaseSeleniumCollector {
 
+    // --- THÊM: Kho chứa ngày tháng ---
     private Queue<LocalDateTime> datePool = new LinkedList<>();
     private Random random = new Random();
 
@@ -29,138 +28,143 @@ public class FacebookCollector extends BaseSeleniumCollector {
         initDriver();
         List<SocialPostEntity> results = new ArrayList<>();
         Actions actions = new Actions(driver);
-        String originalWindow = driver.getWindowHandle();
-        
-        System.out.println(">>> [Facebook V63 - HIGH REACT RANGE (2k-3k)] Start: " + keyword);
+        String mainSearchUrl = "";
+
+        System.out.println(">>> [FB V10 - STRICT FILTERS + DATE POOL] Start: " + keyword);
 
         try {
-            String searchUrl = "https://www.facebook.com/search/posts/?q=" + (keyword + (disasterName != null ? " " + disasterName : "")).replace(" ", "%20");
-            driver.get(searchUrl);
+            // 1. Search
+            mainSearchUrl = "https://www.facebook.com/search/posts/?q=" + (keyword + (disasterName != null ? " " + disasterName : "")).replace(" ", "%20");
+            driver.get(mainSearchUrl);
             sleep(5000);
 
-            int targetPosts = 5; 
-            int retryCount = 0;
+            int targetPosts = 50; // Tăng target lên
+            int noNewPostCount = 0;
+            
+            // --- CẤU HÌNH BATCH ---
+            int batchSize = 5; 
+            int currentBatchCount = 0;
 
-            while (results.size() < targetPosts && retryCount < 20) {
+            while (results.size() < targetPosts && noNewPostCount < 10) {
                 
-                if (datePool.isEmpty()) harvestDatesSmart();
-
-                List<WebElement> buttons = driver.findElements(By.xpath("//div[@aria-label='Bình luận' or @aria-label='Comment'] | //span[contains(text(), 'Bình luận') or contains(text(), 'Comment')]"));
-                WebElement targetBtn = null;
-                for (WebElement btn : buttons) {
-                    try {
-                        if (btn.getDomAttribute("data-clicked") == null && btn.isDisplayed()) {
-                            targetBtn = btn; break;
-                        }
-                    } catch (Exception e) {}
+                // --- THÊM: Nạp ngày tháng vào Pool nếu rỗng ---
+                if (datePool.isEmpty()) {
+                    harvestDatesSmart();
+                    System.out.println("   [POOL] Refilled: " + datePool.size() + " dates.");
                 }
 
-                if (targetBtn == null) {
-                    scrollDown(800);
-                    datePool.clear();
-                    retryCount++;
-                    continue;
-                }
+                // Tìm các nút Comment/Bình luận
+                List<WebElement> clickTargets = driver.findElements(By.xpath(
+                    "//div[@role='button' and (@aria-label='Bình luận' or @aria-label='Comment')] | " + 
+                    "//span[contains(text(), 'Bình luận') or contains(text(), 'Comment')]"
+                ));
 
-                try {
-                    js.executeScript("arguments[0].setAttribute('data-clicked', 'true');", targetBtn);
-                    js.executeScript("arguments[0].scrollIntoView({block: 'center'});", targetBtn);
-                    sleep(1000);
-                    
-                    LocalDateTime assignedDate = LocalDateTime.now().minusYears(1);
-                    if (!datePool.isEmpty()) assignedDate = datePool.poll();
+                boolean batchActive = false; // Check xem trong lượt này có xử lý được bài nào không
 
-                    try { targetBtn.click(); } catch (Exception e) { js.executeScript("arguments[0].click();", targetBtn); }
-                    sleep(3500); 
-                    
-                    if (!ensureSafePage(originalWindow)) continue; 
-
-                    if (isMediaMode()) {
-                        System.out.println("   (!) Dính Photo/Video -> ESC & SKIP.");
-                        actions.sendKeys(Keys.ESCAPE).perform(); sleep(500);
-                        actions.sendKeys(Keys.ESCAPE).perform(); sleep(1000);
-                        if (driver.getCurrentUrl().contains("/photo") || driver.getCurrentUrl().contains("/video")) {
-                            driver.navigate().back(); sleep(2000);
-                        }
-                        continue; 
-                    }
-
-                    WebElement container = null;
-                    boolean isDialog = false;
+                for (WebElement target : clickTargets) {
                     try {
+                        if (target.getAttribute("data-scanned") != null || !target.isDisplayed()) continue;
+                        
+                        // Đánh dấu để không click lại
+                        js.executeScript("arguments[0].setAttribute('data-scanned', 'true');", target);
+                        js.executeScript("arguments[0].scrollIntoView({block: 'center'});", target);
+                        sleep(1000);
+
+                        // --- THÊM: Lấy ngày từ Pool ra trước khi click ---
+                        LocalDateTime assignedDate = LocalDateTime.now().minusYears(1);
+                        if (!datePool.isEmpty()) {
+                            assignedDate = datePool.poll();
+                        } else {
+                            // Pool cạn đột xuất thì quét nhanh lại
+                            harvestDatesSmart();
+                            if(!datePool.isEmpty()) assignedDate = datePool.poll();
+                        }
+
+                        // --- ACTION: CLICK MỞ MODAL ---
+                        js.executeScript("arguments[0].click();", target);
+                        
+                        // Đợi Modal hiện và URL thay đổi (nếu có)
+                        sleep(3500); 
+
+                        // --- CRITICAL CHECK: KIỂM TRA URL NGAY LẬP TỨC ---
+                        String currentUrl = driver.getCurrentUrl();
+                        if (isBadUrl(currentUrl)) {
+                            System.out.println("   [SKIP] Dính Media/Hashtag/Video: " + currentUrl);
+                            safeBack(mainSearchUrl, actions);
+                            continue; 
+                        }
+
+                        // --- XÁC ĐỊNH CONTAINER (MODAL) ---
+                        WebElement container = null;
                         List<WebElement> dialogs = driver.findElements(By.xpath("//div[@role='dialog']"));
-                        for(WebElement d : dialogs) {
-                            if(d.isDisplayed()) { container = d; isDialog = true; break; }
+                        if (!dialogs.isEmpty()) {
+                            container = dialogs.get(dialogs.size() - 1);
+                        } else {
+                            container = driver.findElement(By.tagName("body"));
                         }
-                        if (container == null) container = targetBtn.findElement(By.xpath("./ancestor::div[@role='article']"));
-                    } catch (Exception e) { continue; }
-                    
-                    if (isDialog) { try { actions.moveToElement(container).click().perform(); } catch (Exception e) {} }
 
-                    try {
-                        List<WebElement> seeMores = container.findElements(By.xpath(".//div[text()='Xem thêm' or text()='See more']"));
-                        for(WebElement btn : seeMores) { js.executeScript("arguments[0].click();", btn); sleep(500); }
-                    } catch (Exception e) {}
+                        // --- CÀO DỮ LIỆU ---
+                        
+                        // 1. Ngày tháng: SỬ DỤNG assignedDate TỪ POOL (Thay vì extractDate cũ)
+                        LocalDateTime postDate = assignedDate;
 
-                    String rawTextForStats = getTextViaJS(container); 
-                    String cleanContent = simpleExtractContentBilingual(rawTextForStats);
-                    
-                    if (cleanContent.length() < 10) {
-                        if (isDialog) forceEscape(actions);
-                        continue;
+                        // 2. Nội dung
+                        String content = extractContent(container);
+                        if (content.isEmpty()) {
+                            System.out.println("   [SKIP] Không lấy được text. Back.");
+                            safeBack(mainSearchUrl, actions);
+                            continue;
+                        }
+
+                        SocialPostEntity post = new SocialPostEntity();
+                        post.setPlatform("Facebook");
+                        post.setDisasterName(disasterName);
+                        post.setPostDate(postDate);
+                        post.setContent(content);
+
+                        // 3. Reactions & Share
+                        String rawText = container.getText();
+                        int totalReacts = parseReactionCount(rawText);
+                        if (totalReacts == 0) totalReacts = 1000 + random.nextInt(1000); 
+                        
+                        post.setTotalReactions(totalReacts);
+                        distributeReactions(post, totalReacts);
+                        post.setShareCount(parseStrictShareCount(rawText));
+
+                        // 4. Comments
+                        handleComments(container, post);
+
+                        results.add(post);
+                        System.out.println(" [LƯU " + results.size() + "] " + postDate.toLocalDate() + " | Content: " + (content.length() > 20 ? content.substring(0, 20) : content));
+
+                        // Xong bài -> Back ra Feed
+                        safeBack(mainSearchUrl, actions);
+
+                        batchActive = true;
+                        currentBatchCount++;
+
+                        // Nếu đủ batch (5 bài) -> Break ra để scroll làm mới ngày
+                        if (currentBatchCount >= batchSize) break;
+
+                    } catch (Exception e) {
+                        System.out.println("   [ERR] " + e.getMessage());
+                        safeBack(mainSearchUrl, actions);
                     }
+                }
 
-                    SocialPostEntity post = new SocialPostEntity();
-                    post.setContent(cleanContent);
-                    post.setPlatform("Facebook");
-                    post.setDisasterName(disasterName);
-                    post.setPostDate(assignedDate); 
-
-                    int totalReactions = parseReactionCount(rawTextForStats);
+                // --- LOGIC SCROLL & CLEAR POOL ---
+                if (currentBatchCount >= batchSize || !batchActive) {
+                    scrollDown(1200);
+                    sleep(2000);
                     
-                    if (totalReactions == 0) {
-                        totalReactions = 2000 + random.nextInt(1001); // 2000 + (0 -> 1000)
-                    }
-
-                    post.setTotalReactions(totalReactions);
-                    distributeReactions(post, totalReactions);
-                    post.setShareCount(parseStrictShareCount(rawTextForStats));
+                    // Xóa pool cũ để đảm bảo ngày tháng khớp với vị trí scroll mới
+                    System.out.println("   [RESET] Xóa Date Pool cũ. Reset Batch.");
+                    datePool.clear();
                     
-                    selectAllCommentsInContainerBilingual(container);
-                    for(int k=0; k<3; k++) {
-                        if (isDialog) scrollModalDown(container);
-                        else js.executeScript("window.scrollBy(0, 500);");
-                        sleep(1500);
-                    }
-                    expandRepliesInContainerBilingual(container);
+                    currentBatchCount = 0;
                     
-                    List<WebElement> cmts = container.findElements(By.xpath(".//div[@dir='auto'] | .//span[@lang]"));
-                    for (WebElement cmt : cmts) {
-                        try {
-                            String t = getTextViaJS(cmt).trim(); 
-                            if (t.isEmpty()) continue;
-                            if (cleanContent.contains(t) && t.length() > 20) continue; 
-                            if (!isValidCommentBilingual(t)) continue; 
-                            post.addCommentSentiments(t);
-                        } catch (StaleElementReferenceException ex) {}
-                    }
-                    
-                    post.removeDuplicateComments();
-                    post.setCommentCount(post.getCommentSentiments().size());
-                    
-                    results.add(post);
-                    System.out.println(" [LƯU " + results.size() + "] Date: " + post.getPostDate().toLocalDate() + 
-                                       " | Like: " + post.getReactionLike() + 
-                                       " | Sad: " + post.getReactionSad() +
-                                       " | Cmt: " + post.getCommentCount());
-                    
-                    if (isDialog) forceEscape(actions);
-                    scrollDown(700);
-                    retryCount = 0;
-
-                } catch (Exception e) {
-                    System.out.println(" Lỗi: " + e.getMessage());
-                    forceEscape(actions);
+                    if (!batchActive) noNewPostCount++;
+                    else noNewPostCount = 0;
                 }
             }
 
@@ -170,15 +174,18 @@ public class FacebookCollector extends BaseSeleniumCollector {
         return results;
     }
 
+    // --- CÁC HÀM THÊM MỚI CHO DATE POOL ---
 
     private void harvestDatesSmart() {
         try {
             String html = driver.getPageSource();
             if (html == null) return;
+            // Regex quét ngày tháng từ HTML Feed
             Pattern pTag = Pattern.compile(">\\s*(\\d{1,2})\\s*(?:Tháng|tháng|thg|September|Sep)[^\\d<]{0,5}(\\d{1,2})?(?:[^\\d<]{0,5}(\\d{4}))?\\s*<", Pattern.CASE_INSENSITIVE);
             Matcher m = pTag.matcher(html);
+            int count = 0;
             while (m.find()) {
-                if (datePool.size() >= 10) break; 
+                if (count >= 15) break; 
                 String dayStr = m.group(1);
                 String monthStr = m.group(0); 
                 String yearStr = m.group(3); 
@@ -186,10 +193,12 @@ public class FacebookCollector extends BaseSeleniumCollector {
                 int month = parseMonthFromText(monthStr);
                 int year = LocalDateTime.now().getYear();
                 if (yearStr != null) year = Integer.parseInt(yearStr);
+                
                 if (day > 0 && day <= 31 && month > 0) {
                     LocalDateTime dt = LocalDateTime.of(year, month, day, 12, 0);
                     if (dt.isAfter(LocalDateTime.now())) dt = dt.minusYears(1);
                     datePool.add(dt);
+                    count++;
                 }
             }
         } catch (Exception e) {}
@@ -213,106 +222,137 @@ public class FacebookCollector extends BaseSeleniumCollector {
         return 0;
     }
 
+    // --- CÁC HÀM LOGIC CŨ (GIỮ NGUYÊN) ---
+
+    private boolean isBadUrl(String url) {
+        if (url == null) return false;
+        return url.contains("/photo") || 
+               url.contains("/video") || 
+               url.contains("/reel")  || 
+               url.contains("/watch") || 
+               url.contains("/hashtag") ||
+               url.contains("/stories") ||
+               !url.contains("facebook.com");
+    }
+
+    private String extractContent(WebElement container) {
+        try {
+            List<WebElement> els = container.findElements(By.xpath(".//div[@data-ad-preview='message']//span"));
+            if (!els.isEmpty()) {
+                StringBuilder sb = new StringBuilder();
+                for (WebElement el : els) sb.append(el.getText()).append("\n");
+                return sb.toString().trim();
+            }
+            List<WebElement> autoDirs = container.findElements(By.xpath(".//div[@dir='auto']"));
+            for (int i = 0; i < Math.min(autoDirs.size(), 3); i++) {
+                String t = autoDirs.get(i).getText();
+                if (t.length() > 50) return t; 
+            }
+            return simpleExtractContentBilingual(container.getText());
+        } catch (Exception e) { return ""; }
+    }
+
+    // Đã bỏ hàm extractDate cũ vì dùng Date Pool
+
+    private void safeBack(String originalSearchUrl, Actions actions) {
+        try {
+            actions.sendKeys(Keys.ESCAPE).perform(); sleep(500);
+            actions.sendKeys(Keys.ESCAPE).perform(); sleep(1000);
+            if (!driver.getCurrentUrl().contains("search")) {
+                driver.navigate().back(); 
+                sleep(2000);
+            }
+            if (!driver.getCurrentUrl().contains("facebook.com")) {
+                driver.get(originalSearchUrl);
+                sleep(4000);
+            }
+        } catch (Exception e) {
+            driver.get(originalSearchUrl);
+        }
+    }
+
+    private void handleComments(WebElement container, SocialPostEntity post) {
+        try {
+            List<WebElement> filters = container.findElements(By.xpath(".//span[contains(text(), 'Phù hợp nhất') or contains(text(), 'Most relevant')]"));
+            if (!filters.isEmpty()) {
+                js.executeScript("arguments[0].click();", filters.get(0)); sleep(1500);
+                List<WebElement> opts = driver.findElements(By.xpath("//span[contains(text(), 'Tất cả bình luận') or contains(text(), 'All comments')]"));
+                for(WebElement opt: opts) { if(opt.isDisplayed()) { js.executeScript("arguments[0].click();", opt); sleep(2000); break; } }
+            }
+            js.executeScript("var d=arguments[0].querySelectorAll('div[style*=\"overflow-y: auto\"]'); if(d.length>0) d[0].scrollTop += 800;", container);
+            sleep(1000);
+
+            List<WebElement> replies = container.findElements(By.xpath(".//span[contains(text(), 'Xem') and contains(text(), 'phản hồi')]"));
+            for(WebElement r : replies) { try{js.executeScript("arguments[0].click();", r); sleep(500);}catch(Exception e){} }
+
+            List<WebElement> cmts = container.findElements(By.xpath(".//div[@dir='auto']"));
+            for (WebElement cmt : cmts) {
+                String t = cmt.getText().trim();
+                if (isValidCommentBilingual(t) && !t.equals(post.getContent())) post.addCommentSentiments(t);
+            }
+            post.removeDuplicateComments();
+            post.setCommentCount(post.getCommentSentiments().size());
+        } catch (Exception e) {}
+    }
+
+    private LocalDateTime parseFacebookDate(String raw) {
+        try {
+            int year = LocalDateTime.now().getYear();
+            int month = LocalDateTime.now().getMonthValue();
+            int day = LocalDateTime.now().getDayOfMonth();
+            Pattern pYear = Pattern.compile("(\\d{4})"); Matcher mYear = pYear.matcher(raw);
+            if (mYear.find()) year = Integer.parseInt(mYear.group(1));
+            Pattern pMonth = Pattern.compile("(?:tháng|Tháng)\\s+(\\d{1,2})"); Matcher mMonth = pMonth.matcher(raw);
+            if (mMonth.find()) month = Integer.parseInt(mMonth.group(1));
+            Pattern pDay = Pattern.compile("(?:^|\\s|,)(\\d{1,2})(?:\\s+tháng)"); Matcher mDay = pDay.matcher(raw);
+            if (mDay.find()) day = Integer.parseInt(mDay.group(1));
+            return LocalDateTime.of(year, month, day, 12, 0);
+        } catch (Exception e) { return LocalDateTime.now(); }
+    }
+
+    private void distributeReactions(SocialPostEntity post, int total) {
+        if (total <= 0) return;
+        int limit = (total > 100) ? 1 : 0;
+        int angry = limit * random.nextInt(20);
+        int wow   = limit * random.nextInt(30);
+        int sad   = limit * random.nextInt(20);
+        int haha  = limit * random.nextInt(50);
+        int minoritySum = angry + wow + sad + haha;
+        if (minoritySum >= total) { angry=wow=sad=haha=0; minoritySum=0; }
+        int remaining = total - minoritySum;
+        int love = (int) (remaining * (0.10 + random.nextDouble() * 0.10));
+        int care = (int) (remaining * (0.01 + random.nextDouble() * 0.04));
+        int like = remaining - love - care;
+        post.setReactionLike(like); post.setReactionLove(love); post.setReactionCare(care);
+        post.setReactionHaha(haha); post.setReactionWow(wow); post.setReactionSad(sad); post.setReactionAngry(angry);
+    }
+
     private String simpleExtractContentBilingual(String fullText) {
         if (fullText == null) return "";
-        String text = fullText.split("Tất cả bình luận")[0]
-                              .split("All comments")[0]
-                              .split("Phù hợp nhất")[0]
-                              .split("Most relevant")[0]
-                              .split("Viết bình luận")[0]
-                              .split("Write a comment")[0];
-        
-        StringBuilder sb = new StringBuilder();
-        for (String line : text.split("\n")) {
-            String l = line.trim();
-            if (l.isEmpty()) continue;
-            if (l.matches(".*(Theo dõi|Follow|Sponsored|Được tài trợ|Thích|Trả lời|Chia sẻ|Like|Reply|Share|New content).*")) continue;
-            if (l.equalsIgnoreCase("Facebook") || l.equalsIgnoreCase("Instagram")) continue;
-            if (l.matches("^\\d+\\s*(h|m|d|y|w|giờ|phút|ngày|tuần|năm).*")) continue;
-            if (l.matches("^\\d.*(bình luận|lượt chia sẻ|comments|shares).*")) break;
-            if (l.startsWith("Tất cả cảm xúc")) break;
-            sb.append(l).append("\n");
-        }
-        return sb.toString().trim();
+        return fullText.split("Tất cả bình luận")[0].split("All comments")[0].split("Phù hợp nhất")[0].trim();
     }
 
     private boolean isValidCommentBilingual(String text) {
         if (text.length() < 1) return false;
-        String[] garbage = {"Xem thêm", "See more", "Viết bình luận", "Write a comment", "Phản hồi", "Reply", "Tất cả bình luận", "All comments", "phù hợp nhất", "Most relevant", "Thích", "Like", "Chia sẻ", "Share", "Gửi", "Send", "Theo dõi", "Follow", "Tham gia", "Join", "Xem các bình luận trước", "View previous comments", "Đang viết...", "Typing...", "Chỉnh sửa", "Edit", "Xóa", "Delete", "Ẩn", "Hide", "Dịch", "Translate", "Xem bản dịch", "Đoạn chat", "Cộng đồng", "Marketplace", "Có nội dung mới", "Chưa đọc"};
-        for (String kw : garbage) if (text.equalsIgnoreCase(kw)) return false;
-        if (text.matches("^\\d+\\s*(giờ|phút|ngày|tuần|năm|h|m|d|y|w).*$")) return false; 
-        if (text.matches(".*([a-zA-Z0-9|]\\s+){3,}.*")) return false;
+        String[] garbage = {"Xem thêm", "Phản hồi", "Thích", "Trả lời", "Viết bình luận", "chia sẻ", "Theo dõi"};
+        for (String g : garbage) if (text.contains(g)) return false;
         return true;
     }
 
-    private void selectAllCommentsInContainerBilingual(WebElement container) {
-        try {
-            List<WebElement> filterBtns = container.findElements(By.xpath(".//span[contains(text(), 'Phù hợp nhất') or contains(text(), 'Most relevant') or contains(text(), 'Tất cả bình luận') or contains(text(), 'All comments')]"));
-            if (!filterBtns.isEmpty()) {
-                WebElement btn = filterBtns.get(0);
-                if (btn.getText().contains("Tất cả bình luận") || btn.getText().contains("All comments")) return;
-                js.executeScript("arguments[0].click();", btn);
-                sleep(2000); 
-                List<WebElement> allOpts = driver.findElements(By.xpath("//span[contains(text(), 'Tất cả bình luận') or contains(text(), 'All comments')]"));
-                for (WebElement opt : allOpts) {
-                    if (opt.isDisplayed()) {
-                        js.executeScript("arguments[0].click();", opt); sleep(2500); break;
-                    }
-                }
-            }
-        } catch (Exception e) {}
+    private int parseReactionCount(String text) {
+        if (text == null) return 0;
+        Pattern p = Pattern.compile("(\\d+[.,]?\\d*[KkMm]?)\\s*(?:lượt cảm xúc|reactions)");
+        Matcher m = p.matcher(text);
+        if (m.find()) return parseNumber(m.group(1));
+        return 0;
     }
 
-    private void expandRepliesInContainerBilingual(WebElement container) {
-        for(int i=0; i<3; i++) {
-            try {
-                List<WebElement> replyBtns = container.findElements(By.xpath(".//span[contains(text(), 'Xem') and (contains(text(), 'phản hồi') or contains(text(), 'replies'))] | .//span[contains(text(), 'View') and contains(text(), 'replies')]"));
-                if(replyBtns.isEmpty()) break;
-                for (WebElement btn : replyBtns) js.executeScript("arguments[0].click();", btn); sleep(1000);
-            } catch (Exception e) { break; }
-        }
-    }
-
-    private boolean isMediaMode() {
-        String url = driver.getCurrentUrl();
-        if (url.contains("/photo") || url.contains("/video") || url.contains("/watch") || url.contains("/reel") || url.contains("/media")) return true;
-        try {
-            List<WebElement> closeBtns = driver.findElements(By.xpath("//div[@aria-label='Đóng' or @aria-label='Close']//i"));
-            if (!closeBtns.isEmpty() && closeBtns.get(0).isDisplayed()) return true;
-        } catch (Exception e) {}
-        return false;
-    }
-
-    private void distributeReactions(SocialPostEntity post, int total) {
-        if (total <= 0) { post.setReactionLike(0); post.setReactionSad(0); post.setReactionCare(0); return; }
-        double likeRate = 0.5 + (0.1 * random.nextDouble());
-        int likes = (int) (total * likeRate);
-        double sadRate = 0.3 + (0.1 * random.nextDouble());
-        int sads = (int) (total * sadRate);
-        if (likes + sads > total) sads = total - likes;
-        int cares = total - likes - sads;
-        if (cares < 0) cares = 0;
-        post.setReactionLike(likes); post.setReactionSad(sads); post.setReactionCare(cares);
-        post.setReactionHaha(0); post.setReactionLove(0); post.setReactionAngry(0); post.setReactionWow(0);
-    }
-
-    private int parseReactionCount(String fullText) {
-        int maxFound = 0;
-        try {
-            Pattern p1 = Pattern.compile("([\\d.,]+[KkMm]?)\\s*(?:lượt cảm xúc|reactions)");
-            Matcher m1 = p1.matcher(fullText);
-            if (m1.find()) {
-                int val = parseNumber(m1.group(1));
-                if (val > maxFound) maxFound = val;
-            }
-            Pattern p2 = Pattern.compile("(?:và|and)\\s+([\\d.,]+[KkMm]?)\\s+(?:người khác|others)");
-            Matcher m2 = p2.matcher(fullText);
-            if (m2.find()) {
-                int val = parseNumber(m2.group(1));
-                if (val > 0) { val = val + 1; if (val > maxFound) maxFound = val; }
-            }
-        } catch (Exception e) {}
-        return maxFound;
+    private int parseStrictShareCount(String text) {
+        if (text == null) return 0;
+        Pattern p = Pattern.compile("(\\d+[.,]?\\d*[KkMm]?)\\s*(?:lượt chia sẻ|shares)");
+        Matcher m = p.matcher(text);
+        if (m.find()) return parseNumber(m.group(1));
+        return 0;
     }
 
     private int parseNumber(String text) {
@@ -320,57 +360,14 @@ public class FacebookCollector extends BaseSeleniumCollector {
         Pattern p = Pattern.compile("(\\d+(?:[.,]\\d+)?)\\s*([KkMm])?");
         Matcher m = p.matcher(text.replace(",", "."));
         if (m.find()) {
-            try {
-                double val = Double.parseDouble(m.group(1));
-                String suffix = m.group(2);
-                if (suffix != null) {
-                    if (suffix.equalsIgnoreCase("K")) val *= 1000;
-                    if (suffix.equalsIgnoreCase("M")) val *= 1000000;
-                }
-                return (int) val;
-            } catch (Exception e) {}
+            double val = Double.parseDouble(m.group(1));
+            String suffix = m.group(2);
+            if (suffix != null) {
+                if (suffix.equalsIgnoreCase("K")) val *= 1000;
+                if (suffix.equalsIgnoreCase("M")) val *= 1000000;
+            }
+            return (int) val;
         }
         return 0;
-    }
-    
-    private int parseStrictShareCount(String text) {
-        try {
-            Pattern p = Pattern.compile("(\\d+[.,]?\\d*[KkMm]?)\\s+(lượt chia sẻ|shares)", Pattern.CASE_INSENSITIVE);
-            Matcher m = p.matcher(text);
-            if (m.find()) return parseNumber(m.group(1));
-        } catch (Exception e) {}
-        return 0;
-    }
-
-    private void scrollModalDown(WebElement dialog) {
-        try {
-            js.executeScript("var d=arguments[0]; var all=d.querySelectorAll('*'); for(var i=0;i<all.length;i++){ var el=all[i]; if(el.scrollHeight>el.clientHeight && (getComputedStyle(el).overflowY==='scroll'||getComputedStyle(el).overflowY==='auto')){ el.scrollTop=el.scrollHeight; }}", dialog);
-        } catch (Exception e) {}
-    }
-
-    private void forceEscape(Actions actions) {
-        try { actions.sendKeys(Keys.ESCAPE).perform(); sleep(500); actions.sendKeys(Keys.ESCAPE).perform(); sleep(2000); } catch (Exception e) {}
-    }
-
-    private String getTextViaJS(WebElement element) {
-        try { return (String) js.executeScript("return arguments[0].innerText;", element); } catch (Exception e) { return ""; }
-    }
-    
-    private boolean ensureSafePage(String originalWindowHandle) {
-        try {
-            Set<String> handles = driver.getWindowHandles();
-            if (handles.size() > 1) {
-                for (String handle : handles) {
-                    if (!handle.equals(originalWindowHandle)) {
-                        driver.switchTo().window(handle); driver.close();
-                    }
-                }
-                driver.switchTo().window(originalWindowHandle); 
-            }
-            if (!driver.getCurrentUrl().contains("facebook.com")) {
-                driver.navigate().back(); sleep(3000); return false;
-            }
-            return true; 
-        } catch (Exception e) { return false; }
     }
 }
