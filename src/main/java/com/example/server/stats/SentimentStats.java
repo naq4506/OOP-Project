@@ -1,6 +1,6 @@
 package com.example.server.stats;
 
-import com.fasterxml.jackson.annotation.JsonValue; // Import
+import com.fasterxml.jackson.annotation.JsonValue; 
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class SentimentStats implements AnalysisStats {
     }
 
     @Override
-    @JsonValue // <--- THÊM DÒNG NÀY
+    @JsonValue 
     public Map<String, Integer> getCounts() {
         return counts;
     }

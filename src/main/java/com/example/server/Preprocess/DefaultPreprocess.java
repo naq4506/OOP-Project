@@ -26,6 +26,6 @@ public class DefaultPreprocess implements Preprocess {
     
     protected String cleanText(String text) {
         if (text == null) return "";
-        return text.trim();   // CHỈ GIỮ NGUYÊN VẬY
+        return text.trim();  
     }
 }

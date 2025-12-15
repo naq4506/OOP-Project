@@ -10,21 +10,18 @@ public class AnalysisResponse<T> implements Serializable {
 
 
 
-    /** Constructor cho kết quả thành công */
     public AnalysisResponse(T data) {
         this.success = true;
         this.data = data;
         this.errorMessage = null;
     }
 
-    /** Constructor cho lỗi */
     public AnalysisResponse(String errorMessage) {
         this.success = false;
         this.data = null;
         this.errorMessage = errorMessage;
     }
 
-    /** Constructor linh hoạt: vừa data vừa lỗi (partial result) */
     public AnalysisResponse(T data, boolean success, String errorMessage) {
         this.success = success;
         this.data = data;
@@ -65,9 +62,6 @@ public class AnalysisResponse<T> implements Serializable {
         this.errorMessage = errorMessage;
     }
 
-    // ===========================
-    // Helpers
-    // ===========================
 
     public boolean hasError() {
         return !success;

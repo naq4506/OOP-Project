@@ -6,9 +6,6 @@ import java.util.Map;
 public class ClientReliefStats implements ClientStats {
     private final Map<String, Integer> counts = new HashMap<>();
 
-    /**
-     * Cập nhật sentiment cho loại hàng cứu trợ
-     */
     public void update(String sentiment) {
         if (sentiment == null || sentiment.isEmpty()) sentiment = "neutral";
         counts.put(sentiment, counts.getOrDefault(sentiment, 0) + 1);

@@ -24,12 +24,8 @@ public class ClientController {
         this.mapper = new ObjectMapper();
     }
 
-    /**
-     * Send analysis request to server
-     */
     public ClientResponse<Map<String, Object>> sendAnalysis(ClientRequest request) {
 
-        // 1️⃣ Validate input on client side
         ClientResponse<Map<String, Object>> validationError = validateRequest(request);
         if (validationError != null) return validationError;
 
@@ -37,17 +33,15 @@ public class ClientController {
             URL url = new URL(serverUrl + "/api/disaster/analyze/all");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
-            connection.setConnectTimeout(10000); // 10 giây để kết nối
+            connection.setConnectTimeout(10000); 
             connection.setReadTimeout(6000000);
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setDoOutput(true);
 
-            // 2️⃣ Write request JSON
             try (OutputStream os = connection.getOutputStream()) {
                 mapper.writeValue(os, request);
             }
 
-            // 3️⃣ Read response
             int status = connection.getResponseCode();
             InputStream is = (status >= 200 && status < 300) ?
                     connection.getInputStream() : connection.getErrorStream();
@@ -57,7 +51,6 @@ public class ClientController {
 
             ClientResponse<Map<String, Object>> response = mapper.readValue(is, typeRef);
 
-            // 4️⃣ Return server response
             return response;
 
         } catch (DateTimeParseException e) {
@@ -68,9 +61,7 @@ public class ClientController {
         }
     }
 
-    // ===============================
-    // CLIENT-SIDE VALIDATION
-    // ===============================
+    
     private ClientResponse<Map<String, Object>> validateRequest(ClientRequest request) {
         if (request.getDisasterName() == null || request.getDisasterName().isEmpty()) {
             return ClientResponse.error("Disaster name must not be empty");
@@ -98,7 +89,7 @@ public class ClientController {
             return ClientResponse.error("At least one analysis type must be provided");
         }
 
-        return null; // validation passed
+        return null; 
     }
 }
 

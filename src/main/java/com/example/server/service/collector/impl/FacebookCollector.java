@@ -19,7 +19,6 @@ import com.example.server.service.collector.BaseSeleniumCollector;
 
 public class FacebookCollector extends BaseSeleniumCollector {
 
-    // --- THÊM: Kho chứa ngày tháng ---
     private Queue<LocalDateTime> datePool = new LinkedList<>();
     private Random random = new Random();
 
@@ -33,60 +32,50 @@ public class FacebookCollector extends BaseSeleniumCollector {
         System.out.println(">>> [FB V10 - STRICT FILTERS + DATE POOL] Start: " + keyword);
 
         try {
-            // 1. Search
             mainSearchUrl = "https://www.facebook.com/search/posts/?q=" + (keyword + (disasterName != null ? " " + disasterName : "")).replace(" ", "%20");
             driver.get(mainSearchUrl);
             sleep(5000);
 
-            int targetPosts = 10; // Tăng target lên
+            int targetPosts = 10;
             int noNewPostCount = 0;
             
-            // --- CẤU HÌNH BATCH ---
             int batchSize = 5; 
             int currentBatchCount = 0;
 
             while (results.size() < targetPosts && noNewPostCount < 10) {
                 
-                // --- THÊM: Nạp ngày tháng vào Pool nếu rỗng ---
                 if (datePool.isEmpty()) {
                     harvestDatesSmart();
                     System.out.println("   [POOL] Refilled: " + datePool.size() + " dates.");
                 }
 
-                // Tìm các nút Comment/Bình luận
                 List<WebElement> clickTargets = driver.findElements(By.xpath(
                     "//div[@role='button' and (@aria-label='Bình luận' or @aria-label='Comment')] | " + 
                     "//span[contains(text(), 'Bình luận') or contains(text(), 'Comment')]"
                 ));
 
-                boolean batchActive = false; // Check xem trong lượt này có xử lý được bài nào không
+                boolean batchActive = false; 
 
                 for (WebElement target : clickTargets) {
                     try {
                         if (target.getAttribute("data-scanned") != null || !target.isDisplayed()) continue;
                         
-                        // Đánh dấu để không click lại
                         js.executeScript("arguments[0].setAttribute('data-scanned', 'true');", target);
                         js.executeScript("arguments[0].scrollIntoView({block: 'center'});", target);
                         sleep(1000);
 
-                        // --- THÊM: Lấy ngày từ Pool ra trước khi click ---
                         LocalDateTime assignedDate = LocalDateTime.now().minusYears(1);
                         if (!datePool.isEmpty()) {
                             assignedDate = datePool.poll();
                         } else {
-                            // Pool cạn đột xuất thì quét nhanh lại
                             harvestDatesSmart();
                             if(!datePool.isEmpty()) assignedDate = datePool.poll();
                         }
 
-                        // --- ACTION: CLICK MỞ MODAL ---
                         js.executeScript("arguments[0].click();", target);
                         
-                        // Đợi Modal hiện và URL thay đổi (nếu có)
                         sleep(3500); 
 
-                        // --- CRITICAL CHECK: KIỂM TRA URL NGAY LẬP TỨC ---
                         String currentUrl = driver.getCurrentUrl();
                         if (isBadUrl(currentUrl)) {
                             System.out.println("   [SKIP] Dính Media/Hashtag/Video: " + currentUrl);
@@ -94,7 +83,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
                             continue; 
                         }
 
-                        // --- XÁC ĐỊNH CONTAINER (MODAL) ---
                         WebElement container = null;
                         List<WebElement> dialogs = driver.findElements(By.xpath("//div[@role='dialog']"));
                         if (!dialogs.isEmpty()) {
@@ -103,12 +91,9 @@ public class FacebookCollector extends BaseSeleniumCollector {
                             container = driver.findElement(By.tagName("body"));
                         }
 
-                        // --- CÀO DỮ LIỆU ---
                         
-                        // 1. Ngày tháng: SỬ DỤNG assignedDate TỪ POOL (Thay vì extractDate cũ)
                         LocalDateTime postDate = assignedDate;
 
-                        // 2. Nội dung
                         String content = extractContent(container);
                         if (content.isEmpty()) {
                             System.out.println("   [SKIP] Không lấy được text. Back.");
@@ -122,7 +107,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
                         post.setPostDate(postDate);
                         post.setContent(content);
 
-                        // 3. Reactions & Share
                         String rawText = container.getText();
                         int totalReacts = parseReactionCount(rawText);
                         if (totalReacts == 0) totalReacts = 1000 + random.nextInt(1000); 
@@ -131,19 +115,16 @@ public class FacebookCollector extends BaseSeleniumCollector {
                         distributeReactions(post, totalReacts);
                         post.setShareCount(parseStrictShareCount(rawText));
 
-                        // 4. Comments
                         handleComments(container, post);
 
                         results.add(post);
                         System.out.println(" [LƯU " + results.size() + "] " + postDate.toLocalDate() + " | Content: " + (content.length() > 20 ? content.substring(0, 20) : content));
 
-                        // Xong bài -> Back ra Feed
                         safeBack(mainSearchUrl, actions);
 
                         batchActive = true;
                         currentBatchCount++;
 
-                        // Nếu đủ batch (5 bài) -> Break ra để scroll làm mới ngày
                         if (currentBatchCount >= batchSize) break;
 
                     } catch (Exception e) {
@@ -152,12 +133,10 @@ public class FacebookCollector extends BaseSeleniumCollector {
                     }
                 }
 
-                // --- LOGIC SCROLL & CLEAR POOL ---
                 if (currentBatchCount >= batchSize || !batchActive) {
                     scrollDown(1200);
                     sleep(2000);
                     
-                    // Xóa pool cũ để đảm bảo ngày tháng khớp với vị trí scroll mới
                     System.out.println("   [RESET] Xóa Date Pool cũ. Reset Batch.");
                     datePool.clear();
                     
@@ -174,13 +153,10 @@ public class FacebookCollector extends BaseSeleniumCollector {
         return results;
     }
 
-    // --- CÁC HÀM THÊM MỚI CHO DATE POOL ---
-
     private void harvestDatesSmart() {
         try {
             String html = driver.getPageSource();
             if (html == null) return;
-            // Regex quét ngày tháng từ HTML Feed
             Pattern pTag = Pattern.compile(">\\s*(\\d{1,2})\\s*(?:Tháng|tháng|thg|September|Sep)[^\\d<]{0,5}(\\d{1,2})?(?:[^\\d<]{0,5}(\\d{4}))?\\s*<", Pattern.CASE_INSENSITIVE);
             Matcher m = pTag.matcher(html);
             int count = 0;
@@ -222,7 +198,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
         return 0;
     }
 
-    // --- CÁC HÀM LOGIC CŨ (GIỮ NGUYÊN) ---
 
     private boolean isBadUrl(String url) {
         if (url == null) return false;
@@ -252,7 +227,6 @@ public class FacebookCollector extends BaseSeleniumCollector {
         } catch (Exception e) { return ""; }
     }
 
-    // Đã bỏ hàm extractDate cũ vì dùng Date Pool
 
     private void safeBack(String originalSearchUrl, Actions actions) {
         try {

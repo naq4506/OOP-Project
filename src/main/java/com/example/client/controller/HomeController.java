@@ -18,13 +18,10 @@ public class HomeController {
 
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        // Chuyển Scene
         stage.setScene(new Scene(menuView));
         
-        // --- FIX LỖI MẤT FULL MÀN HÌNH ---
-        stage.setMaximized(false); // Reset trạng thái
-        stage.setMaximized(true);  // Ép phóng to lại ngay lập tức
-        // ---------------------------------
+        stage.setMaximized(false); 
+        stage.setMaximized(true); 
         
         stage.show();
     }

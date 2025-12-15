@@ -26,22 +26,17 @@ public class NhanDanCollector extends BaseSeleniumCollector {
         initDriver();
 
         try {
-            // 1. Tạo URL tìm kiếm
             String searchPhrase = (keyword + " " + disasterName).trim();
-            // Encode URL cẩn thận
             String encodedKeyword = URLEncoder.encode(searchPhrase, StandardCharsets.UTF_8);
             String url = SEARCH_URL + "/?q=" + encodedKeyword;
 
             System.out.println(">>> [NhanDan] Link tìm kiếm: " + url);
             driver.get(url);
             
-            // Tăng thời gian chờ load trang một chút vì có popup login (như trong ảnh bạn gửi)
             sleep(4000); 
 
-            // 2. Lấy danh sách link bài viết (SỬA SELECTOR TỐI ƯU HƠN)
             List<String> articleLinks = new ArrayList<>();
             
-            // Selector mới: Bắt trực tiếp thẻ h3 tiêu đề, không quan tâm cha nó là div hay article
             List<WebElement> titleElements = driver.findElements(By.cssSelector("h3.story__heading a, .box-search-result .story__heading a"));
 
             for (WebElement el : titleElements) {
@@ -51,7 +46,6 @@ public class NhanDanCollector extends BaseSeleniumCollector {
                         articleLinks.add(link);
                     }
                 } catch (Exception e) {
-                    // Bỏ qua lỗi nhỏ khi getAttribute
                 }
                 if (articleLinks.size() >= 20) break; 
             }
@@ -60,13 +54,11 @@ public class NhanDanCollector extends BaseSeleniumCollector {
 
             if (articleLinks.isEmpty()) {
                 System.out.println("!!! CẢNH BÁO: Không lấy được link nào. Có thể do Selector hoặc Web chưa load xong.");
-                // In thử tiêu đề trang để debug xem có bị chặn không
                 System.out.println("Page Title hiện tại: " + driver.getTitle());
             }
 
             String originalTab = driver.getWindowHandle();
 
-            // 3. Xử lý từng bài (Logic Tab Mới)
             for (String link : articleLinks) {
                 try {
                     driver.switchTo().newWindow(WindowType.TAB);
@@ -75,7 +67,6 @@ public class NhanDanCollector extends BaseSeleniumCollector {
                     SocialPostEntity post = parseArticle(link, disasterName);
 
                     if (post != null && post.getPostDate() != null) {
-                        // Logic check ngày
                         boolean isAfterStart = !post.getPostDate().isBefore(startDate);
                         boolean isBeforeEnd = !post.getPostDate().isAfter(endDate);
 
@@ -85,7 +76,6 @@ public class NhanDanCollector extends BaseSeleniumCollector {
                         }
                     }
                     
-                    // Random sleep để giả lập người dùng đọc bài
                     sleep(1500); 
 
                 } catch (Exception e) {
@@ -116,15 +106,12 @@ public class NhanDanCollector extends BaseSeleniumCollector {
         post.setShareCount(0);
 
         try {
-            // --- Lấy Tiêu đề ---
             String title = "";
             try {
-                // Thử nhiều selector cho chắc
                 List<WebElement> h1s = driver.findElements(By.cssSelector("h1.article__title, h1.story__heading, h1.title-detail"));
                 if (!h1s.isEmpty()) title = h1s.get(0).getText();
             } catch (Exception e) {}
 
-            // --- Lấy Ngày đăng ---
             try {
                 WebElement dateEl = driver.findElement(By.cssSelector(".box-date, .article__meta time, .author-time, .story__meta .time"));
                 post.setPostDate(parseVietnameseDate(dateEl.getText()));
@@ -132,18 +119,15 @@ public class NhanDanCollector extends BaseSeleniumCollector {
                 post.setPostDate(LocalDateTime.now());
             }
 
-            // --- Lấy Nội dung ---
             StringBuilder contentBuilder = new StringBuilder();
             contentBuilder.append(title).append("\n\n");
 
             try {
-                // Sapo
                 WebElement sapoEl = driver.findElement(By.cssSelector(".article__sapo, .sapo, .story__summary"));
                 contentBuilder.append(sapoEl.getText()).append("\n");
             } catch (Exception e) {}
 
             try {
-                // Body
                 WebElement bodyEl = driver.findElement(By.cssSelector(".detail-content-body, .article__body, .content-detail"));
                 contentBuilder.append(bodyEl.getText());
             } catch (Exception e) {}
@@ -158,8 +142,6 @@ public class NhanDanCollector extends BaseSeleniumCollector {
 
     private LocalDateTime parseVietnameseDate(String dateText) {
         try {
-            // Regex bắt ngày giờ: dd/MM/yyyy HH:mm
-            // Nó sẽ bỏ qua chữ "Thứ ba, ngày..."
             Pattern p = Pattern.compile("(\\d{2}/\\d{2}/\\d{4}.*?\\d{2}:\\d{2})");
             Matcher m = p.matcher(dateText);
             if (m.find()) {

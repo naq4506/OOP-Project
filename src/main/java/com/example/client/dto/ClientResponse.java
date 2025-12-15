@@ -8,10 +8,8 @@ public class ClientResponse<T> implements Serializable {
     private T data;
     private String errorMessage;
 
-    // --- QUAN TRỌNG: Cần thêm Constructor rỗng này để Jackson hoạt động ---
     public ClientResponse() {
     }
-    // ----------------------------------------------------------------------
 
     public ClientResponse(T data) {
         this.success = true;

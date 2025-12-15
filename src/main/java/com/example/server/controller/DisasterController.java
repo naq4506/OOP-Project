@@ -25,42 +25,36 @@ public class DisasterController {
         this.disasterService = disasterService;
     }
 
-    // Endpoint chính mà Client đang gọi
     @PostMapping("/analyze/all")
     public ResponseEntity<AnalysisResponse<Map<String, Object>>> analyzeAll(@RequestBody AnalysisRequest request) {
         
-        // 1. Validate cơ bản
         ValidationResult validation = validateRequest(request);
         if (!validation.isValid()) {
             return ResponseEntity.badRequest()
                     .body(AnalysisResponse.error(validation.getErrorResponse().getErrorMessage()));
         }
 
-        // 2. Validate xem Client có gửi loại phân tích lên không
         if (request.getAnalysisType() == null || request.getAnalysisType().isEmpty()) {
              return ResponseEntity.badRequest()
                     .body(AnalysisResponse.error("Thiếu thông tin loại phân tích (analysisType)."));
         }
 
         try {
-            // 3. Gọi Service xử lý
             return ResponseEntity.ok(disasterService.processAllAnalysis(request));
             
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(AnalysisResponse.error(e.getMessage()));
         } catch (Exception e) {
-            e.printStackTrace(); // In lỗi ra console server để dễ debug
+            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(AnalysisResponse.error("Lỗi Server: " + e.getMessage()));
         }
     }
 
-    // Các endpoint lẻ (giữ nguyên để backup nếu cần)
     @PostMapping("/analyze/damage")
     public ResponseEntity<AnalysisResponse<DamageStats>> analyzeDamage(@RequestBody AnalysisRequest request) {
         return analyzeWithType(request, AnalyzerFactory.AnalyzerType.DAMAGE);
     }
-    // ... (các endpoint khác giữ nguyên) ...
 
     private <T> ResponseEntity<AnalysisResponse<T>> analyzeWithType(AnalysisRequest request, AnalyzerFactory.AnalyzerType type) {
         ValidationResult validation = validateRequest(request);

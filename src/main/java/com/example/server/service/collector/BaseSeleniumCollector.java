@@ -32,7 +32,6 @@ public abstract class BaseSeleniumCollector implements Collector {
     
     
     protected void closeDriver() {
-        // if (driver != null) driver.quit(); 
     }
 
     protected void sleep(long millis) {

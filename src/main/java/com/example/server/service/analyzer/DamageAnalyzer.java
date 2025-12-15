@@ -17,7 +17,6 @@ public class DamageAnalyzer implements Analyzer<DamageStats> {
                 String content = post.getContent();
                 String damageType = post.getDamageType();
 
-                // ================= DEBUG =================
                 System.out.println("=== DEBUG DamageAnalyzer ===");
                 System.out.println("Post content: " + content);
                 System.out.println("Damage type before update: " + damageType);
@@ -26,10 +25,8 @@ public class DamageAnalyzer implements Analyzer<DamageStats> {
                     System.out.println("-> WARNING: damageType is null/empty. Will be counted as 'Other'.");
                 }
 
-                // Update stats
                 stats.update(damageType);
 
-                // Debug after update
                 System.out.println("Current stats: " + stats.getCounts());
                 System.out.println("=======================================");
             }

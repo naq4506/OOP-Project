@@ -9,13 +9,11 @@ public class AnalysisRequest {
     private String endDate;
     private String keyword;
     
-    // Quan trọng: Field này để Client báo Server biết cần chạy bài toán nào
     private String analysisType; 
     
     private List<String> platforms;
     private List<String> analyzers;
 
-    // --- Getters and Setters ---
 
     public String getDisasterName() { return disasterName; }
     public void setDisasterName(String disasterName) { this.disasterName = disasterName; }

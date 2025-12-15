@@ -26,10 +26,9 @@ public class ReliefTimelineAnalyzer implements Analyzer<Map<String, Map<LocalDat
                       .computeIfAbsent(date, k -> new ReliefStats())
                       .update(post.getSentiment());
 
-                // Comment sentiment (nếu muốn tính riêng)
                 if (post.getComments() != null) {
                     for (String comment : post.getComments()) {
-                        String commentSentiment = post.getSentiment(); // hoặc phân tích riêng
+                        String commentSentiment = post.getSentiment(); 
                         result.get(reliefItem)
                               .computeIfAbsent(date, k -> new ReliefStats())
                               .update(commentSentiment);

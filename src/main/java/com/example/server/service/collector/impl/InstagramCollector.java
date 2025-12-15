@@ -22,7 +22,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
 
     private static final String TAG_URL = "https://www.instagram.com/explore/tags/";
     
-    // Tăng số lượng bài để dữ liệu biểu đồ đẹp hơn (nhiều cột hơn)
     private static final int MAX_POSTS = 50; 
     
     private static final int BATCH_CHAR_LIMIT = 800; 
@@ -36,16 +35,12 @@ public class InstagramCollector extends BaseSeleniumCollector {
         initDriver();
 
         try {
-            // --- LOGIC MỚI: Xử lý khi từ khóa bị bỏ trống ---
             String searchKeyword;
             if (keyword != null && !keyword.trim().isEmpty()) {
-                // Nếu có nhập từ khóa -> Tìm kết hợp: "từ khóa + tên thảm họa"
                 searchKeyword = keyword + " " + disasterName;
             } else {
-                // Nếu KHÔNG nhập từ khóa -> Chỉ tìm theo "tên thảm họa"
                 searchKeyword = disasterName;
             }
-            // ------------------------------------------------
 
             String hashtag = normalizeToHashtag(searchKeyword);
             System.out.println(">>> [Instagram V5] Đang tìm kiếm với Hashtag: #" + hashtag);
@@ -67,7 +62,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
             long startTime = System.currentTimeMillis();
             
             while (results.size() < MAX_POSTS && retry < 10) {
-                // Timeout an toàn sau 10 phút
                 if (System.currentTimeMillis() - startTime > 600000) break;
 
                 try {
@@ -83,7 +77,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
                         if (isWithinRange) {
                             if (!isDuplicate(results, post)) {
                                 
-                                // Dịch Caption nếu cần
                                 if (post.getContent() != null && post.getContent().length() > 5 && !post.getContent().equals("[Image Only]")) {
                                     String translatedCap = translateViaGoogle(post.getContent(), false); 
                                     if (translatedCap != null && !translatedCap.isEmpty()) {
@@ -91,7 +84,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
                                     }
                                 }
 
-                                // Dịch Comment
                                 List<String> originalCmts = post.getCommentSentiments();
                                 if (originalCmts != null && !originalCmts.isEmpty()) {
                                     System.out.print("   [~] Dịch " + originalCmts.size() + " comments... ");
@@ -111,7 +103,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
                         }
                     }
 
-                    // Chuyển sang bài tiếp theo
                     WebElement body = driver.findElement(By.tagName("body"));
                     body.sendKeys(Keys.ARROW_RIGHT);
                     sleep(2000 + ThreadLocalRandom.current().nextInt(1500));
@@ -177,7 +168,6 @@ public class InstagramCollector extends BaseSeleniumCollector {
     private String translateViaGoogle(String text, boolean forceTranslate) {
         if (text == null || text.trim().isEmpty()) return text;
         
-        // Nếu đã là tiếng Việt thì không cần dịch (trừ khi force = true)
         if (!forceTranslate && text.matches(".*[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ].*")) {
             return text; 
         }

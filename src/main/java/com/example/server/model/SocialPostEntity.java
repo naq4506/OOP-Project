@@ -34,7 +34,7 @@ public class SocialPostEntity {
 
     public SocialPostEntity() { }
     public void setComments(List<String> comments) {
-        this.commentSentiments = comments; // Lưu ý: map vào biến commentSentiments có sẵn
+        this.commentSentiments = comments; 
     }
     
     public void addCommentSentiments(String cmt) {

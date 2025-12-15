@@ -28,39 +28,29 @@ public class DisasterService {
         this.analyzerFactory = analyzerFactory;
     }
 
-    // ---------------------------------------------------------
-    // XỬ LÝ CHÍNH CHO CLIENT MỚI (Dùng analysisType)
-    // ---------------------------------------------------------
     public AnalysisResponse<Map<String, Object>> processAllAnalysis(AnalysisRequest request) {
         
-        // 1. Thu thập dữ liệu (Crawl) & Tiền xử lý (Clean/Normalize)
         System.out.println(">>> [Service] Bắt đầu thu thập dữ liệu...");
         List<SocialPostEntity> allPosts = collectAndPreprocess(request);
         System.out.println(">>> [Service] Thu thập xong: " + allPosts.size() + " bài viết.");
 
         Map<String, Object> resultMap = new HashMap<>();
         
-        // 2. Xác định loại phân tích từ Request
         String analysisTypeStr = request.getAnalysisType();
         if (analysisTypeStr == null) {
             return AnalysisResponse.error("Analysis Type is null");
         }
 
         try {
-            // Chuyển String sang Enum (VD: "SENTIMENT" -> AnalyzerType.SENTIMENT)
             AnalyzerFactory.AnalyzerType type = AnalyzerFactory.AnalyzerType.valueOf(analysisTypeStr.toUpperCase());
             
-            // Lấy Analyzer tương ứng từ Factory
-            // Ép kiểu về Analyzer<Object> để chạy chung
             @SuppressWarnings("unchecked")
             Analyzer<Object> analyzer = (Analyzer<Object>) analyzerFactory.getAnalyzer(type);
             
             if (analyzer != null) {
-                // Chạy phân tích
                 AnalysisResponse<Object> resp = analyzer.analyze(allPosts);
                 
                 if (resp.isSuccess()) {
-                    // Đưa kết quả vào Map với Key là tên loại phân tích (để Client lấy ra)
                     resultMap.put(type.name(), resp.getData());
                 } else {
                     return AnalysisResponse.error("Analyzer Error: " + resp.getErrorMessage());
@@ -79,9 +69,6 @@ public class DisasterService {
         return AnalysisResponse.success(resultMap);
     }
 
-    // ---------------------------------------------------------
-    // LOGIC THU THẬP & TIỀN XỬ LÝ (GIỮ NGUYÊN)
-    // ---------------------------------------------------------
     private List<SocialPostEntity> collectAndPreprocess(AnalysisRequest request) {
         List<SocialPostEntity> allPosts = new ArrayList<>();
 
@@ -95,7 +82,6 @@ public class DisasterService {
                 Collector collector = CollectorFactory.getCollector(platform);
                 if (collector == null) continue;
 
-                // Gọi Collector
                 List<SocialPostEntity> posts = collector.collect(
                     disasterName,
                     keyword,
@@ -103,7 +89,6 @@ public class DisasterService {
                     endDate.atTime(23, 59, 59)
                 );
                 
-                // Gọi Preprocess (Làm sạch & Gán nhãn)
                 if (preprocess != null) {
                     posts = preprocess.clean(posts);
                 }
@@ -114,7 +99,6 @@ public class DisasterService {
         return allPosts;
     }
 
-    // (Giữ hàm cũ này nếu cần tương thích ngược, không ảnh hưởng)
     public <T> AnalysisResponse<T> processSingleAnalysis(AnalysisRequest request, AnalyzerFactory.AnalyzerType defaultType) {
         List<SocialPostEntity> allPosts = collectAndPreprocess(request);
         @SuppressWarnings("unchecked")

@@ -26,7 +26,6 @@ public class DanTriCollector extends BaseSeleniumCollector {
         initDriver();
 
         try {
-            // 1. Tạo và truy cập link tìm kiếm
             String searchPhrase = (keyword + " " + disasterName).trim();
             String encodedKeyword = URLEncoder.encode(searchPhrase, StandardCharsets.UTF_8);
             String url = BASE_URL + "/" + encodedKeyword + ".htm";
@@ -35,7 +34,6 @@ public class DanTriCollector extends BaseSeleniumCollector {
             driver.get(url);
             sleep(3000); 
 
-            // 2. Lấy danh sách link (Chỉ lấy link text string, không giữ Element để tránh lỗi Stale)
             List<String> articleLinks = new ArrayList<>();
             List<WebElement> titleElements = driver.findElements(By.cssSelector("h3.article-title a, h3.news-item__title a"));
 
@@ -44,47 +42,37 @@ public class DanTriCollector extends BaseSeleniumCollector {
                 if (link != null && !link.isEmpty() && link.contains("dantri.com.vn") && !articleLinks.contains(link)) {
                     articleLinks.add(link);
                 }
-                // Giới hạn số lượng bài để test nếu cần
                 if (articleLinks.size() >= 20) break; 
             }
 
             System.out.println(">>> [DanTri] Tìm thấy " + articleLinks.size() + " bài viết. Bắt đầu xử lý từng tab...");
 
-            // Lưu lại ID của tab gốc (Tab danh sách tìm kiếm)
             String originalTab = driver.getWindowHandle();
 
-            // 3. Duyệt từng link theo cơ chế Tab Mới
             for (String link : articleLinks) {
                 try {
-                    // Mở tab mới
                     driver.switchTo().newWindow(WindowType.TAB);
-                    // Truy cập bài viết
                     driver.get(link);
                     
-                    // Parse dữ liệu
                     SocialPostEntity post = parseArticle(link, disasterName);
 
-                    // Kiểm tra và lưu kết quả
                     if (post != null && post.getPostDate() != null) {
                         if (!post.getPostDate().isBefore(startDate) && !post.getPostDate().isAfter(endDate)) {
                             results.add(post);
                             System.out.println(" [+] Đã lấy: " + (post.getContent().length() > 40 ? post.getContent().substring(0, 40) + "..." : post.getContent()));
                         } else {
-                            // System.out.println(" [-] Skip: Ngoài khoảng thời gian");
                         }
                     }
 
-                    // Nghỉ xíu cho đỡ bị chặn
                     sleep(1000);
 
                 } catch (Exception e) {
                     System.err.println(" (!) Lỗi xử lý link: " + link);
                     e.printStackTrace();
                 } finally {
-                    // QUAN TRỌNG: Đóng tab hiện tại (bài viết) và quay về tab gốc
                     try {
-                        driver.close(); // Đóng tab bài viết
-                        driver.switchTo().window(originalTab); // Quay về tab tìm kiếm
+                        driver.close(); 
+                        driver.switchTo().window(originalTab);
                     } catch (Exception ex) {
                         System.err.println("Lỗi đóng tab, force break để tránh treo.");
                         break;
@@ -110,16 +98,13 @@ public class DanTriCollector extends BaseSeleniumCollector {
         post.setShareCount(0);
 
         try {
-            // Lấy Tiêu đề
             String title = "";
             try {
                 title = driver.findElement(By.cssSelector("h1.title-page, h1.e-magazine__title")).getText();
             } catch (Exception e) { 
-                // Không lấy được tiêu đề coi như lỗi layout -> return null để skip
                 return null; 
             } 
 
-            // Lấy Ngày đăng
             try {
                 WebElement dateEl = driver.findElement(By.cssSelector(".author-time, .date"));
                 post.setPostDate(parseVietnameseDate(dateEl.getText()));
@@ -127,7 +112,6 @@ public class DanTriCollector extends BaseSeleniumCollector {
                 post.setPostDate(LocalDateTime.now());
             }
 
-            // Lấy Nội dung
             StringBuilder contentBuilder = new StringBuilder();
             contentBuilder.append(title).append("\n\n");
 

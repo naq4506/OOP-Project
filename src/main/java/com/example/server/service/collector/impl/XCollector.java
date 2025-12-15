@@ -34,7 +34,6 @@ public class XCollector extends BaseSeleniumCollector {
         try {
             System.out.println(">>> [XCollector V7] Clean Mode: Kill all extra tabs. Key: " + keyword);
             
-            // LƯU GIỮ CÁI TAB GỐC (Tab Search)
             String mainTabHandle = driver.getWindowHandle();
 
             String encodedKey = URLEncoder.encode(keyword, StandardCharsets.UTF_8.toString());
@@ -48,10 +47,8 @@ public class XCollector extends BaseSeleniumCollector {
             while (results.size() < MAX_POSTS) {
                 if (System.currentTimeMillis() - startTime > 900000) break; 
 
-                // Luôn đảm bảo đang đứng ở Tab Gốc trước khi quét
                 driver.switchTo().window(mainTabHandle);
 
-                // 1. Quét link
                 List<WebElement> tweetElements = driver.findElements(By.xpath("//article[@data-testid='tweet']//a[contains(@href, '/status/') and not(contains(@href, '/photo/')) and not(contains(@href, '/video/'))]"));
                 List<String> newUrlsInView = new ArrayList<>();
                 for (WebElement el : tweetElements) {
@@ -61,7 +58,6 @@ public class XCollector extends BaseSeleniumCollector {
                     }
                 }
 
-                // 2. Logic Scroll
                 if (newUrlsInView.isEmpty()) {
                     noNewPostCount++;
                     System.out.println("   [Search] Không thấy bài mới (" + noNewPostCount + "), cuộn...");
@@ -73,7 +69,6 @@ public class XCollector extends BaseSeleniumCollector {
                     noNewPostCount = 0; 
                 }
 
-                // 3. Duyệt bài
                 for (String url : newUrlsInView) {
                     if (results.size() >= MAX_POSTS) break;
                     if (processedUrls.contains(url)) continue;
@@ -81,7 +76,6 @@ public class XCollector extends BaseSeleniumCollector {
                     processedUrls.add(url); 
                     
                     try {
-                        // Truyền mainTabHandle vào để biết đường mà quay về
                         SocialPostEntity post = processDetailPost(url, disasterName, mainTabHandle);
 
                         if (post != null) {
@@ -98,7 +92,6 @@ public class XCollector extends BaseSeleniumCollector {
                     } catch (Exception e) {
                         System.err.println("   [Err] Lỗi xử lý bài: " + url);
                     } finally {
-                        // CHỐT CHẶN CUỐI CÙNG: Dọn sạch mọi tab thừa sau mỗi bài
                         closeAllTabsExcept(mainTabHandle);
                     }
                 }
@@ -116,46 +109,38 @@ public class XCollector extends BaseSeleniumCollector {
         return results;
     }
 
-    // === HÀM XỬ LÝ CHI TIẾT ===
     private SocialPostEntity processDetailPost(String postUrl, String disasterName, String mainTabHandle) {
         try {
-            // Mở tab mới
             driver.switchTo().newWindow(WindowType.TAB);
             driver.get(postUrl);
             sleep(3500); 
 
-            // 1. URL GUARD
             String currentUrl = driver.getCurrentUrl();
             if (currentUrl.contains("x.com/home") || !currentUrl.contains("/status/")) {
                 System.out.println("   [SKIP] Link lỗi/Redirect Home: " + currentUrl);
                 return null; 
             }
 
-            // 2. Đóng Popup
             closeBloatware();
 
-            // 3. Lấy dữ liệu
             SocialPostEntity post = new SocialPostEntity();
             post.setDisasterName(disasterName);
             post.setPlatform("X");
 
             WebElement mainTweet = driver.findElement(By.xpath("//article[@data-testid='tweet']"));
             
-            // Text gốc
             String originalContent = "";
             try {
                 WebElement textEl = mainTweet.findElement(By.xpath(".//div[@data-testid='tweetText']"));
                 originalContent = cleanText(textEl.getText());
             } catch (Exception e) { return null; }
 
-            // Ngày
             try {
                 WebElement timeEl = mainTweet.findElement(By.xpath(".//time"));
                 String isoDate = timeEl.getAttribute("datetime");
                 post.setPostDate(LocalDateTime.parse(isoDate, DateTimeFormatter.ISO_DATE_TIME));
             } catch (Exception e) { post.setPostDate(LocalDateTime.now()); }
 
-            // Metrics
             int replyCount = parseMetricFromTestId(mainTweet, "reply");
             int retweetCount = parseMetricFromTestId(mainTweet, "retweet");
             int likeCount = parseMetricFromTestId(mainTweet, "like");
@@ -165,11 +150,9 @@ public class XCollector extends BaseSeleniumCollector {
             post.setReactionLike(likeCount);
             post.setTotalReactions(likeCount);
 
-            // Comments
             List<String> comments = crawlCommentsWithScroll();
             post.setCommentSentiments(comments);
 
-            // Dịch thuật (Hàm này có thể mở thêm tab nữa)
             String translatedContent = translateViaSeleniumTab(originalContent);
             if (!translatedContent.isEmpty() && !translatedContent.equals(originalContent)) {
                 post.setContent(translatedContent);
@@ -182,29 +165,23 @@ public class XCollector extends BaseSeleniumCollector {
         } catch (Exception e) {
             return null;
         } 
-        // Không cần finally đóng tab ở đây nữa, vì đã có chốt chặn ở vòng lặp main rồi
     }
 
-    // === HÀM QUAN TRỌNG NHẤT: ĐÓNG TẤT CẢ TAB NGOẠI TRỪ TAB GỐC ===
     private void closeAllTabsExcept(String originalHandle) {
         try {
             Set<String> allHandles = driver.getWindowHandles();
             for (String handle : allHandles) {
                 if (!handle.equals(originalHandle)) {
-                    // Nếu không phải tab gốc thì chuyển sang và đóng
                     driver.switchTo().window(handle);
                     driver.close();
                 }
             }
-            // Cuối cùng quay về tab gốc
             driver.switchTo().window(originalHandle);
         } catch (Exception e) {
-            // Phòng hờ lỗi, cố quay về tab gốc
             try { driver.switchTo().window(originalHandle); } catch (Exception ex) {}
         }
     }
 
-    // ... (Các hàm phụ trợ bên dưới giữ nguyên) ...
 
     private List<String> crawlCommentsWithScroll() {
         Set<String> uniqueComments = new LinkedHashSet<>();
@@ -269,8 +246,6 @@ public class XCollector extends BaseSeleniumCollector {
         } catch (Exception e) {
             return text; 
         } finally {
-            // Hàm này đóng tab của chính nó luôn cho gọn, 
-            // nhưng hàm closeAllTabsExcept bên ngoài sẽ bao thầu hết nếu sót.
             try {
                 if(driver.getWindowHandles().size() > 1) {
                     driver.close();

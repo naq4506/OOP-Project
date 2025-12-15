@@ -15,21 +15,14 @@ public class MenuController {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/client/view/dashboard.fxml"));
         Parent dashboardView = loader.load();
 
-        // Truyền dữ liệu
         DashboardController controller = loader.getController();
         controller.setAnalysisType(analysisType);
         controller.setDashboardTitle(title);
 
-        // Lấy Stage hiện tại
         Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
         
-        // Tạo Scene mới
         Scene scene = new Scene(dashboardView);
         stage.setScene(scene);
-
-        // --- FIX LỖI MẤT FULL MÀN HÌNH (CHIÊU TOGGLE) ---
-        // Lý do: JavaFX hay tự resize về nhỏ khi đổi scene, 
-        // cần tắt đi bật lại để ép nó nhận lệnh full màn hình.
         stage.setMaximized(false); 
         stage.setMaximized(true); 
         // ------------------------------------------------

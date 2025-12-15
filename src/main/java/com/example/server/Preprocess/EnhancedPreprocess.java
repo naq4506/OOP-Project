@@ -23,37 +23,26 @@ public class EnhancedPreprocess extends DefaultPreprocess {
     @Override
     public List<SocialPostEntity> clean(List<SocialPostEntity> posts) {
 
-        // --- Step 1: basic cleaning (DefaultPreprocess) ---
         posts = super.clean(posts);
 
-        // --- Step 2: Advanced normalization + mapping ---
         for (SocialPostEntity post : posts) {
 
             if (post.getContent() != null) {
 
                 String original = post.getContent().trim();
 
-                // Normalize once to keep consistency
                 String normalized = normalizeText(original);
-
-                // ========== IMPORTANT FIX ==========
-                // Map damage & relief based on normalized content (not raw)
                 post.setDamageType(mapDamageType(normalized));
                 post.setReliefItem(mapReliefItem(normalized));
-                // ====================================
 
-                // Additional normalization for sentiment
                 normalized = normalizeHashtags(normalized);
                 normalized = normalizeDates(normalized);
 
-                // Save normalized version
                 post.setContent(normalized);
 
-                // Analyze sentiment
                 post.setSentiment(analyzeSentiment(normalized));
             }
 
-            // --- Process comments ---
             if (post.getComments() != null) {
 
                 List<String> cleanedComments = post.getComments().stream()
@@ -75,16 +64,12 @@ public class EnhancedPreprocess extends DefaultPreprocess {
         return posts;
     }
 
-    // ======================================================================
-    //                              NORMALIZATION
-    // ======================================================================
 
     private String normalizeText(String text) {
         if (text == null) return "";
 
         text = text.toLowerCase();
 
-        // Keep only Vietnamese letters + numbers + spaces
         text = text.replaceAll("[^\\p{L}\\p{N}\\s]", " ");
 
         return text.replaceAll("\\s+", " ").trim();
@@ -123,9 +108,6 @@ public class EnhancedPreprocess extends DefaultPreprocess {
         return null;
     }
 
-    // ======================================================================
-    //                              SENTIMENT
-    // ======================================================================
 
     private String analyzeSentiment(String text) {
         if (text == null) return "neutral";
@@ -140,9 +122,6 @@ public class EnhancedPreprocess extends DefaultPreprocess {
                "neutral";
     }
 
-    // ======================================================================
-    //                              DAMAGE TYPE
-    // ======================================================================
 
     private String mapDamageType(String normalizedText) {
         if (normalizedText == null) return "Other";
@@ -156,9 +135,6 @@ public class EnhancedPreprocess extends DefaultPreprocess {
         return "Other";
     }
 
-    // ======================================================================
-    //                              RELIEF ITEM
-    // ======================================================================
 
     private String mapReliefItem(String normalizedText) {
         if (normalizedText == null) return "Other";

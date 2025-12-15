@@ -3,9 +3,7 @@ package com.example.client.stats;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Thống kê số lượng post theo loại thiệt hại
- */
+
 public class ClientDamageStats implements ClientStats {
 
     private final Map<String, Integer> counts = new HashMap<>();

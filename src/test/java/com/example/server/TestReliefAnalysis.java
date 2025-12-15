@@ -14,9 +14,6 @@ import java.util.Map;
 public class TestReliefAnalysis {
 
     public static void main(String[] args) {
-        // ==========================
-        // 1️⃣ Tạo post test giả lập (mutable list)
-        // ==========================
         SocialPostEntity post1 = new SocialPostEntity();
         post1.setContent("Cần gạo và mì tôm. Thật vui khi nhận hỗ trợ!");
         post1.setComments(new ArrayList<>(Arrays.asList("Rất tích cực", "Tiếp tục hỗ trợ nhé!")));
@@ -26,23 +23,17 @@ public class TestReliefAnalysis {
         post2.setComments(new ArrayList<>(Arrays.asList("Khó khăn quá", "Mất điện nhiều")));
 
         SocialPostEntity post3 = new SocialPostEntity();
-        post3.setContent("Cần thêm nước uống và thuốc men."); // neutral vì không có từ sentiment
+        post3.setContent("Cần thêm nước uống và thuốc men."); 
         post3.setComments(new ArrayList<>(Arrays.asList("Mong sớm được giúp")));
 
         List<SocialPostEntity> posts = new ArrayList<>();
         posts.add(post1);
         posts.add(post2);
         posts.add(post3);
-
-        // ==========================
-        // 2️⃣ Chạy EnhancedPreprocess
-        // ==========================
         EnhancedPreprocess preprocess = new EnhancedPreprocess();
         List<SocialPostEntity> cleanedPosts = preprocess.clean(posts);
 
-        // ==========================
-        // 3️⃣ In thông tin sau preprocessing
-        // ==========================
+
         System.out.println("=== Preprocess Output ===");
         for (SocialPostEntity p : cleanedPosts) {
             System.out.println("Content: " + p.getContent());
@@ -52,15 +43,11 @@ public class TestReliefAnalysis {
             System.out.println("---------------");
         }
 
-        // ==========================
-        // 4️⃣ Chạy ReliefAnalyzer
-        // ==========================
+
         ReliefAnalyzer analyzer = new ReliefAnalyzer();
         AnalysisResponse<Map<String, ReliefStats>> response = analyzer.analyze(cleanedPosts);
 
-        // ==========================
-        // 5️⃣ In kết quả tổng hợp
-        // ==========================
+
         System.out.println("=== Relief Analysis Result ===");
         Map<String, ReliefStats> data = response.getData();
         for (String reliefItem : data.keySet()) {

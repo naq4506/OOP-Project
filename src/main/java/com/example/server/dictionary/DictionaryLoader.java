@@ -28,7 +28,6 @@ public class DictionaryLoader {
     private <K, V> Map<K, V> loadMap(String fileName, Type type) {
         try (InputStream is = getClass().getClassLoader().getResourceAsStream(fileName)) {
             if (is == null) throw new RuntimeException(fileName + " not found in resources!");
-            // --- fix UTF-8 ---
             return gson.fromJson(new InputStreamReader(is, StandardCharsets.UTF_8), type);
         } catch (Exception e) {
             throw new RuntimeException("Failed to load " + fileName, e);

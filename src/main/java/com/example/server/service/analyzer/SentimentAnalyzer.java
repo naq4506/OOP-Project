@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Sentiment Analyzer (per day) for humanitarian logistics analysis
- */
+
 public class SentimentAnalyzer implements Analyzer<Map<LocalDate, SentimentStats>> {
 
     @Override
@@ -22,18 +20,15 @@ public class SentimentAnalyzer implements Analyzer<Map<LocalDate, SentimentStats
             for (SocialPostEntity post : posts) {
                 LocalDate date = post.getPostDate().toLocalDate();
 
-                // sentiment of post
                 String postSentiment = post.getSentiment();
                 if (postSentiment != null) {
                     result.computeIfAbsent(date, k -> new SentimentStats())
                           .update(postSentiment);
                 }
 
-                // sentiment of comments
                 if (post.getComments() != null) {
                     for (String comment : post.getComments()) {
-                        // if needed, analyze comment separately
-                        String commentSentiment = post.getSentiment(); // placeholder: use separate analysis if desired
+                        String commentSentiment = post.getSentiment();
                         result.computeIfAbsent(date, k -> new SentimentStats())
                               .update(commentSentiment);
                     }

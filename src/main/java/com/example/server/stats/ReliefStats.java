@@ -13,7 +13,7 @@ public class ReliefStats implements AnalysisStats {
     }
 
     @Override
-    @JsonValue // <--- THÊM DÒNG NÀY
+    @JsonValue
     public Map<String, Integer> getCounts() {
         return counts;
     }

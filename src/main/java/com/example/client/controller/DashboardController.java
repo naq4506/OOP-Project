@@ -17,15 +17,14 @@ public class DashboardController {
     @FXML private TextField txtKeyword;
     @FXML private DatePicker dpStartDate;
     @FXML private DatePicker dpEndDate;
-    @FXML private ToggleGroup platformGroup; // Giữ nguyên để khớp với FXML hiện tại 
+    @FXML private ToggleGroup platformGroup; 
     @FXML private Label statusLabel;
     @FXML private Button btnStart;
     @FXML private Label titleLabel;
     @FXML private VBox chartContainer;
 
-    // Cấu hình Client kết nối tới Server (Port 8080)
     private final ClientController clientController = new ClientController("http://localhost:8080");
-    private String currentAnalysisType = "RELIEF"; // Mặc định
+    private String currentAnalysisType = "RELIEF"; 
 
     public void setAnalysisType(String type) { this.currentAnalysisType = type; }
     public void setDashboardTitle(String title) { if (titleLabel != null) titleLabel.setText(title); }
@@ -98,10 +97,8 @@ public class DashboardController {
             return;
         }
 
-        // Lấy dữ liệu theo Key phân tích
         Object dataObj = allResults.get(analysisType);
 
-        // Fail-safe: Nếu không tìm thấy key, lấy giá trị đầu tiên
         if (dataObj == null && !allResults.isEmpty()) {
             dataObj = allResults.values().iterator().next();
         }
@@ -109,7 +106,6 @@ public class DashboardController {
         if (dataObj instanceof Map) {
             Map<String, Object> dataMap = (Map<String, Object>) dataObj;
 
-            // Bóc tách dữ liệu nếu bị bọc trong "counts"
             if (dataMap.containsKey("counts") && dataMap.get("counts") instanceof Map) {
                 System.out.println("⚠️ Đang bóc tách dữ liệu từ key 'counts'...");
                 dataMap = (Map<String, Object>) dataMap.get("counts");
@@ -133,7 +129,6 @@ public class DashboardController {
         return "Kết quả phân tích";
     }
 
-    // --- BIỂU ĐỒ 1: SENTIMENT ---
     private void drawSentimentChart(Map<String, Object> data) {
         CategoryAxis xAxis = new CategoryAxis();
         xAxis.setLabel("Thời gian");
@@ -154,10 +149,8 @@ public class DashboardController {
         for (Map.Entry<String, Object> entry : sortedData.entrySet()) {
             String date = entry.getKey();
             if (entry.getValue() instanceof Map) {
-                // Cast an toàn sang Map<String, Object>
                 Map<?, ?> rawStats = (Map<?, ?>) entry.getValue();
                 
-                // Helper lấy số an toàn
                 Number pos = getNumberSafe(rawStats.get("positive"));
                 Number neg = getNumberSafe(rawStats.get("negative"));
                 Number neu = getNumberSafe(rawStats.get("neutral"));
@@ -173,7 +166,6 @@ public class DashboardController {
         chartContainer.getChildren().add(barChart);
     }
 
-    // --- BIỂU ĐỒ 2: GENERIC (Dùng Đệ quy để xử lý Map lồng nhau) ---
     private void drawGenericChart(Map<String, Object> data, String title) {
         chartContainer.getChildren().clear();
 
@@ -190,14 +182,12 @@ public class DashboardController {
         XYChart.Series<String, Number> series = new XYChart.Series<>();
         series.setName("Tổng hợp");
 
-        // Sắp xếp key
         TreeMap<String, Object> sortedData = new TreeMap<>(data);
 
         for (Map.Entry<String, Object> entry : sortedData.entrySet()) {
             String category = entry.getKey();
             Object value = entry.getValue();
 
-            // Tính tổng đệ quy (để xử lý vụ lồng nhau nhiều lớp)
             double totalCount = calculateTotalRecursively(value);
 
             if (totalCount > 0) {
@@ -210,8 +200,6 @@ public class DashboardController {
         chartContainer.getChildren().add(barChart);
     }
 
-    // --- HÀM PHỤ TRỢ: TÍNH TỔNG ĐỆ QUY ---
-    // Hàm này sẽ đào sâu vào mọi ngóc ngách của Map để tìm số và cộng lại
     private double calculateTotalRecursively(Object value) {
         if (value instanceof Number) {
             return ((Number) value).doubleValue();
@@ -232,7 +220,6 @@ public class DashboardController {
         return 0;
     }
 
-    // Helper lấy số từ object an toàn, tránh NullPointerException
     private Number getNumberSafe(Object obj) {
         if (obj instanceof Number) return (Number) obj;
         if (obj instanceof String) {

@@ -7,13 +7,10 @@ public class ClientRequest {
     private String endDate;
     private String keyword;
 
-    // NEW: user can choose multiple platforms
     private List<String> platforms;
 
-    // NEW: user can choose multiple analyzers
     private List<String> analyzers;
 
-    // (Optional) If you still want single analyze mode
     private String analysisType;
 
     public String getDisasterName() {

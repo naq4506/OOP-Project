@@ -19,11 +19,9 @@ public class ReliefAnalyzer implements Analyzer<Map<String, ReliefStats>> {
                 String reliefItem = post.getReliefItem();
                 if (reliefItem == null || reliefItem.isEmpty()) reliefItem = "Other";
 
-                // Update sentiment của post
                 result.computeIfAbsent(reliefItem, k -> new ReliefStats())
                       .update(post.getSentiment());
 
-                // Update sentiment của từng comment riêng biệt
                 List<String> commentSentiments = post.getCommentSentiments();
                 if (commentSentiments != null) {
                     for (String commentSentiment : commentSentiments) {
