@@ -38,7 +38,7 @@ public class FacebookCollector extends BaseSeleniumCollector {
             driver.get(mainSearchUrl);
             sleep(5000);
 
-            int targetPosts = 25; // Tăng target lên
+            int targetPosts = 10; // Tăng target lên
             int noNewPostCount = 0;
             
             // --- CẤU HÌNH BATCH ---

@@ -21,7 +21,7 @@ public class RunCrawler {
         final LocalDateTime END_DATE = LocalDateTime.now();  
         
         try {
-            Collector bot = CollectorFactory.getCollector("Reuters");
+            Collector bot = CollectorFactory.getCollector("instagram");
             
             if (bot == null) {
                 System.err.println("Chưa config bot 'instagram' trong Factory!");

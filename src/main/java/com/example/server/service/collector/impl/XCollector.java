@@ -21,8 +21,8 @@ import java.util.regex.Pattern;
 public class XCollector extends BaseSeleniumCollector {
 
     private static final String SEARCH_URL = "https://x.com/search?q=";
-    private static final int MAX_POSTS = 5; 
-    private static final int MAX_COMMENTS_PER_POST = 10; 
+    private static final int MAX_POSTS = 10; 
+    private static final int MAX_COMMENTS_PER_POST = 200; 
 
     private static final Pattern METRIC_PATTERN = Pattern.compile("(\\d+(?:[.,]\\d+)?)([KkMmBbtT]?)");
 
